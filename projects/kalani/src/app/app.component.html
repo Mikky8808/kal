@@ -1,0 +1,7 @@
+<div *ngIf="session.Authenticated">
+<router-outlet></router-outlet>
+</div>
+
+<div *ngIf="!session.Authenticated">
+    LOGIN PLEASE
+    </div>
