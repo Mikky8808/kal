@@ -4,8 +4,14 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "components": [
+        "dist/components"
+      ],
       "dbservices": [
         "dist/dbservices"
+      ],
+      "directives": [
+        "dist/directives"
       ],
       "jmcboot": [
         "dist/jmcboot"
