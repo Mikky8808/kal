@@ -1,0 +1,51 @@
+<jimg-main-nav *ngIf="session.Authenticated" [sideMenuNav]="MenuItems">
+  <a footerbar *ngIf="currentUser?.isAdmin" color="primary" mat-mini-fab href="/admin">
+    <mat-icon>settings</mat-icon>
+  </a>
+  
+
+  <lib-memlookup
+    toolbar
+    class="search"
+    [control]="searchMember"
+    [required]="false"
+    [addAllowed]="false"
+    [addMenu]="false"
+    [prefixIcon]="'search'"
+    (memberChanged)="onMemberChanged($event)"
+  ></lib-memlookup>
+
+  <app-member-menu
+    toolbar
+    *ngIf="member"
+    [minifab]="false"
+    [member]="member"
+  ></app-member-menu>
+
+  <mat-drawer-container>
+    <mat-drawer
+      #drawer
+      class="sidenav qv"
+      position="end"
+      [disableClose]="true"
+      [mode]="'side'"
+    >
+      <app-member-qv
+        *ngIf="currentMember"
+        [currentMember]="currentMember"
+        [drawer]="drawer"
+      ></app-member-qv>
+      <!-- <app-memberdrawer
+          [currentRider]="currentRider"
+          [mode]="mode"
+        ></app-memberdrawer> -->
+    </mat-drawer>
+    <mat-drawer-content>
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</jimg-main-nav>
+
+<div *ngIf="!session.Authenticated">
+  <lib-login [errormsg]="errormsg" (onSubmit)="onSubmit($event)"></lib-login>
+</div>

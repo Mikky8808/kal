@@ -1,0 +1,55 @@
+<mat-form-field *ngIf="Ready" class="fw">
+  <mat-label>Member</mat-label>
+  <input
+  #text
+    type="text"
+    matInput
+    [formControl]="control"
+    [matAutocomplete]="auto"
+    (click)="text.select()"
+  />
+  <mat-autocomplete
+    
+    #auto="matAutocomplete"
+    [displayWith]="displayFn"
+  >
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+      <div
+        style="
+          font-weight: 500;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+        "
+      >
+        <span class="card-avatar"
+          
+          style="display: inline-block;  margin-bottom: 0px;
+  background-image: url({{ jsencodeURI(option.avatar) }});
+  "
+        > 
+        </span>
+        <span style="white-space: nowrap">
+          <mat-icon style="margin-right: 0px; font-size: 22px">{{
+            option.membTypeIcon
+          }}</mat-icon>
+          {{ option.fullName }}
+        </span>
+      </div>
+      <mat-divider style="width: 100%"></mat-divider>
+    </mat-option>
+  </mat-autocomplete>
+  <mat-icon matPrefix *ngIf="prefixIcon>''">{{prefixIcon}}</mat-icon>
+  <a
+    *ngIf="addAllowed"
+    color="primary"
+    [ngClass]="allowAdd(control.value)"
+    mat-mini-fab
+    matSuffix
+    (click)="$event.stopPropagation(); onAddMember(0)"
+  >
+    <mat-icon>person_add</mat-icon>
+  </a>
+
+  <mat-error>Enter Valid Member</mat-error>
+</mat-form-field>

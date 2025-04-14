@@ -1,0 +1,21 @@
+<jimgcard heading="{{ heading }}">
+  <div toolbar class="toolbar">
+    <button
+      mat-mini-fab
+      color="warn"
+      aria-label="Close"
+      (click)="dialogRef.close()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content class="content">
+  <div
+    style="padding: 5px; font-weight: 600; color: red"
+    *ngFor="let errormsg of validationError"
+  >
+    <div style="padding-bottom: 5px">{{ errormsg }}</div>
+  </div>
+  <div [innerHTML]="message | nl2br"></div>
+</div>
+</jimgcard>

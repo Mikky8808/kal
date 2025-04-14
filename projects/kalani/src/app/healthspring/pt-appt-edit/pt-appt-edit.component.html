@@ -1,0 +1,202 @@
+<jimgcard *ngIf="Ready" heading="HS EDIT - {{member.MemberFullName}}" marginBottom="0px">
+  <div toolbar class="toolbar">
+    <button
+    (click)="Print=true;printMember=form.controls['member'].value.id"
+    mat-icon-button
+  >
+    <mat-icon>print</mat-icon>
+  </button>
+    <button
+      (click)="onSave()"
+      [disabled]="form.invalid || form.disabled || Busy"
+      mat-icon-button
+    >
+      <mat-icon>save</mat-icon>
+    </button>
+    <button *ngIf="allowDelete"
+    [matMenuTriggerFor]="deleteMenu"
+    [matMenuTriggerData]="{}"
+      mat-icon-button
+    >
+      <mat-icon fontSet="material-icons-outlined">delete</mat-icon>
+    </button>
+
+    
+    <button
+      *ngIf="isDialog"
+      mat-icon-button
+      aria-label="Close"
+      (click)="onClose()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <app-pt-appt-print style="display:none" *ngIf="Print" [memberId]="printMember" (onAfterPrint)="Print=!Print"></app-pt-appt-print>
+  <form *ngIf="Ready" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-card class="mat-elevation-z8">
+      <mat-card-content>
+          <div class="row">
+            <mat-form-field>
+              <mat-label>Status</mat-label>
+              <mat-select formControlName="status">
+                <mat-option *ngFor="let stat of ptStatus" [value]="stat.status">
+                  <mat-icon>{{ stat.statusIcon }}</mat-icon
+                  >{{ stat.statusText }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- <lib-memlookup
+              [control]="form.controls['member']"
+              class="fw"
+            ></lib-memlookup> -->
+
+            <mat-form-field>
+              <mat-label>PT Staff</mat-label>
+              <mat-select #MainPTStaff  formControlName="PTStaff">
+                <ng-container *ngFor="let staff of PTStaff">
+                  <mat-option [value]="staff.username">
+                    {{ staff.first_name }} {{ staff.last_name }}
+                  </mat-option>
+                </ng-container>
+              </mat-select>
+              <mat-error>Select PT Staff</mat-error>
+            </mat-form-field>
+ 
+            <mat-form-field>
+              <mat-label>PT Assistant Staff</mat-label>
+              <mat-select formControlName="PTStaffAssistant">
+                <mat-option value="">
+                </mat-option>
+                <ng-container *ngFor="let staff of PTStaff">
+                  <mat-option *ngIf="staff.username !=MainPTStaff.value " [value]="staff.username">
+                    {{ staff.first_name }} {{ staff.last_name }} {{MainPTStaff.value}}
+                  </mat-option>
+                </ng-container>
+              </mat-select>
+              <mat-error>Select PT Staff</mat-error>
+            </mat-form-field>
+
+            <!-- <mat-form-field>
+              <mat-label>PT Reason</mat-label>
+              <mat-select formControlName="ptReason">
+                <ng-container *ngFor="let ptReason of ptReasons">
+                  <mat-option [value]="ptReason.reason">
+                    {{ ptReason.description }}
+                  </mat-option>
+                </ng-container>
+              </mat-select>
+              <mat-error>Select PT Reason</mat-error>
+            </mat-form-field> -->
+          </div>
+          <div class="row">
+            <mat-checkbox  [labelPosition]="'before'" formControlName="initialVisit"
+            >Initial Visit?</mat-checkbox
+          >
+            <div
+            (keypress)="
+            $event.preventDefault();
+            $event.stopPropagation();
+            apptTime.focus()
+          "
+              (click)="
+                $event.preventDefault();
+                $event.stopPropagation();
+                apptTime.focus()
+              "
+            >
+              <mat-form-field>
+                <mat-label>Appointment Date</mat-label>
+
+                <input matInput type="date" formControlName="apptDate" />
+
+                <mat-error>Enter valid date</mat-error>
+              </mat-form-field>
+            </div>
+            <mat-form-field>
+              <mat-label>Appointment Time</mat-label>
+
+              <input
+                #apptTime
+                matInput
+                type="time"
+                formControlName="apptTime"
+              />
+
+              <mat-error>Enter valid time</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Duration</mat-label>
+
+              <input matInput type="number" formControlName="apptDuration" />
+
+              <mat-error>Enter Duration</mat-error>
+            </mat-form-field>
+            <mat-checkbox
+              [labelPosition]="'before'"
+              formControlName="wheelChair"
+              >WheelChair?</mat-checkbox
+            >
+          </div>
+          <div class="row sectitle">Transportation</div>
+
+          <div class="row">
+            <mat-form-field>
+              <mat-label>Transportation?</mat-label>
+              <mat-select formControlName="reserveRide">
+                <mat-option value="Y"> Yes </mat-option>
+                <mat-option value="N"> No </mat-option>
+              </mat-select>
+              <mat-error>Transportation Required?</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Ride Pickup Time</mat-label>
+
+              <input matInput type="time" formControlName="ridePickupTime" />
+
+              <mat-error>Enter valid Time</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Ride Drop off Time</mat-label>
+
+              <input matInput type="time" formControlName="rideDropTime" />
+            </mat-form-field>
+          </div>
+          <mat-form-field>
+            <mat-label>Instructions :</mat-label>
+            <textarea
+              matInput
+              formControlName="instructions"
+              rows="1"
+            ></textarea>
+          </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          type="submit"
+          #submitButton
+          mat-raised-button
+          color="primary"
+          [disabled]="form.invalid || form.disabled || Busy"
+        >
+          Submit
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</jimgcard>
+
+<mat-menu #deleteMenu="matMenu">
+  <ng-template matMenuContent let-data="data">
+    <button mat-menu-item (click)="onDelte('single')">
+      <mat-icon fontSet="material-icons-outlined">delete</mat-icon>
+      <div class="evName">Delete {{form.controls['apptDate'].value}}</div> 
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="onDelte('all')">
+      <mat-icon fontSet="material-icons-outlined">delete_sweep</mat-icon>
+      <div class="evName">Delete All from  {{form.controls['apptDate'].value}}</div> 
+    </button>
+    <mat-divider></mat-divider>
+  </ng-template>
+</mat-menu>

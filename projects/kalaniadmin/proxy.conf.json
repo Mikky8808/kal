@@ -1,0 +1,28 @@
+{
+  "/krides/*": {
+    "target": "http://kalani.com/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/api/*": {
+    "target": "http://kalani.com/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/auth/*": {
+    "target": "http://kalani.com/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  },
+  "/profileimgs/*": {
+    "context": [ "/profileimgs" ], 
+    "target": "http://kalani.com/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+
+}

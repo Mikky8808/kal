@@ -1,0 +1,28 @@
+.page { page-break-after: always; }
+.page:last-child { page-break-after: avoid; }
+
+#loading {
+    display: inline-block;
+    position: absolute;
+
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255,255,255,.3);
+    border-radius: 50%;
+    border-top-color: #000;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+    z-index: 9999;
+    bottom: 200px;
+    right : 100px;
+    color:white;
+  }
+  
+  @keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+  }
+  @-webkit-keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+  }
+  
+  

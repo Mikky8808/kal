@@ -1,0 +1,184 @@
+<jimgcard
+  [heading]="
+    'Member ' +
+    (dataSource?.filteredData?.length
+      ? '(' + dataSource.filteredData.length + ')'
+      : '')
+  "
+>
+  <div toolbar class="toolbar">
+    <button color="primary" mat-raised-button [matMenuTriggerFor]="memTypemenu">
+      <mat-icon>group</mat-icon>{{ currentMemberType }}
+    </button>
+    <button (click)="getMembers()" mat-raised-button color="primary">
+      <mat-icon>autorenew</mat-icon>
+    </button>
+    <mat-menu #memTypemenu="matMenu">
+      <!-- <button mat-menu-item (click)="changeView(bar.view) " *ngFor ='let bar of CALTOOLBARVIEW'>{{bar.name}}</button> -->
+      <mat-button-toggle-group [vertical]="true" style="width: 98%">
+        <mat-button-toggle (click)="onSelectMemberType('')">
+          All
+        </mat-button-toggle>
+        <mat-button-toggle
+          *ngFor="let membertype of membertypes"
+          (click)="onSelectMemberType(membertype.type)"
+        >
+          {{ membertype.desc }}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </mat-menu>
+  </div>
+  <div class="container">
+    <div class="srchbar">
+      <mat-form-field appearance="outline" class="fw search">
+        <input
+          matInput
+          #filter
+          [formControl]="filterValue"
+          (keyup)="applyFilter(filter.value)"
+          placeholder="Search Member"
+          [autocomplete]="'off'"
+        />
+        <span matPrefix style="margin-left: 5px"
+          ><mat-icon>search</mat-icon></span
+        >
+
+        <button
+          class="srchbtn"
+          mat-mini-fab
+          matSuffix
+          aria-label="clear"
+          *ngIf="filter.value"
+          color="warn"
+          (click)="filterValue.reset(); applyFilter('')"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+        <span class="spacer"></span>
+
+        <button
+          class="srchbtn"
+          color="primary"
+          mat-mini-fab
+          matSuffix
+          (click)="onAddMember(0)"
+        >
+          <mat-icon>person_add</mat-icon>
+        </button>
+      </mat-form-field>
+    </div>
+    <mat-card class="mat-elevation-z6 content">
+      <mat-card-content class="table-responsive" style="padding: 0px">
+        <div class="mat-elevation-z6">
+          <table mat-table [dataSource]="dataSource" matSort class="tablelist">
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>ID</th>
+              <td mat-cell *matCellDef="let element">
+                <app-member-menu
+                  (onSubmit)="getMembers()"
+                  [member]="element"
+                ></app-member-menu>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="avatar">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+              <td mat-cell *matCellDef="let element">
+                <div
+                  matTooltip="EMR({{ element.emrID }}) ID({{ element.id }}) "
+                >
+                  <img
+                    class="mem-avatar-30"
+                    width="30"
+                    height="30"
+                    ngSrc="{{ element.avatar }}"
+                  />
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fullName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+              <td mat-cell *matCellDef="let element">
+                <div style="display: flex">
+                  <mat-icon>{{ element.membTypeIcon }}</mat-icon>
+                  <!-- <mat-icon *ngIf="!element.expired">{{ element.membTypeIcon }}</mat-icon> -->
+
+                  <mat-icon
+                    *ngIf="element.membershiptypesIcon > '' && !element.expired"
+                    >{{ element.membershiptypesIcon }}</mat-icon
+                  >
+                  <mat-icon
+                    *ngIf="
+                      allowedCheckin.includes(element.membertype) &&
+                      element.expired
+                    "
+                    color="warn"
+                    >no_accounts</mat-icon
+                  >
+                  <span> {{ element.fullName }} </span
+                  ><mat-icon color="warn" *ngIf="element.hasNotes"
+                    >edit_note</mat-icon
+                  >
+                  <mat-icon color="warn" *ngIf="element.inKalani > ''"
+                    >check</mat-icon
+                  >
+                  <mat-icon color="primary" *ngIf="element.inHS > ''"
+                    >check</mat-icon
+                  >
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="legalSex">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>SEX</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.legalSex }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="DL">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Driver License
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.DL }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="trips">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Rides</th>
+              <td mat-cell *matCellDef="let element">{{ element.count }}</td>
+            </ng-container>
+            <ng-container matColumnDef="DOB">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>DOB</th>
+              <td mat-cell *matCellDef="let element">{{ element.DOB }}</td>
+            </ng-container>
+            <ng-container matColumnDef="phone">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>phone</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.phone }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+              <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+            </ng-container>
+            <ng-container matColumnDef="comments">
+              <th mat-header-cell *matHeaderCellDef>Comments</th>
+              <td mat-cell *matCellDef="let element">{{ element.comments }}</td>
+            </ng-container>
+            <tr
+              mat-header-row
+              *matHeaderRowDef="displayedColumns; sticky: true"
+            ></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumns"
+              (click)="kalanisession.QVMember$.next(row.id)"
+            ></tr>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</jimgcard>

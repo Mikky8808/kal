@@ -1,0 +1,44 @@
+<iframe #printiframe></iframe>
+<div>
+<div #page>
+ <div  *ngIf="Ready && dataSource?.length==0">THERE ARE NO FUTURE APPOINTMENTS!</div>
+  <table  *ngIf="Ready && dataSource?.length>0" style="padding: 10px; width: 100%" class="page">
+    <thead>
+      <tr>
+        <th>
+          <div class="header">
+            <h2>
+              Health Spring PT Appointments for:
+              {{ dataSource[0].MemberFullName }}
+            </h2>
+            <h3>Phone: (714) 699-2031/(714) 828-1155</h3>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody style="margin-bottom: 40px;">
+      <tr>
+        <td>
+          <div class="item" *ngFor="let item of dataSource; let i = index">
+            <div>
+                Appointment Date: {{item.apptDateTime  | date : "EEE dd MMM yyyy"}} - {{item.apptDateTime  | date : "shortTime"}} 
+            </div>
+            
+            <div *ngIf="item.reserveRide=='Y'">
+                Ride Pickup {{item.ridePickupTime}}
+            </div>
+
+
+            <hr />
+          </div>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot style="height: 50px;">
+        <tr>
+          <td></td>
+        </tr>
+      </tfoot>
+  </table>
+</div>
+</div>

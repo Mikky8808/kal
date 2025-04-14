@@ -1,0 +1,70 @@
+<jimgcard *ngIf="Ready" heading="Lunch Types">
+    <div toolbar class="toolbar">
+
+        <button (click)="onSave()" [disabled]="form.invalid" mat-mini-fab color="primary">
+            <mat-icon>save</mat-icon>
+        </button>
+        
+
+        <button *ngIf="isDialog" mat-mini-fab color="warn" aria-label="Close" (click)="onClose()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-card class="mat-elevation-z8">
+            <mat-card-content>
+                <div class="row">
+                    <div class="col1">
+                        <mat-card>
+                            <mat-calendar #calendar [dateClass]="dateClass()"
+                                (selectedChange)="onSelectDate($event, calendar)"></mat-calendar>
+                        </mat-card>
+                    </div>
+
+                    <div class="col">
+                        <div class="row">
+                            
+
+                            <mat-form-field>
+                                <mat-label>Lunch Type</mat-label>
+                                <input type="text" matInput formControlName="desc" />
+                                <mat-error>Enter Lunch Type</mat-error>
+                            </mat-form-field>
+                        </div>
+                    
+
+                        <div class="row sectitle">
+                            <span *ngIf="daysSelected.length == 0">
+                                Select Dates from Calendar</span>
+                            <span *ngIf="daysSelected.length != 0">Appointment Dates</span>
+                        </div>
+                        <div class="row">
+                            <mat-chip-listbox>
+                                <mat-chip style="background-color: red; color: white" *ngIf="daysSelected.length > 3">
+                                    <span (click)="daysSelected = []; calendar.updateTodaysDate()"
+                                        style="color: white; cursor: pointer">
+                                        Delete All</span>
+                 
+                                </mat-chip>
+
+                                <ng-container *ngFor="let day of daysSelected; let i = index">
+                                    <mat-chip>
+                                        {{ day }}
+                                        <mat-icon matChipRemove
+                                            (click)="removeDate(i); calendar.updateTodaysDate()">cancel</mat-icon>
+                                    </mat-chip>
+                                </ng-container>
+                            </mat-chip-listbox>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button type="submit" #submitButton mat-raised-button color="primary" [disabled]="form.invalid">
+                    Submit
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</jimgcard>

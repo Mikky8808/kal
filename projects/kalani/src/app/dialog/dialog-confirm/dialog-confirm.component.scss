@@ -1,0 +1,27 @@
+:host{
+    display: flex;
+    min-width: 250px;
+    // height: 200px;
+}
+.content{
+    box-sizing: border-box;
+    display:flex;
+      align-items: center;
+    // justify-items: center;
+    // justify-content: center;
+    flex-direction: column;
+    height: 100%;
+    border-radius: 5%;
+    border: solid lightgray  2px;
+
+}
+
+.title {
+    flex: 0;
+    color:red;
+    text-align: center;
+    font-weight: 700;
+}
+.btn{
+    padding: 10px;
+}

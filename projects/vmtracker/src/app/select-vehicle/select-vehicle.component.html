@@ -1,0 +1,79 @@
+<jimgcard heading="T V M - ({{user.first_name +' ' +user.last_name}})" maxHeight="95vh">
+    <div toolbar class="toolbar">
+    <button  (click)="onSubmit()" *ngIf="Ready" [disabled]="form.invalid || Busy" mat-icon-button>
+        <mat-icon *ngIf="!Busy">save</mat-icon>
+        <mat-icon *ngIf="Busy">hourglass_empty</mat-icon>
+      </button>
+      <button *ngIf="dialogRef" mat-icon-button aria-label="Close" (click)="dialogRef.close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  <form *ngIf="Ready" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field *ngIf="!form.controls['vehicle_id'].value" >
+        <mat-label>Vehicle</mat-label>
+        <mat-select formControlName="vehicle_id">
+          <ng-container *ngFor="let vehicle of vehicles">
+            <mat-option
+
+              [value]="vehicle.id"
+            >
+              {{ vehicle.vehicle }}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+        <mat-error>Vehicle is required</mat-error>
+      </mat-form-field>
+
+
+    <mat-card *ngIf="form.controls['vehicle_id'].value " class="card">
+  
+      <img
+        mat-card-image
+        src="assets/images/{{form.controls['vehicle_id'].value}}.jpg"
+      />
+      <mat-card-content>
+        <mat-form-field  >
+            <mat-label>Location</mat-label>
+            <mat-select formControlName="location">
+              <mat-option value="in"> Return To JMC </mat-option>
+              <mat-option value="out"> Leave JMC </mat-option>
+    
+            </mat-select>
+            <mat-error>Location is required.</mat-error>
+            
+          </mat-form-field>
+          <mat-form-field  >
+            <mat-label>Odometer Reading</mat-label>
+            <input type="number" matInput formControlName="odometer" />
+            <mat-error>Enter Odometer Reading</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Reason</mat-label>
+            <input
+              type="text"
+              placeholder="Pick one"
+              matInput
+              formControlName="reason"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option
+                *ngFor="let option of tripreasons"
+                [value]="option"
+              >
+                {{ option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Notes :</mat-label>
+            <textarea matInput formControlName="notes" rows="2"></textarea>
+          </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button color="primary" [disabled]="form.invalid || Busy" mat-raised-button>Save</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</jimgcard>

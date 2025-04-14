@@ -1,0 +1,19 @@
+.cal-width-max {
+  min-width: 1600px;
+}
+
+.cal-width-max-none {
+  min-width: none;
+}
+.cal-container {
+  overflow: auto;
+  height: 100%;
+}
+.btntext {
+  white-space: wrap;
+  font-size:10px;
+  line-height: 1rem
+}
+.timetxt {
+  white-space: wrap;
+}

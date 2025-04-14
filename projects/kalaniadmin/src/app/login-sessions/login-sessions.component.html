@@ -1,0 +1,92 @@
+<jimgcard heading="Logged in Sessions">
+<button toolbar mat-mini-fab color="primary" (click)="getci_sessions()">
+    <mat-icon>refresh</mat-icon>
+
+</button>
+    <ng-container
+    *ngTemplateOutlet="
+    sessionTemplate;
+      context: {
+        heading: 'Logged in Users',
+        dataSource: loggedIn,
+        displayColumns: ['id', 'username', 'loginTime', 'ip_address', 'idleTime',]                 
+      }
+    "
+  ></ng-container>
+  <ng-container
+  *ngTemplateOutlet="
+  sessionTemplate;
+    context: {
+      heading: 'Login Attemmpt',
+      dataSource: loginAttempt,
+      displayColumns: ['id',  'timestamp', 'ip_address', 'idleTime',]                 
+    }
+  "
+></ng-container>
+
+</jimgcard>
+<ng-template
+  #sessionTemplate
+  let-dataSource="dataSource"
+  let-displayColumns="displayColumns"
+  let-heading="heading"
+>
+<mat-card>
+    <mat-card-header>
+      <mat-card-subtitle> {{heading}} </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="table-responsive" style="padding: 0px">
+      <table mat-table [dataSource]="dataSource" class="tablelist">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button [disabled]="currsession == element.id"
+            (click)="getci_sessions(element.id)">
+            <mat-icon >power_settings_new</mat-icon>
+        </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>User ID</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.username }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fullName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+          <td mat-cell *matCellDef="let element"></td>
+        </ng-container>
+
+        <ng-container matColumnDef="loginTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Login Time</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element?.loginTime }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="ip_address">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Ip Address</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.ip_address }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="idleTime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Idle Time</th>
+          <td mat-cell *matCellDef="let element">{{ element.idleTime }}</td>
+        </ng-container>
+        <ng-container matColumnDef="timestamp">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Login Attempt</th>
+            <td mat-cell *matCellDef="let element">{{ element.timestamp }}</td>
+          </ng-container>
+  
+        <tr
+          mat-header-row class="mat-toolbar mat-primary"
+          *matHeaderRowDef="displayColumns; sticky: true"
+        ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

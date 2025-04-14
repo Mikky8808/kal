@@ -1,0 +1,243 @@
+<jimgcard *ngIf="Ready" heading="NEW PT Appointment" [marginBottom]="isDialog ? '0px': '100px'">
+  <div toolbar class="toolbar">
+    <button
+      (click)="onSave()"
+      [disabled]="form.invalid || Busy"
+      mat-icon-button     
+    >
+      <mat-icon>save</mat-icon>
+    </button>
+    <button
+      *ngIf="isDialog"
+      mat-icon-button       
+      aria-label="Close"
+      (click)="onClose()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+ 
+ 
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-card class="mat-elevation-z8">
+      <mat-card-content>
+        <div class="row">
+          <div class="col1">
+            <mat-card>
+              <mat-calendar
+                #calendar
+                [startAt]="startAt"
+                [dateClass]="dateClass()"
+                (selectedChange)="onSelectDate($event, calendar)"
+              ></mat-calendar>
+            </mat-card>
+     
+          </div>
+
+          <div class="col">
+            <div class="row center">
+
+            <mat-checkbox [labelPosition]="'before'" formControlName="blockTime"
+            >Block off Time?</mat-checkbox
+          >
+          <mat-form-field>
+            <mat-label>Block Reason</mat-label>
+
+            <input
+              matInput
+              type="text"
+              formControlName="reason"
+            />
+
+            <mat-error>Enter valid time</mat-error>
+          </mat-form-field>
+          </div>
+            <div class="row center">
+          
+
+              <lib-memlookup class="fw" [control]="form.controls['member']" class="fw"></lib-memlookup>
+              <mat-form-field>
+                <mat-label>PT Staff</mat-label>
+                <mat-select #MainPTStaff  formControlName="PTStaff">
+                  <ng-container *ngFor="let staff of PTStaff">
+                    <mat-option [value]="staff.username">
+                      {{ staff.first_name }} {{ staff.last_name }}
+                    </mat-option>
+                  </ng-container>
+                </mat-select>
+                <mat-error>Select PT Staff</mat-error>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>PT Assistant Staff</mat-label>
+                <mat-select formControlName="PTStaffAssistant">
+                  <mat-option value="">
+                   </mat-option>
+                  <ng-container *ngFor="let staff of PTStaff">
+                    <mat-option *ngIf="staff.username !=MainPTStaff.value " [value]="staff.username">
+                      {{ staff.first_name }} {{ staff.last_name }}
+                    </mat-option>
+                  </ng-container>
+                </mat-select>
+                <mat-error>Select PT Staff</mat-error>
+              </mat-form-field>
+            
+              <!-- <mat-form-field>
+                <mat-label>PT Reason</mat-label>
+                <mat-select formControlName="ptReason">
+                  <ng-container *ngFor="let ptReason of ptReasons">
+                    <mat-option [value]="ptReason.reason">
+                      {{ ptReason.description }}
+                    </mat-option>
+                  </ng-container>
+                </mat-select>
+                <mat-error>Select PT Reason</mat-error>
+              </mat-form-field> -->
+            </div>
+            <div class="row center">
+          
+              <mat-form-field>
+                <mat-label>Appointment Time</mat-label>
+
+                <input
+                  matInput
+                  type="time"
+                  formControlName="apptTime"
+                />
+
+                <mat-error>Enter valid time</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Duration</mat-label>
+
+                <input
+                  matInput
+                  type="number"
+                  formControlName="apptDuration"
+                />
+
+                <mat-error>Enter valid date</mat-error>
+
+              </mat-form-field>
+
+              <mat-form-field style="max-width:150px;">
+                <mat-label>Appt End Time</mat-label>
+
+                <input
+                  matInput
+                  type="time"
+                  formControlName="apptEndTime"
+                />
+
+                <mat-error>Enter valid Time</mat-error>
+              </mat-form-field>
+              </div>
+              <div class="row">
+
+              <mat-checkbox  [labelPosition]="'before'" formControlName="initialVisit"
+              >Initial Visit?</mat-checkbox
+            >
+              <mat-checkbox  [labelPosition]="'before'" formControlName="wheelChair"
+              >WheelChair?</mat-checkbox
+            >
+ 
+            </div>
+            <div class="row sectitle mat-toolbar mat-primary">Transportation</div>
+
+            <div class="row">
+              <mat-form-field >
+                <mat-label>Transportation?</mat-label>
+                <mat-select formControlName="reserveRide">
+                  <mat-option value="Y"> Yes </mat-option>
+                  <mat-option value="N"> No </mat-option>
+                </mat-select>
+                <mat-error>Transportation Required?</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Ride Pickup Time</mat-label>
+
+                <input
+                  required
+                  matInput
+                  type="time"
+                  formControlName="ridePickupTime"
+                />
+
+                <mat-error>Enter valid Time</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Ride Drop off Time</mat-label>
+
+                <input
+                  required
+                  matInput
+                  type="time"
+                  formControlName="rideDropTime"
+                />
+
+                <mat-error>Enter valid Time</mat-error>
+              </mat-form-field>
+     
+            </div>
+            <mat-form-field>
+              <mat-label>Instructions :</mat-label>
+              <textarea
+                matInput
+                formControlName="instructions"
+                rows="1"
+              ></textarea>
+            </mat-form-field>
+            <div class="row sectitle mat-toolbar mat-primary">
+              <span *ngIf="daysSelected.length == 0">
+                Select Appointment Dates from Calendar</span
+              >
+              <span *ngIf="daysSelected.length != 0">Appointment Dates</span>
+            </div>
+            <div class="row">
+              <mat-chip-listbox>
+                <mat-chip
+                  style="background-color: red; color: white"
+                  *ngIf="daysSelected.length > 3"
+                >
+                  <span
+                    (click)="daysSelected = []; calendar.updateTodaysDate()"
+                    style="color: white; cursor: pointer"
+                  >
+                    Delete All</span
+                  >
+                  <!-- <mat-icon
+                    matChipRemove
+                    (click)="daysSelected=[];calendar.updateTodaysDate();"
+                    >cancel</mat-icon
+                  > -->
+                </mat-chip>
+
+                <ng-container *ngFor="let day of daysSelected; let i = index">
+                  <mat-chip>
+                    {{ day }}
+                    <mat-icon
+                      matChipRemove
+                      (click)="removeDate(i); calendar.updateTodaysDate()"
+                      >cancel</mat-icon
+                    >
+                  </mat-chip>
+                </ng-container>
+              </mat-chip-listbox>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          type="submit"
+          #submitButton
+          mat-raised-button
+          color="primary"
+          [disabled]="form.invalid || Busy"
+        >
+          Submit
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</jimgcard>

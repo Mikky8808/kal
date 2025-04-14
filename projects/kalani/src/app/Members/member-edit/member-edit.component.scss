@@ -1,0 +1,48 @@
+:host{
+flex:1;
+}
+.toolbar {
+    display: flex;
+    gap: 5px;
+}
+
+mat-card {
+    margin: auto;
+    /* padding: 10px 10px; */
+    width: 100%;
+    max-width: 800px;
+    // background-color: aqua;
+}
+
+ 
+
+.row {
+    display: flex;
+    // flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+
+mat-form-field {
+    width: 100%;
+    flex: 1 200px;
+}
+
+mat-card-content {
+    margin-top: 10px;
+}
+ 
+//  .mat-mdc-checkbox  {
+//     padding-right: 10px;
+// background-color: white !important}
+.mat-mdc-checkbox.mat-warn {
+    --mdc-checkbox-unselected-icon-color:  #fff;
+  }
+.photo_camera {
+    position: relative;
+    top: 10px;
+    left: 16px;
+
+ }

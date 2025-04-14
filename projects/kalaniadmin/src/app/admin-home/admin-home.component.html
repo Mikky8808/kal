@@ -1,0 +1,19 @@
+<div *ngIf="!session.Authenticated">
+    <lib-login [errormsg]="errormsg" (onSubmit)="onSubmit($event)"></lib-login>
+  </div>
+
+  <jimg-main-nav   *ngIf="session.Authenticated && session.currentUser.isAdmin"
+  [sideMenuNav]="MenuItems">
+  <!-- <div footerbar style="font-size:10px" ><span>hello</span></div> -->
+  <a footerbar  color="primary"
+  mat-mini-fab href="/">
+    <mat-icon>home</mat-icon>
+  </a>
+  <router-outlet></router-outlet>
+</jimg-main-nav>
+
+<div   *ngIf="session.Authenticated && !session.currentUser.isAdmin">
+
+  403 Forbidden <a href="/">Return to Kalani</a>
+</div>
+

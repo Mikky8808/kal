@@ -1,0 +1,59 @@
+.btntext {
+  color: black;
+}
+
+._20 {
+  background-color: #d9ead3 !important;
+}
+
+::ng-deep .fc .fc-timegrid-axis-frame {
+  visibility: hidden !important;
+}
+
+._20 {
+  background-color: #d9ead3 !important;
+}
+._30,
+._90 {
+  background-color: #d9d2e9 !important;
+}
+
+.status_0,
+.status_20,
+.status_30,
+.status_90 {
+  padding-left: 5px;
+  font-weight: 600;
+}
+.status_30 {
+  font-style: italic;
+}
+.status_90 {
+  font-style: italic;
+  color: red;
+}
+
+.status_99 {
+  font-style: italic;
+  color: red;
+  font-weight: 800;
+  font-size: 15px;
+  text-align: right;
+  flex-grow: 1;
+  // display: inline-block;
+  // width: 100%;
+}
+// ::ng-deep .mdc-button .mdc-button__label {
+//   width: 100% !important;
+// }
+
+// .status_20{
+//   font-size: 18px;
+//   padding-left: 5px;
+
+// }
+// .status_0{
+//   color:black;
+//   padding-left: 5px;
+//   font-size: 18px;;
+// }

@@ -1,0 +1,31 @@
+.instructions {
+  min-height: 45px;
+  background-color: lightyellow;
+  padding: 5px;
+}
+
+.mdc-list-item--with-leading-icon .mdc-list-item__start {
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.mat-mdc-list-item.mdc-list-item--with-leading-avatar.mdc-list-item--with-one-line,
+.mat-mdc-list-item.mdc-list-item--with-leading-icon.mdc-list-item--with-one-line,
+.mat-mdc-list-item.mdc-list-item--with-leading-thumbnail.mdc-list-item--with-one-line,
+.mat-mdc-list-item.mdc-list-item--with-leading-checkbox.mdc-list-item--with-one-line,
+.mat-mdc-list-item.mdc-list-item--with-leading-radio.mdc-list-item--with-one-line,
+.mat-mdc-list-item.mdc-list-item--with-leading-switch.mdc-list-item--with-one-line {
+  height: 46px;
+}
+
+mat-card-title{
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+}
+:host{
+  margin: 10px;
+  display:block;
+}

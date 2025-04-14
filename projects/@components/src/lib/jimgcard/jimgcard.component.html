@@ -1,0 +1,9 @@
+<mat-toolbar color="primary" class="page-header mat-elevation-z6">
+  <span>{{ heading }}</span>
+  <span class="spacer"></span>
+  <ng-content select="[toolbar]"></ng-content>
+</mat-toolbar>
+<div class="content" [ngStyle]="{'marginBottom':marginBottom, 'maxHeight': maxHeight}">
+  <ng-content></ng-content>
+</div>
+ 

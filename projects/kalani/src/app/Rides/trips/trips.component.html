@@ -1,0 +1,175 @@
+<jimgcard
+  *ngIf="Ready"
+  marginBottom="135px"
+  heading="Trip Schedule for  {{ TripDate | date : 'EEE, MMM d, y' }}"
+>
+  <div toolbar class="toolbar">
+    <button (click)="getDayTrips()" mat-mini-fab color="primary">
+      <mat-icon>autorenew</mat-icon>
+    </button>
+  </div>
+  <div></div>
+  <div class="srchbar">
+    <mat-form-field appearance="fill" class="search">
+      <input
+        style="color: black"
+        matInput
+        disabled
+        [matDatepicker]="picker"
+        [(ngModel)]="TripDate"
+        (dateChange)="navDate(0)"
+      />
+      <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker disabled="false"></mat-datepicker>
+      <button color="primary" mat-icon-button matPrefix (click)="navDate(-1)">
+        <mat-icon>arrow_left</mat-icon>
+      </button>
+      <button color="primary" mat-icon-button matPrefix (click)="navDate(1)">
+        <mat-icon>arrow_right</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <!-- <ng-container *ngTemplateOutlet="TripList; context: DoneTripContext "></ng-container> -->
+ <div>
+  <ng-container
+    *ngTemplateOutlet="
+      TripList;
+      context: {
+        type: 'Pending',
+        dataSource: pending,
+        displayColumns: displayedColumns
+      }
+    "
+  ></ng-container>
+  <mat-divider></mat-divider>
+
+  <ng-container
+    *ngTemplateOutlet="
+      TripList;
+      context: {
+        type: 'Completed',
+        dataSource: processed,
+        displayColumns: displayedDoneColumns
+      }
+    "
+  ></ng-container>
+</div>
+</jimgcard>
+
+<ng-template
+  #TripList
+  let-dataSource="dataSource"
+  let-displayColumns="displayColumns"
+  let-heading="type"
+>
+  <mat-card class="mat-elevation-z6">
+    <mat-card-title>
+      <h4>
+        <span matBadge="{{ dataSource.length }}" matBadgeOverlap="false"
+          >{{ heading }} Trips for {{ TripDate | date : "EEE, MMM d, y" }}</span
+        >
+      </h4></mat-card-title
+    >
+    <mat-card-content
+      *ngIf="dataSource.length"
+      class="table-responsive"
+      style="padding: 0px; padding-top: 10px"
+    >
+      <div class="mat-elevation-z6">
+        <table
+          mat-table
+          [dataSource]="dataSource"
+          matSort
+          class="tablelist mat-elevation-z8"
+        >
+          <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let element">
+              <a
+                mat-raised-button
+                (click)="onTripClick(element)"
+                [ngStyle]="{
+                  'background-color':
+                    element.rtnTrip == '0' ? 'green' : '#f44336',
+                  color: 'white'
+                }"
+                tabindex="-1"
+              >
+                <mat-icon>{{ rideStatus[element.seStatus].icon }}</mat-icon>
+                <mat-icon *ngIf="element.wheelChair">accessible</mat-icon>
+                <!-- <mat-icon *ngIf="element.ptapptsID > 0">accessibility</mat-icon> -->
+                <span *ngIf="element.driver.trim() == ''"
+                  >{{ element.id }}</span>
+                {{ element.driver }}
+              </a>
+
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="assignDriver">
+            <th mat-header-cell *matHeaderCellDef>Assign Driver</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-select
+                [(ngModel)]="element.driver"
+                (selectionChange)="assignRideDriver($event, element.id)"
+              >
+                <mat-option value=""></mat-option>
+
+                <mat-option
+                  *ngFor="let driver of drivers"
+                  [value]="driver.username"
+                >
+                  {{ driver.username }}
+                </mat-option>
+              </mat-select>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Member Name
+            </th>
+            <td mat-cell *matCellDef="let element">
+            <a *ngIf='currentUser.isAdmin' mat-button
+            (click)="kalanisession.QVMember$.next(element.rider_id)">
+              {{ element.name }}
+              
+            </a>
+            <span *ngIf='!currentUser.isAdmin' 
+            >
+              {{ element.name }}
+              
+            </span>
+            
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="pickupDate">
+            <th mat-header-cell *matHeaderCellDef>Pick</th>
+            <td mat-cell *matCellDef="let element">
+              <!-- {{ (element.pickupDate) | date: 'hh:mm a' }} -->
+              {{ element.pickupTime }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef>Phone</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.phone }}
+            </td>
+          </ng-container>
+
+          <tr
+            class="mat-toolbar mat-primary"
+            mat-header-row
+            *matHeaderRowDef="displayColumns; sticky: true"
+          ></tr>
+          <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+        </table>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-template>

@@ -1,0 +1,92 @@
+/* You can add global styles to this file, and also import other style files */
+// @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.fw {
+    width: 100%;
+  }
+  .spacer {
+    flex: 1;
+  }
+  .pointer {
+    cursor: pointer;
+  }
+  
+  .LoginCard {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("/assets/images/JMC-Splash.jpg");
+  }
+
+  .table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    .mat-mdc-table {
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 1rem;
+      display: table;
+      border-collapse: collapse;
+      margin: 0px;
+      height: inherit;
+    }
+    .mat-row,
+    .mat-header-row {
+      display: table-row;
+      height: 30px !important;
+    }
+    .mat-mdc-table .mdc-data-table__header-row {
+      height: 36px;
+    }
+    .mat-mdc-table .mdc-data-table__row {
+      height: 30px;
+    }
+    .mat-mdc-cell,
+    .mat-mdc-header-cell {
+      word-wrap: initial;
+      display: table-cell;
+      // padding: 5px !important;
+      line-break: unset;
+      width: auto;
+      white-space: nowrap;
+      overflow: hidden;
+      vertical-align: middle;
+    }
+  }
+  
+  // table-list
+  
+  .tablelist {
+    border-collapse: collapse;
+    width: 100%;
+    /* width: 1270px; */
+  }
+  .tablelist tr:nth-child(odd) {
+    background-color: #e2efda; 
+  }
+  
+  .tablelist td,
+  .tablelist th {
+    border: 1px solid #ddd;
+    // padding: 2px;
+    // font-size: 1em;
+    // font-size: 12px;
+  }
+  .tablelist th {
+    // background-color: #3f51b5 !important;
+    background: #673ab7 !important;
+
+    // background-color:  var(--sectitle-bg-color) !important;
+    // background-color: #4caf50 !important;
+  
+    color: white;
+  }
+ 

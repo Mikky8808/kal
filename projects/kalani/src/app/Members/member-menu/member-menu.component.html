@@ -1,0 +1,146 @@
+ <button *ngIf="minifab"
+color="primary"
+
+mat-mini-fab
+[matMenuTriggerFor]="membermenu"
+tabindex="-1"
+>
+<mat-icon>more_vert</mat-icon>
+</button>  
+
+<mat-icon *ngIf="!minifab"
+color="primary"
+(click)="$event.stopPropagation()"
+
+#menuTrigger="matMenuTrigger"
+[matMenuTriggerFor]="membermenu"
+>more_vert</mat-icon
+>
+<jimgcard style="z-index: 29999;" *ngIf="lastCheckinMember" maxHeight="400px" heading="Checkin Member" marginBottom="0px" class="checkin">
+  <div toolbar class="toolbar">
+
+    <button mat-icon-button 
+    (click)="lastCheckinMember=null">
+      <mat-icon>close</mat-icon>
+    </button>
+
+
+  </div>
+  <h3 *ngIf="lastCheckinMember.expired">Membership Expired</h3> 
+  <div><img src="{{lastCheckinMember.avatar}}"></div>
+</jimgcard>
+
+<mat-menu #membermenu="matMenu">
+    <ng-template matMenuContent>
+      <button
+        *ngIf="member?.expired && member?.membertype == 'M'"
+        mat-menu-item
+        (click)="
+          openMemberPoints({ tran_type: 'MEMBERSHIP', memberId: member!.id! })
+        "
+      >
+        <mat-icon class="memberShipExpired">no_accounts</mat-icon>
+        <div class="memberShipExpired">Membership expired <br />{{ member?.mbrshpEndDate }}</div>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="onEditMember()">
+        <mat-icon>edit</mat-icon>
+        <div>Edit {{ member?.fullName }}</div>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="onAddNotes()">
+        <mat-icon>edit_note</mat-icon>
+        <div>Add Notes</div>
+      </button>
+      <mat-divider></mat-divider>
+  
+      <!-- <ng-container *ngIf="allowedCheckin.includes(member!.membertype!)"> -->
+        <!-- <ng-container *ngIf="!member!.expired"> -->
+          <button
+            mat-menu-item
+            [matMenuTriggerFor]="checkinmenu"
+            [matMenuTriggerData]="{ element: member }"
+          >
+            <mat-icon>beenhere</mat-icon>
+            <div>Checkin ..</div>
+          </button>
+  
+          <!-- <ng-container *ngIf="member!.membertype == 'M'"> -->
+            <button
+              mat-menu-item
+              (click)="
+                openMemberPoints({ tran_type: 'EARN', memberId: member!.id! })
+              "
+            >
+              <mat-icon>shopping_bag</mat-icon>
+              <div>Earn Points</div>
+            </button>
+            <mat-divider></mat-divider>
+            <button
+              mat-menu-item
+              (click)="
+                openMemberPoints({ tran_type: 'REDEEM', memberId: member!.id! })
+              "
+            >
+              <mat-icon>shopping_cart</mat-icon>
+              <div>Reedem Points</div>
+            </button>
+            <mat-divider></mat-divider>
+  
+            <button
+              mat-menu-item
+              (click)="
+                openMemberPoints({ tran_type: 'PURCHASE', memberId: member!.id! })
+              "
+            >
+              <mat-icon>shopping_bag</mat-icon>
+              <div>Purchase Points/DP</div>
+            </button>
+            <mat-divider></mat-divider>
+          <!-- </ng-container> -->
+        <!-- </ng-container> -->
+        <button
+          mat-menu-item
+          (click)="
+            openMemberPoints({ tran_type: 'MEMBERSHIP', memberId: member!.id! })
+          "
+        >
+          <mat-icon>loyalty</mat-icon>
+          <div>Membership Renewal</div>
+        </button>
+        <mat-divider></mat-divider>
+      
+
+      <!-- </ng-container> -->
+      <button           mat-menu-item
+      (click)="onSendSms()" tabindex="-1">
+          <mat-icon fontSet="material-icons-outlined">sms</mat-icon>
+          <div>Send SMS</div>
+
+        </button> 
+        <mat-divider></mat-divider>
+        <button
+        mat-menu-item
+        (click)="onShowMemberCard()"
+        tabindex="-1"
+      >
+        <mat-icon fontSet="material-icons-outlined">badge</mat-icon>
+        <div>Member Card</div>
+      </button>
+    </ng-template>
+  </mat-menu>
+  <mat-menu #checkinmenu="matMenu">
+    <ng-template matMenuContent let-member="element">
+      <button mat-menu-item (click)="onCheckin('K', member)">
+        <mat-icon>beenhere</mat-icon>
+        <div>Checkin for Kalani</div>
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="onCheckin('H', member)">
+        <mat-icon>beenhere</mat-icon>
+        <div>Checkin for Gym</div>
+      </button>
+      <mat-divider></mat-divider>
+    </ng-template>
+  </mat-menu>
+  

@@ -1,0 +1,13 @@
+<jimgcard heading="Screen Locked">
+    <button toolbar
+    (click)="dialogRef.close()"
+    mat-icon-button     
+  >
+    <mat-icon>lock_open</mat-icon>
+  </button>
+<div class="content"      >
+    <div class="img"><img src="/assets/images/Logo-left.png" /></div>
+
+    <div><h1>{{session.currentUser.first_name}} {{session.currentUser.last_name}}</h1></div>
+</div>
+</jimgcard>

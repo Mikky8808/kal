@@ -1,0 +1,42 @@
+:host {
+    display: flex;
+    height: 100%;
+}
+
+.toolbar {
+    display: flex;
+    gap: 1px;
+    flex-direction: row;
+}
+
+mat-card {
+
+    /* padding: 10px 10px; */
+    width: 100%;
+    max-width: 800px;
+    // background-color: aqua;
+}
+
+ 
+
+
+
+mat-form-field {
+    width: 100%;
+    flex: 1 200px;
+}
+
+mat-card-content {
+    margin-top: 10px;
+}
+.notes {
+    box-sizing: border-box;
+    padding: 10px;
+    flex: 1;
+    height: 100%;
+    margin: 10px;
+}
+
+.tox-tinymc {
+height: 100%;
+} 

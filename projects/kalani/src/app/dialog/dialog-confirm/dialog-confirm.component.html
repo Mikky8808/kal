@@ -1,0 +1,9 @@
+<jimgcard heading="{{data.title}}"  >
+    <div class="content">
+    <h2 class="title">Are you Sure?</h2>
+ <div class="btn">
+         <button mat-raised-button (click)="dialogRef.close();">No</button>
+        <button mat-raised-button color='warn' (click)="dialogRef.close('yes')" mat-dialog-close cdkFocusInitial>Yes</button>
+     </div>
+    </div>
+</jimgcard> 

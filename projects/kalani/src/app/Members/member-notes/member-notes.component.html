@@ -1,0 +1,33 @@
+<jimgcard *ngIf="Ready" heading="Member Notes" maxHeight="95vh">
+  <div toolbar class="toolbar">
+    <button (click)="onSave()" [disabled]="Busy" mat-icon-button>
+      <mat-icon *ngIf="!Busy">save</mat-icon>
+      <mat-icon *ngIf="Busy">hourglass_empty</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Close" (click)="onClose()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <mat-card class="mat-elevation-z8 sticky">
+    <mat-card-header >
+      <div
+        mat-card-avatar
+        style="
+              background-image: url({{ avatar }});
+              background-size: cover;
+            "
+      ></div>
+
+      <mat-card-title>{{member.lastName + ", " + member.firstName}}</mat-card-title>
+      <mat-card-subtitle>{{ getMemberTypeDesc() }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+
+  <!-- <div #notes class="notes"contenteditable="true"><div>heheheh</div></div> -->
+  <editor
+    class="notes"
+    [init]="{ height: '100%' }"
+    [(ngModel)]="notes"
+    apiKey="kjxesh8ng67ihtzmv6bhog93ee5ahrtnrwxsuberlsjmu815"
+  ></editor>
+</jimgcard>

@@ -1,0 +1,51 @@
+<jimgcard *ngIf="Ready" heading="SMS Quick Send">
+    <div toolbar class="toolbar">
+    
+  
+      <button (click)="onSave()" [disabled]="smsForm.invalid || Busy" mat-icon-button>
+        <mat-icon *ngIf="!Busy">save</mat-icon>
+        <mat-icon *ngIf="Busy">hourglass_empty</mat-icon>
+      </button>
+      <button *ngIf="dialogRef" mat-icon-button aria-label="Close" (click)="onClose()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <form  [formGroup]="smsForm" (ngSubmit)="onSubmit()">
+     
+
+      <mat-card class="mat-elevation-z8">
+ 
+        <mat-card-content>
+          <lib-memlookup
+          [addAllowed]="false"
+          [control]="smsForm.controls['member']"
+          (memberChanged)="onMemberChanged($event)"
+        >
+        </lib-memlookup>
+
+        <mat-form-field>
+            <mat-label>Message :</mat-label>
+            <textarea
+              matInput
+              formControlName="message"
+              rows="3"
+            ></textarea>
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            type="submit"
+            #submitButton
+            mat-raised-button
+            color="primary"
+            [disabled]="smsForm.invalid || Busy"
+          >
+            Submit
+            <mat-icon *ngIf="Busy">hourglass_empty</mat-icon>
+  
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </jimgcard>
+  

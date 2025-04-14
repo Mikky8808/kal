@@ -1,0 +1,39 @@
+ :host {
+  flex: 2 ;
+ }
+/* mat-form-field{
+    width: 100%;
+} */
+a {
+    margin-right: 10px;
+}
+
+::deep .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+
+  .hidden{
+    visibility:hidden;
+  }
+
+  .mat-mdc-option:hover:not(.mdc-list-item--disabled), .mat-mdc-option:focus:not(.mdc-list-item--disabled), .mat-mdc-option.mat-mdc-option-active, .mat-mdc-option.mdc-list-item--selected:not(.mat-mdc-option-multiple):not(.mdc-list-item--disabled) {
+    background: peachpuff;
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+ 
+.card-avatar {
+  height: 40PX;
+  width: 40PX;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background-size: cover;
+}
+ 
+
+ 

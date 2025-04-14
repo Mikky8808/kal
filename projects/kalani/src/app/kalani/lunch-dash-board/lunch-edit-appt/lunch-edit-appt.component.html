@@ -1,0 +1,139 @@
+<jimgcard *ngIf="Ready" [heading]="heading" marginBottom="0px">
+  <div toolbar class="toolbar">
+    <button
+      (click)="onSave()"
+      [disabled]="form.invalid"
+      mat-mini-fab
+      color="primary"
+    >
+      <mat-icon>save</mat-icon>
+    </button>
+    <button
+      *ngIf="isDialog"
+      mat-mini-fab
+      color="warn"
+      aria-label="Close"
+      (click)="onClose()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-card class="mat-elevation-z8">
+      <mat-card-header *ngIf="!AddMode">
+        <mat-card-title
+          >{{ form.controls["member"].value.fullName }}
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="row">
+          <div class="col1" *ngIf="AddMode">
+            <mat-card>
+              <mat-calendar
+                #calendar
+                [startAt]="startAt"
+                [dateClass]="dateClass()"
+                (selectedChange)="onSelectDate($event, calendar)"
+              ></mat-calendar>
+            </mat-card>
+          </div>
+
+          <div class="col">
+            <div class="row">
+              <lib-memlookup
+                *ngIf="AddMode"
+                class="fw"
+                [control]="form.controls['member']"
+                class="fw"
+                (memberChanged)="onMemberChanged($event)"
+              >
+              </lib-memlookup>
+              <ng-container *ngIf="!AddMode">
+                <mat-form-field>
+                  <mat-label>Reservation Date</mat-label>
+                  <input type="date" matInput formControlName="date" />
+                  <mat-error>Enter valid Date</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label>Status</mat-label>
+
+                <mat-select formControlName="status">
+                  <mat-option *ngFor="let stat of lunchstatus" [value]="stat.status">
+                    <mat-icon>{{ stat.statusIcon }}</mat-icon
+                    >{{ stat.statusText }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              </ng-container>
+
+              <mat-form-field>
+                <mat-label># Guests</mat-label>
+                <input type="number" matInput formControlName="guests" />
+                <mat-error>Enter valid number</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field>
+                <mat-label>Guest Names</mat-label>
+                <input matInput type="text" formControlName="guestNames" />
+              </mat-form-field>
+            </div>
+
+            <div *ngIf="AddMode">
+              <div class="row sectitle mat-toolbar mat-primary">
+                <span *ngIf="daysSelected.length == 0">
+                  Select Appointment Dates from Calendar</span
+                >
+                <span *ngIf="daysSelected.length != 0">Appointment Dates</span>
+              </div>
+              <div class="row">
+                <mat-chip-listbox>
+                  <mat-chip
+                    style="background-color: red; color: white"
+                    *ngIf="daysSelected.length > 3"
+                  >
+                    <span
+                      (click)="daysSelected = []; calendar.updateTodaysDate()"
+                      style="color: white; cursor: pointer"
+                    >
+                      Delete All</span
+                    >
+                    <!-- <mat-icon
+                        matChipRemove
+                        (click)="daysSelected=[];calendar.updateTodaysDate();"
+                        >cancel</mat-icon
+                      > -->
+                  </mat-chip>
+
+                  <ng-container *ngFor="let day of daysSelected; let i = index">
+                    <mat-chip>
+                      {{ day }}
+                      <mat-icon
+                        matChipRemove
+                        (click)="removeDate(i); calendar.updateTodaysDate()"
+                        >cancel</mat-icon
+                      >
+                    </mat-chip>
+                  </ng-container>
+                </mat-chip-listbox>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          type="submit"
+          #submitButton
+          mat-raised-button
+          color="primary"
+          [disabled]="form.invalid"
+        >
+          Submit
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</jimgcard>

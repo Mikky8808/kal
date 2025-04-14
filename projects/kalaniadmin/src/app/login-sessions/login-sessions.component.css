@@ -1,0 +1,4 @@
+.mat-column-id, .mat-column-username, .mat-column-loginTime, .mat-column-ip_address, .mat-column-timestamp {
+    width: 1px;
+  }
+  

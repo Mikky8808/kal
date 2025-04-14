@@ -1,0 +1,39 @@
+<!-- {{dataSource | json}} -->
+<div class=" mat-toolbar mat-primary"  id="loading"><mat-icon>print</mat-icon></div>
+
+<div #page style="display:none">
+  <table
+    style="padding: 10px; width: 100%"
+    class="page"
+    *ngFor="let date of dates; let i = index"
+  >
+    <thead>
+      <tr>
+        <th>
+          <div class="header">
+            <h2>
+              <u>{{ groupedSource[date].length }}</u> - Lunch Reservation for:
+              {{ date | date }}
+            </h2>
+          </div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div
+            class="item"
+            *ngFor="let item of groupedSource[date]; let i = index"
+          >
+            <mat-icon>{{ item.statusIcon }}</mat-icon> {{ item.title }}
+            <span *ngIf="item.guests > 0">
+              <i>(Guests: {{ item.guests }} ) {{ item.guestNames }}</i>
+            </span>
+            <hr />
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

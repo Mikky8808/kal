@@ -1,0 +1,80 @@
+.toolbar {
+  display: flex;
+  gap: 5px;
+}
+
+mat-card {
+  /* padding: 10px 10px; */
+  width: 100%;
+  // max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  // background-color: aqua;
+}
+
+.row {
+  display: flex;
+  // flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+mat-form-field {
+  width: 100%;
+  flex: 1 200px;
+}
+
+mat-card-content {
+  margin-top: 10px;
+}
+
+//  .mat-mdc-checkbox  {
+//     padding-right: 10px;
+// background-color: white !important}
+.mat-mdc-checkbox.mat-warn {
+  --mdc-checkbox-unselected-icon-color: #fff;
+}
+
+.mat-mdc-card-avatar {
+  height: 100px;
+  width: 100px;
+}
+.mat-mdc-card-header {
+  align-items: center;
+}
+.mat-column-transactiondate,
+.mat-column-mbrshpStartDate,
+.mat-column-mbrshpEndDate,
+.mat-column-amtpaid,
+.mat-column-daypass,
+.mat-column-point {
+  width: 70px;
+  max-width: 100%;
+}
+.mat-column-description {
+  width: 140px;
+  max-width: 100%;
+}
+.sidenav{
+  width: 600px;
+  height: 100%;
+}
+ 
+.notes{
+  padding: 10px;
+  box-sizing: border-box;
+}
+.mat-drawer-container {
+  height: 100%;
+}
+@media screen and (max-width: 600px) {
+  .sidenav {
+    width: 100vw;
+  }
+  .memlookup {
+    display:block;
+    max-width: 175px;
+  }
+ 
+}

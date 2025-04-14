@@ -1,0 +1,112 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  min-width: 100%;
+  margin: auto;
+}
+
+.toolbar {
+  position: relative;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+  height: 64px;
+}
+
+.topbtn {
+  padding-left: 5px;
+}
+
+/* .is-mobile .toolbar {
+  position: fixed;
+  z-index: 2;
+} */
+
+.sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1; 
+
+}
+/* .is-mobile .sidenav-container {
+  
+  flex: 1 0  auto;
+} */
+
+.sidenav {
+  width: 300px;
+  box-shadow: 3px 0 6px rgba(0, 0, 0, 0.24);
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  
+  /* background-color: var(--bg-color); */
+}
+/* mat-expansion-panel{
+  background-color: transparent;
+  color: white;
+
+} */
+/*  
+mat-nav-list{
+  background-color: var(--bg-color);
+} */
+.username {
+  font-size: 0.65em;
+  font-weight: normal;
+}
+
+.footer {
+  width: 100%;
+  z-index: 29;
+  /* background-color: black; */
+  color: white;
+  box-sizing: border-box;
+  position: fixed;
+  flex: 1;
+  bottom: 0;
+}
+
+.footer mat-toolbar {
+  height: 40px;
+  padding: 10px;
+  gap: 5px;
+
+}
+ 
+
+.hidden {
+  visibility: hidden;
+}
+.content{
+  height: 100vh;
+ 
+}
+ 
+ .mdc-list-item--with-leading-icon .mdc-list-item__start {
+    margin-left: 6px;
+    margin-right: 6px;
+}
+
+
+ 
+ ::ng-deep .mdc-list-item__primary-text {
+  font: 400 14px/24px Roboto, sans-serif !important;
+  letter-spacing: .03125em;
+}
+
+ 
+  .mat-mdc-list-item.mdc-list-item--with-leading-avatar.mdc-list-item--with-one-line, .mat-mdc-list-item.mdc-list-item--with-leading-icon.mdc-list-item--with-one-line, .mat-mdc-list-item.mdc-list-item--with-leading-thumbnail.mdc-list-item--with-one-line, .mat-mdc-list-item.mdc-list-item--with-leading-checkbox.mdc-list-item--with-one-line, .mat-mdc-list-item.mdc-list-item--with-leading-radio.mdc-list-item--with-one-line, .mat-mdc-list-item.mdc-list-item--with-leading-switch.mdc-list-item--with-one-line {
+    height: 46px;
+}
+
+
+.mat-expansion-panel-header.mat-expanded {
+  height: 34px;
+}
+
+ 

@@ -1,0 +1,74 @@
+<jimgcard heading="Member Card" marginBottom="0px">
+  <div toolbar class="toolbar">
+    <button mat-icon-button aria-label="Close" (click)="printCard()">
+      <mat-icon>print</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Close" (click)="dialogRef.close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div>
+    <div style="margin: 0" #membercard>
+      <div
+        class="card"
+        style="
+          display: flex;
+          width: 3.2in;
+          height: 1.95in;
+          border: 1.9px;
+          margin: 0 px;
+          border-style: solid;
+        "
+      >
+        <div>
+          <img
+            class="image"
+            style="
+              width: 1in;
+              height: 100%;
+              overflow: hidden;
+              background-color: black;
+              object-fit: cover;
+              object-position: center;
+            "
+            src="{{ member.avatar }}"
+          />
+        </div>
+        <div
+          class="row"
+          style="
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            text-align: center;
+            row-gap : 4px;
+          "
+        >
+          <div
+            style="
+              width: 100%;
+              display: flex;
+              align-items: center;
+              font-weight: 600;
+              font-size: 20px;
+            "
+          >
+            <img style="height: 50px" src="assets/images/Logo-leftSM.png" />
+            <span>Kalani ADHC</span>
+          </div>
+          <div style="font-weight: 800; font-size: 12px">
+            7872 Walker St, Suite 103, <br /> La Palma, CA 90623 <br /> 
+            (714) 828-1155 (714) 699-2031
+          </div>
+          <div style="display:inline-flex; align-items: center; justify-content: center ; flex: 1; font-weight: 700; font-size: 14px">
+            {{ member.firstName }} {{ member.lastName }} <br />
+            {{ member.id }}
+          </div>
+        
+          <div style="margin-bottom: 5px;"><img src="{{ member.barcode }}" /></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</jimgcard>
+<iframe #printIframe style="display: none"></iframe>

@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
  
   // {
-  //   path:'VMTrackDash', component:VMTtrackerDashComponent,
+  //   path:'Games/Poker', component:PokerDashComponent,
 
   // },
   // {
@@ -18,6 +18,12 @@ const routes: Routes = [
   //   import('./Members/member-points/member-points.component').then(m => m.MemberPointsComponent)
     
   // },  network_check
+  {
+    path:'Games/Poker', 
+    loadComponent: () =>
+    import('./kalani/Games/poker-dash/poker-dash.component').then(m => m.PokerDashComponent)
+    
+  },
   {
     path:'VMTrackDash', 
     loadComponent: () =>

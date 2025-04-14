@@ -1,0 +1,100 @@
+<jimgcard  *ngIf="Ready" heading="Accu/Massage Appointment" marginBottom="0px">
+  <div toolbar class="toolbar">
+    <button
+      (click)="onSave()"
+      [disabled]="form.invalid || form.disabled || Busy"
+      mat-icon-button
+    >
+      <mat-icon>save</mat-icon>
+    </button>
+    <button
+      *ngIf="isDialog"
+      mat-icon-button
+      aria-label="Close"
+      (click)="onClose()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-card class="mat-elevation-z8">
+      <mat-card-content>
+        <div class="col">
+          <div class="row center">
+            <mat-checkbox toolbar *ngIf ='user.isAdmin && !form.value?.id' [labelPosition]="'before'" formControlName="blockTime"
+            >Block off Time? <span *ngIf="form.value.blockTime">{{form.value.apptDate | date : "EEEE"}}</span></mat-checkbox
+          >
+            <lib-memlookup 
+              class="fw"
+              [control]="form.controls['member']"
+            ></lib-memlookup>
+
+            <mat-form-field >
+              <mat-label>Status</mat-label>
+              <mat-select formControlName="status">
+                <mat-option *ngFor="let stat of ptStatus" [value]="stat.status">
+                  <mat-icon>{{ stat.statusIcon }}</mat-icon
+                  >{{ stat.statusText }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <div
+              (keypress)="
+                $event.preventDefault();
+                $event.stopPropagation();
+                apptTime.focus()
+              "
+              (click)="
+                $event.preventDefault();
+                $event.stopPropagation();
+                apptTime.focus()
+              "
+            >            
+
+              <mat-form-field>
+                <mat-label>Appointment Date</mat-label>
+
+                <input matInput type="date" formControlName="apptDate" />
+
+                <mat-error>Enter valid date</mat-error>
+              </mat-form-field></div>
+              <mat-form-field>
+                <mat-label>Appointment Time</mat-label>
+
+                <input
+                  #apptTime
+                  matInput
+                  type="time"
+                  formControlName="apptTime"
+                />
+
+                <mat-error>Enter valid time</mat-error>
+              </mat-form-field>
+            <mat-form-field>
+              <mat-label>Duration</mat-label>
+
+              <input matInput type="number" formControlName="apptDuration" />
+
+              <mat-error>Enter Duration</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          type="submit"
+          #submitButton
+          mat-raised-button
+          color="primary"
+          [disabled]="form.invalid || form.disabled || Busy"
+        >
+          Submit
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</jimgcard>

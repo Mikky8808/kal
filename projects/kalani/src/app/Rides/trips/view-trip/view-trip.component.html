@@ -1,0 +1,103 @@
+<jimgcard heading="View Trip Detail" *ngIf="ready" marginBottom="0px">
+  <div toolbar class="toolbar">
+    <button mat-icon-button [matMenuTriggerFor]="vehicleMenu">
+      <mat-icon>network_check</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Close" (click)="editRide()">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Close" (click)="onClose()">
+      <mat-icon>close</mat-icon>
+    </button>
+
+  </div> 
+  <mat-card class="mat-elevation-z8" style="margin: 10px">
+    <mat-card-title class="mat-elevation-z8 mat-toolbar mat-primary">
+        {{ trip?.name }} <br />
+      {{ trip?.pickupDate | date : "EEE, MMM d, y" }}</mat-card-title
+    >
+    <mat-card-content class="mat-elevation-z8" >
+        <mat-form-field style="width: 100%; height: 55px;">
+            <mat-select [(ngModel)]="trip.seStatus"
+            (selectionChange)="updateseStatus($event.value, trip.id)">
+    
+            <mat-option *ngFor="let status of rideStatus" [value]="status.Status">
+              <mat-icon>{{status.icon}}</mat-icon>  {{status.StatusText}}  
+    
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+      <mat-list >
+
+        <mat-list-item >
+          <mat-icon matListItemIcon>schedule</mat-icon>
+          Pickup: {{(trip?.pickupDate + ' '+trip?.pickupTime) | date:'shortTime'}} / Appt: {{ (trip?.pickupDate + ' '+ trip?.apptTime) | date:'shortTime'}}
+        </mat-list-item>
+        <mat-list-item *ngIf="trip.reason>''">
+          <mat-icon matListItemIcon>task</mat-icon>
+          Reason: {{trip?.reason}}
+        </mat-list-item>
+
+        <mat-list-item>
+          <mat-icon matListItemIcon>phone</mat-icon>
+          <a id='phone' matListItemTitle href="tel:{{ trip?.phone }}">
+            {{ trip?.phone }}
+          </a>
+        </mat-list-item> 
+        <mat-list-item> 
+          <mat-icon matListItemIcon>location_on</mat-icon>
+          <a
+            matListItemTitle
+            href="{{ trip?.pickAddress  | googlemapurl }}"
+            target="_blank"
+          >
+            {{ trip?.pickAddress }}
+          </a>
+        </mat-list-item>
+        <mat-list-item>
+          <mat-icon matListItemIcon>location_on</mat-icon>
+          <a
+            matListItemTitle
+            href="{{ trip?.dropAddress | googlemapurl }}"
+            target="_blank"
+          >
+            {{ trip?.dropAddress }}
+          </a>
+        </mat-list-item>
+        <mat-list-item *ngIf="vehiclesOdometer">
+          <mat-icon matListItemIcon>network_check</mat-icon>
+     
+            {{ vehiclesOdometer.vehicle }} - {{ vehiclesOdometer.location }} - {{ vehiclesOdometer.odometer }} 
+        </mat-list-item>
+      </mat-list>
+      
+      
+
+<ng-container *ngIf=" trip.instructions>''">
+
+      <div style="font-size: 14px; font-weight: 600">Instructions</div>
+      <div
+        class="instructions"
+        innerHTML="{{ trip.instructions | nl2br }}"
+      ></div>
+    </ng-container>
+    </mat-card-content>
+  </mat-card>
+  <!--   
+          <mat-list-item>
+        <mat-icon matListItemIcon
+          >phone</mat-icon
+        >
+        {{ trip?.phone }} </mat-list-item
+      > -->
+</jimgcard>
+<mat-menu #vehicleMenu="matMenu">
+  <!-- <button mat-menu-item (click)="changeView(bar.view) " *ngFor ='let bar of CALTOOLBARVIEW'>{{bar.name}}</button> -->
+  <mat-button-toggle-group [vertical]="true" style="width: 98%">
+    <mat-button-toggle
+      *ngFor="let vehicle of vehicles" (click)="VMTracker({vid:vehicle.vid})"
+    >
+      {{vehicle.vehicle}}  
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</mat-menu>

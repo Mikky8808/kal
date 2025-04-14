@@ -1,0 +1,11 @@
+<jimg-main-nav *ngIf="session.Authenticated"  [sideMenuNav]="MenuItems">
+    <router-outlet></router-outlet>
+    </jimg-main-nav>
+    
+    <div *ngIf="!session.Authenticated">
+    <lib-login 
+    [errormsg]="errormsg"
+    (onSubmit)="onSubmit($event)"
+    ></lib-login>
+    
+        </div>

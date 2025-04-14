@@ -1,0 +1,25 @@
+:host {
+  display: flex;
+  width: 350px;
+  max-width: 400px;
+  align-items: center;
+  margin: auto;
+}
+.card {
+  max-width: 350px;
+}
+
+mat-card-content {
+  margin-top: 10px;
+}
+form {
+
+  margin-top: 10px;
+}
+mat-form-field {
+  width: 100%;
+}
+.toolbar {
+  display: flex;
+  gap: 5px;
+}

@@ -1,0 +1,70 @@
+:host{
+    margin: 10px;
+    display:block;
+  }
+
+.toolbar {
+    display: flex;
+    gap: 5px;
+}
+
+mat-card {
+    margin: auto;
+    /* padding: 10px 10px; */
+    width: 100%;
+    // background-color: aqua;
+}
+
+ 
+.row {
+    display: flex;
+    // flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.col {
+    flex: 1;
+}
+.col1 {
+    width: 100%;
+    max-width:300px;
+    flex : 1;
+}
+mat-form-field {
+    width: 100%;
+    flex: 1 200px;
+}
+
+mat-card-content {
+    margin-top: 10px;
+}
+
+ mat-chip{
+    font-size: 11px;
+    justify-content: space-between;
+
+  }
+
+  .mat-mdc-standard-chip .mdc-evolution-chip__icon--trailing {
+    height: 15px;
+    width: 15px;
+    font-size: 15px;
+}
+.timefld{
+    max-width: 150px;
+}
+
+::ng-deep .special-date {
+    background-color: greenyellow !important;
+    border-width: 1px;
+    border-style: solid;
+    color : white !important;
+    border-radius: 999px;
+  }
+//   ::ng-deep .hide-date {
+// display: none;
+//   }
+
+ 

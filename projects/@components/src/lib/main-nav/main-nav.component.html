@@ -1,0 +1,115 @@
+
+<div class="container" [class.is-mobile]="mobileQuery.matches">
+  <mat-toolbar   class="toolbar mat-elevation-z6">
+    <button mat-icon-button (click)="snav.toggle();">
+      <mat-icon>menu</mat-icon></button
+    ><img *ngIf="!mobileQuery.matches"src="assets/images/Logo-leftSM.png" />
+    <!-- <span>Kalani</span> -->
+    <span class="spacer"></span>
+    <ng-content select="[toolbar]"></ng-content>
+  </mat-toolbar>
+  <!-- [style.marginTop.px]="mobileQuery.matches ? 56 : 0" -->
+  <mat-sidenav-container
+    class="sidenav-container"
+
+  >
+    <mat-sidenav (openedChange)="session.sideNaveState$.next(snav.opened)"
+      #snav
+      class="sidenav"
+      [opened]="mobileQuery.matches ? 'false' : 'true'"
+      [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56"
+    >
+    <div class="flex center" *ngIf="mobileQuery.matches">
+      <img src="assets/images/Logo-leftSM.png" /> <div>Let's Go Places!</div>
+    </div>
+
+
+      <mat-nav-list>
+        <ng-container *ngFor="let bar of sideMenuNav; last as isLast">
+          <ng-container *ngIf="!bar.children; else childMenu">
+            <a
+              color="primary"
+              mat-list-item
+              (click)="
+                navigate(bar); mobileQuery.matches ? snav.close() : 'side'
+              "
+            >
+              <mat-icon matListItemIcon>{{ bar.icon }}</mat-icon
+              ><span class="spacer"></span> {{ bar.name }}
+            </a></ng-container
+          >
+
+          <ng-template #childMenu>
+            <mat-expansion-panel expanded="true">
+              <mat-expansion-panel-header>
+                {{ bar.name }}
+              </mat-expansion-panel-header>
+              <ng-container *ngFor="let childItem of bar.children">
+                <a
+                  mat-list-item
+                  (click)="
+                    navigate(childItem);
+                    mobileQuery.matches ? snav.close() : 'side'
+                  "
+                >
+                  <mat-icon matListItemIcon>{{ childItem.icon }}</mat-icon
+                  ><span class="spacer"></span> {{ childItem.name }}
+                </a>
+              </ng-container>
+            </mat-expansion-panel>
+          </ng-template>
+        </ng-container>
+      </mat-nav-list>
+      <!-- <mat-card>
+        <mat-calendar
+          [selected]="selectedDate"
+          (selectedChange)="onSelectDate($event)"
+        ></mat-calendar>
+      </mat-card> -->
+    </mat-sidenav>
+    <mat-sidenav-content class="content">
+      <ng-content></ng-content>
+    </mat-sidenav-content>
+    
+  </mat-sidenav-container>
+  <div class="footer">
+    <!-- <mat-progress-bar *ngIf="isLoading" color="warn" mode="query"></mat-progress-bar> -->
+    <!-- <mat-progress-bar [class.hidden]="!isLoading"color="warn" mode="query"></mat-progress-bar> -->
+  
+    <mat-toolbar color="primary" class="mat-elevation-z6">
+      <span class="username"
+        >{{ currentUser.first_name }} {{ currentUser.last_name }}</span
+      >
+      <span class="topbtn" *ngIf="barCodeReader.barcodeReaderNotConnected">
+        <button
+          color="primary"
+          matTooltip="Bar Code Reader not active"
+          (click)="barCodeReader.requestPort()"
+        >
+          <mat-icon>warning</mat-icon>
+        </button>
+      </span>
+      <span class="spacer"></span>
+      
+        <button
+          color="primary"
+          mat-mini-fab
+         matTooltip="{{userAgent}}" 
+        >
+          <mat-icon>info</mat-icon>
+        </button>
+        <ng-content select="[footerbar]"></ng-content>
+
+        <button
+          color="primary"
+          mat-mini-fab
+          matTooltip="logoff"
+          (click)="logoff()"
+        >
+          <mat-icon>power_settings_new</mat-icon>
+        </button>
+    </mat-toolbar>
+  </div>
+</div>

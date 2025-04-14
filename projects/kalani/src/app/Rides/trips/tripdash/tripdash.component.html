@@ -1,0 +1,57 @@
+<jimgcard [heading]="'Rides: '+heading?.title">
+  <div toolbar>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>preview</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <!-- <button mat-menu-item (click)="changeView(bar.view) " *ngFor ='let bar of CALTOOLBARVIEW'>{{bar.name}}</button> -->
+      <mat-button-toggle-group [vertical]="true" style="width: 98%">
+        <mat-button-toggle
+          (click)="changeView(bar.view)"
+          *ngFor="let bar of CALTOOLBARVIEW"
+          >{{ bar.name }}</mat-button-toggle
+        >
+      </mat-button-toggle-group>
+    </mat-menu>
+
+    <button
+      mat-icon-button
+      (click)="calendar.getApi().today();"
+    >
+      <mat-icon>calendar_today</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      (click)="calendar.getApi().removeAllEvents();   calendar.getApi().prev();"
+    >
+      <mat-icon>navigate_before</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      (click)="calendar.getApi().removeAllEvents(); calendar.getApi().next();"
+    >
+      <mat-icon>navigate_next</mat-icon>
+    </button>
+  </div>
+
+  <full-calendar #calendar [options]="calendarOptions">
+    <ng-template #eventContent let-arg>
+        <a
+        [ngStyle]="{ 'background-color': arg.backgroundColor }"
+        class="eventbtn"
+        (click)="editAppt(getEventinfo(arg).data)"
+        mat-button
+        ><span class="timetxt">{{ arg.timeText }}</span
+        ><br />
+        <span class="btntext">
+          <mat-icon>{{ arg.event.extendedProps.Icon }}</mat-icon>
+          <mat-icon *ngIf="arg.event.extendedProps.wheelChair">accessible</mat-icon>
+
+          <span> {{ arg.event.title }}</span>
+        </span>
+      </a>
+    </ng-template>
+  </full-calendar>
+</jimgcard>
+

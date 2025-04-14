@@ -1,0 +1,6 @@
+<div *ngIf="!session.Authenticated">
+  <lib-login [errormsg]="errormsg" (onSubmit)="onSubmit($event)"></lib-login>
+</div>
+<div *ngIf="session.Authenticated" >
+    <router-outlet></router-outlet>
+</div>
