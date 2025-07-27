@@ -44,7 +44,7 @@ export class SessionService {
   }
   get currentUser() {
     return this.boot.config?.bootdata?.user;
-  }
+  } 
   private _createPrintIrame() {
     const iframe = document.createElement('iframe');
     iframe.style.backgroundColor = 'white';

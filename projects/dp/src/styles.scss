@@ -1,60 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-// @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+// @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
-// @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
-// @import "~@angular/material/prebuilt-themes/purple-green.css";
-:root {
-  --sectitle-bg-color: #673ab7;
-  --sectitle-color: white;
-  --sectitle-font-size:  12px;
-  --bg-color : #673ab7;
-  
-}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-.spacer {
-    flex: 1 1 auto;
-  }
-  .fw {
+.fw {
     width: 100%;
   }
-  .fc .fc-popover {
+  .spacer {
+    flex: 1;
+  }
+  .pointer {
+    cursor: pointer;
+  }
+  
+  .LoginCard {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url("/assets/images/JMC-Splash.jpg");
+  }
 
-    max-height: 300px;
-    overflow: auto;
-}
-.memberShipExpired {
-  color:red;
-}
-//   /* width */
-// ::-webkit-scrollbar {
-//   width: 10px;
-// }
-
-// /* Track */
-// ::-webkit-scrollbar-track {
-//   box-shadow: inset 0 0 5px grey; 
-//   border-radius: 7px;
-// }
- 
-// /* Handle */
-// ::-webkit-scrollbar-thumb {
-//   background: lightgray;
-//   border-radius: 7px;
-// }
-
-// /* Handle on hover */
-// ::-webkit-scrollbar-thumb:hover {
-//   background: darkgray; 
-// }
-
-.table-responsive {
-  display: block;
-  width: 100%;
-  overflow-x: auto;
-  .mat-mdc-table {
+  .table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    .mat-mdc-table {
       width: 100%;
       max-width: 100%;
       margin-bottom: 1rem;
@@ -62,109 +37,56 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
       border-collapse: collapse;
       margin: 0px;
       height: inherit;
-  }
-  .mat-row,
-  .mat-header-row {
+    }
+    .mat-row,
+    .mat-header-row {
       display: table-row;
-  }
-  .mat-mdc-cell,
-  .mat-mdc-header-cell {
+      height: 30px !important;
+    }
+    .mat-mdc-table .mdc-data-table__header-row {
+      height: 36px;
+    }
+    .mat-mdc-table .mdc-data-table__row {
+      height: 30px;
+    }
+    .mat-mdc-cell,
+    .mat-mdc-header-cell {
       word-wrap: initial;
       display: table-cell;
-      padding:   5px !important;
+      // padding: 5px !important;
       line-break: unset;
       width: auto;
       white-space: nowrap;
       overflow: hidden;
       vertical-align: middle;
+    }
   }
-}
-
-// table-list
-
-.tablelist {
-  border-collapse: collapse;
-  width: 100%;
-  /* width: 1270px; */
-}
-.tablelist tr:nth-child(odd) {
-  background-color: #e2efda;
-}
- 
-.tablelist td,
-.tablelist th {
-  border: 1px solid #ddd;
-  // padding: 2px;
-  // font-size: 1em;
-  // font-size: 12px;
-}
-.tablelist th {
-  background-color: #696cff !important;
-  background-color:  var(--sectitle-bg-color) !important;
-  background-color: #4caf50 !important;
-
-  color: white;
- }
-
-.mdc-text-field__input::-webkit-calendar-picker-indicator {
-  display: block !important;
-}
-
-.sectitle{
-  height: 30px;
-  padding: 5px;
-
-  background-color: var(--sectitle-bg-color);
-  color: var(--sectitle-color);
-  font-size: var(--sectitle-font-size);
-  justify-content: stretch;
-  align-items: center;
-  margin-bottom: 18px;
-
-}
-
-//  .mdc-snackbar {
-//   position: absolute !important;
-//   top: 10px !important;
-//   z-index: 999;
-//  }
-
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button 
-{
-    -webkit-appearance: none;
-    margin: 0;
-}
-/* For Firefox  */
   
-input[type="number"] {
-    -moz-appearance: textfield;
-}
-.prevent-select {
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
-}
-
-.LoginCard {
-    height: 100vh;
+  // table-list
+  
+  .tablelist {
+    border-collapse: collapse;
     width: 100%;
-    display: flex;
-    
-    background-position: right bottom;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-color: rgba(56,168,187,.75);    /* background-image: url("/assets/images/JMC-Splash.jpg"); */
+    /* width: 1270px; */
   }
+  .tablelist tr:nth-child(odd) {
+    background-color: #e2efda; 
+  }
+  
+  .tablelist td,
+  .tablelist th {
+    border: 1px solid #ddd;
+    // padding: 2px;
+    // font-size: 1em;
+    // font-size: 12px;
+  }
+  .tablelist th {
+    // background-color: #3f51b5 !important;
+    background: #673ab7 !important;
 
-  .tribal-overlay {
-    
-    width: 85px;
-    height: 100%;
-    background: url(/assets/images/tribal.png) no-repeat left;
-    background-size: cover;
-    position: absolute;
-    z-index: 3;
-    display: block;
-}
+    // background-color:  var(--sectitle-bg-color) !important;
+    // background-color: #4caf50 !important;
+  
+    color: white;
+  }
+ 

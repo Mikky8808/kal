@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkkalani=self.webpackChunkkalani||[]).push([[708],{4708:(n,r,l)=>{l.d(r,{T:()=>o});var u=l(5879);let o=(()=>{class e{transform(a){return"http://maps.google.com/maps?q="+a}}return e.\u0275fac=function(a){return new(a||e)},e.\u0275pipe=u.Yjl({name:"googlemapurl",type:e,pure:!0,standalone:!0}),e})()}}]);

@@ -1,0 +1,42 @@
+CRITICAL - 2023-05-16 20:12:01 --> Class "App\Models\SheduleblockModel" not found
+in APPPATH/Controllers/Api/Accumassageappts.php on line 50.
+ 1 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->getAllPTAppt()
+ 2 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-16 20:12:04 --> Class "App\Models\SheduleblockModel" not found
+in APPPATH/Controllers/Api/Accumassageappts.php on line 50.
+ 1 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->getAllPTAppt()
+ 2 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-16 20:12:07 --> Class "App\Models\SheduleblockModel" not found
+in APPPATH/Controllers/Api/Accumassageappts.php on line 50.
+ 1 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->getAllPTAppt()
+ 2 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-16 20:12:10 --> Class "App\Models\SheduleblockModel" not found
+in APPPATH/Controllers/Api/Accumassageappts.php on line 50.
+ 1 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->getAllPTAppt()
+ 2 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-16 20:12:13 --> Class "App\Models\SheduleblockModel" not found
+in APPPATH/Controllers/Api/Accumassageappts.php on line 50.
+ 1 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->getAllPTAppt()
+ 2 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-16 20:12:16 --> Class "App\Models\SheduleblockModel" not found
+in APPPATH/Controllers/Api/Accumassageappts.php on line 50.
+ 1 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->getAllPTAppt()
+ 2 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-16 20:12:19 --> Class "App\Models\SheduleblockModel" not found
+in APPPATH/Controllers/Api/Accumassageappts.php on line 50.
+ 1 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->getAllPTAppt()
+ 2 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()

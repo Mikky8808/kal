@@ -1,0 +1,112 @@
+CRITICAL - 2023-05-17 09:02:41 --> Undefined property: stdClass::$apptDate
+in APPPATH/Controllers/Api/Accumassageappts.php on line 75.
+ 1 APPPATH/Controllers/Api/Accumassageappts.php(75): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->saveAppt()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-17 09:02:46 --> Undefined property: stdClass::$apptDate
+in APPPATH/Controllers/Api/Accumassageappts.php on line 75.
+ 1 APPPATH/Controllers/Api/Accumassageappts.php(75): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->saveAppt()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-17 09:02:52 --> Undefined property: stdClass::$apptDate
+in APPPATH/Controllers/Api/Accumassageappts.php on line 75.
+ 1 APPPATH/Controllers/Api/Accumassageappts.php(75): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->saveAppt()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-17 09:02:57 --> Undefined property: stdClass::$apptDate
+in APPPATH/Controllers/Api/Accumassageappts.php on line 75.
+ 1 APPPATH/Controllers/Api/Accumassageappts.php(75): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->saveAppt()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-17 09:03:01 --> Undefined property: stdClass::$apptDate
+in APPPATH/Controllers/Api/Accumassageappts.php on line 75.
+ 1 APPPATH/Controllers/Api/Accumassageappts.php(75): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->saveAppt()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-17 09:03:13 --> Undefined property: stdClass::$apptDate
+in APPPATH/Controllers/Api/Accumassageappts.php on line 75.
+ 1 APPPATH/Controllers/Api/Accumassageappts.php(75): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->saveAppt()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-17 09:03:19 --> Undefined property: stdClass::$apptDate
+in APPPATH/Controllers/Api/Accumassageappts.php on line 75.
+ 1 APPPATH/Controllers/Api/Accumassageappts.php(75): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->saveAppt()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-17 09:03:32 --> Undefined property: stdClass::$apptDate
+in APPPATH/Controllers/Api/Accumassageappts.php on line 75.
+ 1 APPPATH/Controllers/Api/Accumassageappts.php(75): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->saveAppt()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-17 09:09:11 --> Undefined property: stdClass::$apptDate
+in APPPATH/Controllers/Api/Accumassageappts.php on line 75.
+ 1 APPPATH/Controllers/Api/Accumassageappts.php(75): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->saveAppt()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-17 09:10:03 --> Undefined property: stdClass::$apptDate
+in APPPATH/Controllers/Api/Accumassageappts.php on line 75.
+ 1 APPPATH/Controllers/Api/Accumassageappts.php(75): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->saveAppt()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-17 09:11:04 --> Undefined property: stdClass::$apptDate
+in APPPATH/Controllers/Api/Accumassageappts.php on line 75.
+ 1 APPPATH/Controllers/Api/Accumassageappts.php(75): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->saveAppt()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-17 09:11:38 --> Undefined property: stdClass::$apptDate
+in APPPATH/Controllers/Api/Accumassageappts.php on line 75.
+ 1 APPPATH/Controllers/Api/Accumassageappts.php(75): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->saveAppt()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-17 09:14:11 --> Undefined property: stdClass::$apptDate
+in APPPATH/Controllers/Api/Accumassageappts.php on line 75.
+ 1 APPPATH/Controllers/Api/Accumassageappts.php(75): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->saveAppt()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-17 09:18:12 --> Undefined property: stdClass::$apptDate
+in APPPATH/Controllers/Api/Accumassageappts.php on line 75.
+ 1 APPPATH/Controllers/Api/Accumassageappts.php(75): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->saveAppt()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-17 09:18:24 --> Undefined property: stdClass::$apptDate
+in APPPATH/Controllers/Api/Accumassageappts.php on line 75.
+ 1 APPPATH/Controllers/Api/Accumassageappts.php(75): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->saveAppt()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-17 09:18:59 --> Undefined property: stdClass::$apptDate
+in APPPATH/Controllers/Api/Accumassageappts.php on line 75.
+ 1 APPPATH/Controllers/Api/Accumassageappts.php(75): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Accumassageappts->saveAppt()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()

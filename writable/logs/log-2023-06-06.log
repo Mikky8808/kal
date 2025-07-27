@@ -1,0 +1,24 @@
+CRITICAL - 2023-06-06 09:46:08 --> Undefined property: stdClass::$emrID
+in APPPATH/Controllers/Api/Members.php on line 24.
+ 1 APPPATH/Controllers/Api/Members.php(24): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH/Controllers/Api/Members.php(55): App\Controllers\Api\Members->validateCreateMember()
+ 3 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 4 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 6 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-06-06 09:46:27 --> Undefined property: stdClass::$emrID
+in APPPATH/Controllers/Api/Members.php on line 24.
+ 1 APPPATH/Controllers/Api/Members.php(24): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH/Controllers/Api/Members.php(55): App\Controllers\Api\Members->validateCreateMember()
+ 3 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 4 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 6 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-06-06 10:55:21 --> Undefined property: stdClass::$emrID
+in APPPATH/Controllers/Api/Members.php on line 24.
+ 1 APPPATH/Controllers/Api/Members.php(24): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH/Controllers/Api/Members.php(55): App\Controllers\Api\Members->validateCreateMember()
+ 3 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 4 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 6 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()

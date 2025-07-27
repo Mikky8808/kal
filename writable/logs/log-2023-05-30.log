@@ -1,0 +1,96 @@
+ERROR - 2023-05-30 02:35:10 --> mysqli_sql_exception: Table 'jimg_kalan_db.point_methods' doesn't exist in /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:295
+Stack trace:
+#0 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(295): mysqli->query()
+#1 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query()
+#4 /var/www/vhosts/jimg.app/httpdocs/app/Controllers/Auth/Auth.php(54): CodeIgniter\Database\BaseBuilder->get()
+#5 /var/www/vhosts/jimg.app/httpdocs/app/Controllers/Auth/Auth.php(13): App\Controllers\Auth\Auth->bootdata()
+#6 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/CodeIgniter.php(934): App\Controllers\Auth\Auth->index()
+#7 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+#8 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+#9 /var/www/vhosts/jimg.app/httpdocs/public/index.php(67): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2023-05-30 02:35:10 --> Table 'jimg_kalan_db.point_methods' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 295.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(295): mysqli->query()
+ 2 SYSTEMPATH/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query()
+ 5 APPPATH/Controllers/Auth/Auth.php(54): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH/Controllers/Auth/Auth.php(13): App\Controllers\Auth\Auth->bootdata()
+ 7 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Auth\Auth->index()
+ 8 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+10 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-05-30 02:36:23 --> mysqli_sql_exception: Table 'jimg_kalan_db.point_methods' doesn't exist in /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:295
+Stack trace:
+#0 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(295): mysqli->query()
+#1 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query()
+#4 /var/www/vhosts/jimg.app/httpdocs/app/Controllers/Auth/Auth.php(54): CodeIgniter\Database\BaseBuilder->get()
+#5 /var/www/vhosts/jimg.app/httpdocs/app/Controllers/Auth/Auth.php(13): App\Controllers\Auth\Auth->bootdata()
+#6 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/CodeIgniter.php(934): App\Controllers\Auth\Auth->index()
+#7 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+#8 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+#9 /var/www/vhosts/jimg.app/httpdocs/public/index.php(67): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2023-05-30 02:36:23 --> Table 'jimg_kalan_db.point_methods' doesn't exist
+in SYSTEMPATH/Database/MySQLi/Connection.php on line 295.
+ 1 SYSTEMPATH/Database/MySQLi/Connection.php(295): mysqli->query()
+ 2 SYSTEMPATH/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1616): CodeIgniter\Database\BaseConnection->query()
+ 5 APPPATH/Controllers/Auth/Auth.php(54): CodeIgniter\Database\BaseBuilder->get()
+ 6 APPPATH/Controllers/Auth/Auth.php(13): App\Controllers\Auth\Auth->bootdata()
+ 7 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Auth\Auth->index()
+ 8 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+10 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-05-30 08:52:12 --> mysqli_sql_exception: Column 'PTStaffAssistant' cannot be null in /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:295
+Stack trace:
+#0 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(295): mysqli->query()
+#1 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(2309): CodeIgniter\Database\BaseConnection->query()
+#4 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Model.php(330): CodeIgniter\Database\BaseBuilder->insert()
+#5 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/BaseModel.php(782): CodeIgniter\Model->doInsert()
+#6 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Model.php(730): CodeIgniter\BaseModel->insert()
+#7 /var/www/vhosts/jimg.app/httpdocs/app/Controllers/Api/PtAppointment.php(359): CodeIgniter\Model->insert()
+#8 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/CodeIgniter.php(934): App\Controllers\Api\PtAppointment->createPTAppt()
+#9 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+#10 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+#11 /var/www/vhosts/jimg.app/httpdocs/public/index.php(67): CodeIgniter\CodeIgniter->run()
+#12 {main}
+ERROR - 2023-05-30 08:55:04 --> mysqli_sql_exception: Column 'PTStaffAssistant' cannot be null in /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:295
+Stack trace:
+#0 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(295): mysqli->query()
+#1 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(2309): CodeIgniter\Database\BaseConnection->query()
+#4 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Model.php(330): CodeIgniter\Database\BaseBuilder->insert()
+#5 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/BaseModel.php(782): CodeIgniter\Model->doInsert()
+#6 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Model.php(730): CodeIgniter\BaseModel->insert()
+#7 /var/www/vhosts/jimg.app/httpdocs/app/Controllers/Api/PtAppointment.php(359): CodeIgniter\Model->insert()
+#8 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/CodeIgniter.php(934): App\Controllers\Api\PtAppointment->createPTAppt()
+#9 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+#10 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+#11 /var/www/vhosts/jimg.app/httpdocs/public/index.php(67): CodeIgniter\CodeIgniter->run()
+#12 {main}
+CRITICAL - 2023-05-30 14:02:16 --> Undefined property: stdClass::$emrID
+in APPPATH/Controllers/Api/Members.php on line 24.
+ 1 APPPATH/Controllers/Api/Members.php(24): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH/Controllers/Api/Members.php(55): App\Controllers\Api\Members->validateCreateMember()
+ 3 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 4 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 6 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-30 14:02:32 --> Undefined property: stdClass::$emrID
+in APPPATH/Controllers/Api/Members.php on line 24.
+ 1 APPPATH/Controllers/Api/Members.php(24): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH/Controllers/Api/Members.php(55): App\Controllers\Api\Members->validateCreateMember()
+ 3 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 4 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 6 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()

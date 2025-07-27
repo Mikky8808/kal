@@ -83,11 +83,22 @@ export interface RideStatus {
   StatusText?: string;
   icon?: string;
 }
+
 export interface pointTransaction {
+  type?: 'points' | 'dps'; // Make optional
   tran_type: 'MEMBERSHIP' | 'REDEEM' | 'EARN' | 'PURCHASE';
-  memberId?:string | number ;
-  id? : number | null;
+  memberId?: string | number;
+  id?: number | null;
+  transactiondate?: string;
+  amtpaid?: number;
+  method?: string;
+  daypass?: number;
+  points?: number;
+  mbrshpStartDate?: string;
+  mbrshpEndDate?: string;
+  notes?: string;
 }
+
 export interface  vehiclesodometer {
   id? : number;
   vehicle_id: number;

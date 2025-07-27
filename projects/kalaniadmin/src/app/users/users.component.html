@@ -6,114 +6,81 @@
     <mat-card-content class="table-responsive" style="padding: 0px">
       <table mat-table [dataSource]="dataSource" class="tablelist">
         <ng-container matColumnDef="username">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>User ID</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.username }}
-          </td>
+          <th mat-header-cell *matHeaderCellDef>Username</th>
+          <td mat-cell *matCellDef="let element">{{ element.username }}</td>
         </ng-container>
 
         <ng-container matColumnDef="fullName">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element?.first_name }} {{ element?.last_name }}
-          </td>
+          <th mat-header-cell *matHeaderCellDef>Full Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.fullName }}</td>
         </ng-container>
 
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element?.email }}
-          </td>
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let element">{{ element.email }}</td>
         </ng-container>
+
         <ng-container matColumnDef="startPath">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Path</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element?.startPath }}
-          </td>
+          <th mat-header-cell *matHeaderCellDef>Start Path</th>
+          <td mat-cell *matCellDef="let element">{{ element.startPath }}</td>
         </ng-container>
+
         <ng-container matColumnDef="isActive">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Is Active</th>
+          <th mat-header-cell *matHeaderCellDef>Active</th>
           <td mat-cell *matCellDef="let element">
-            <mat-checkbox
-              [disabled]="false"
-              name = 'isActive'
-
-              color="primary"
-              (change)="valueChanged(element,$event)"
-
-              [(ngModel)]="element.isActive"
-            ></mat-checkbox>
+            <mat-checkbox [checked]="element.isActive" disabled></mat-checkbox>
           </td>
         </ng-container>
+
         <ng-container matColumnDef="isAdmin">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Is Admin</th>
+          <th mat-header-cell *matHeaderCellDef>Admin</th>
           <td mat-cell *matCellDef="let element">
-            <mat-checkbox
-              name = 'isAdmin'
-              (change)="valueChanged(element,$event)"
-
-              [disabled]="false"
-              color="primary"
-              [(ngModel)]="element.isAdmin"
-            ></mat-checkbox>
+            <mat-checkbox [checked]="element.isAdmin" disabled></mat-checkbox>
           </td>
         </ng-container>
+
         <ng-container matColumnDef="isDriver">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Is Driver</th>
+          <th mat-header-cell *matHeaderCellDef>Driver</th>
           <td mat-cell *matCellDef="let element">
-            <mat-checkbox
-              [disabled]="false"
-              (change)="valueChanged(element,$event)"
-
-              name="isDriver"
-              color="primary"
-              [(ngModel)]="element.isDriver"
-            ></mat-checkbox>
+            <mat-checkbox [checked]="element.isDriver" disabled></mat-checkbox>
           </td>
         </ng-container>
+
         <ng-container matColumnDef="isPT">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Is PTStaff</th>
+          <th mat-header-cell *matHeaderCellDef>PT</th>
           <td mat-cell *matCellDef="let element">
-
-            <mat-checkbox
-              [disabled]="false"
-              (change)="valueChanged(element,$event)"
-              name ='isPT'
-              color="primary"
-              [(ngModel)]="element.isPT"
-            ></mat-checkbox>
+            <mat-checkbox [checked]="element.isPT" disabled></mat-checkbox>
           </td>
         </ng-container>
+
         <ng-container matColumnDef="isLa_Lmt">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Is A/LMT</th>
+          <th mat-header-cell *matHeaderCellDef>LA/LMT</th>
           <td mat-cell *matCellDef="let element">
-            <mat-checkbox
-              [disabled]="false"
-              (change)="valueChanged(element,$event)"
+            <mat-checkbox [checked]="element.isLa_Lmt" disabled></mat-checkbox>
+          </td>
+        </ng-container>
 
-              name="isLa_Lmt"
-              color="primary"
-              [(ngModel)]="element.isLa_Lmt"
-            ></mat-checkbox>
-          </td>
-        </ng-container>
         <ng-container matColumnDef="ptColor">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>PT Color</th>
-          <!-- <td mat-cell *matCellDef="let element"  [ngStyle]="{'backgroundColor':element.ptColor}"> -->
-          <td
-            mat-cell
-            *matCellDef="let element"
-          >
-            <input class="fw"
-            (change)="valueChanged(element,$event)"
-            name="ptColor"
-              *ngIf="element.isPT == true"
-              type="color"
-              value="{{ element.ptColor }}"
-            />
+          <th mat-header-cell *matHeaderCellDef>PT Color</th>
+          <td mat-cell *matCellDef="let element">{{ element.ptColor }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef>Delete</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              mat-icon-button
+              color="warn"
+              *ngIf="kalanisession.currentUser?.isAdmin"
+              (click)="deleteUser(element)"
+              matTooltip="Delete User"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
           </td>
         </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayColumns; sticky: true"></tr>
+
+        <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
       </table>
     </mat-card-content>

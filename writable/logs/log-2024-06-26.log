@@ -1,0 +1,15 @@
+ERROR - 2024-06-26 11:59:08 --> mysqli_sql_exception: Column 'PTStaffAssistant' cannot be null in /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php:295
+Stack trace:
+#0 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/MySQLi/Connection.php(295): mysqli->query()
+#1 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Database/BaseBuilder.php(2309): CodeIgniter\Database\BaseConnection->query()
+#4 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Model.php(330): CodeIgniter\Database\BaseBuilder->insert()
+#5 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/BaseModel.php(782): CodeIgniter\Model->doInsert()
+#6 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/Model.php(730): CodeIgniter\BaseModel->insert()
+#7 /var/www/vhosts/jimg.app/httpdocs/app/Controllers/Api/PtAppointment.php(360): CodeIgniter\Model->insert()
+#8 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/CodeIgniter.php(934): App\Controllers\Api\PtAppointment->createPTAppt()
+#9 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+#10 /var/www/vhosts/jimg.app/CodeIgniter433/vendor/codeigniter4/framework/system/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+#11 /var/www/vhosts/jimg.app/httpdocs/public/index.php(67): CodeIgniter\CodeIgniter->run()
+#12 {main}

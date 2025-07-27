@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
-const routes: Routes = [  {
-  path:'members', 
-  loadComponent: () =>
-  import('./Members/memberlist/memberlist.component').then(m => m.MemberlistComponent)
-  
-},];
+const routes: Routes = [
+  { path: '', component: AdminHomeComponent },
+  // Add more routes here if needed
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

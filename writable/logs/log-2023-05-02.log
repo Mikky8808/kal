@@ -1,0 +1,371 @@
+CRITICAL - 2023-05-02 11:12:07 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:15:40 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:15:46 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:17:42 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:17:58 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:18:07 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:18:10 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:18:22 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:18:25 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:25:18 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:29:34 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:29:41 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:37:37 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:39:50 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:39:56 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:40:31 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:44:20 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(58): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:44:24 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(58): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:44:54 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(58): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:49:17 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:49:20 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:49:24 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 11:52:59 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 12:01:01 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(58): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 12:07:51 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 12:31:19 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 14:18:58 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 15:03:42 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 15:04:08 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(58): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 15:04:15 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(58): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 15:04:44 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(58): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 15:04:49 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(58): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 15:05:00 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(58): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 15:05:56 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(58): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 15:27:12 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 15:29:17 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 15:38:45 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 15:39:31 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 15:39:34 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 15:39:36 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 16:03:15 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 16:07:13 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 16:08:00 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 16:08:01 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 16:08:28 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(58): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 16:08:52 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(58): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 17:45:04 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 17:53:31 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 17:54:15 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 17:54:23 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 17:56:53 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(180): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->getMemberQV()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 17:57:37 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(58): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-05-02 17:57:40 --> Class "Laminas\Barcode\Barcode" not found
+in APPPATH/Controllers/Api/Members.php on line 131.
+ 1 APPPATH/Controllers/Api/Members.php(58): App\Controllers\Api\Members->createBarCode()
+ 2 SYSTEMPATH/CodeIgniter.php(934): App\Controllers\Api\Members->saveMember()
+ 3 SYSTEMPATH/CodeIgniter.php(499): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(368): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH/index.php(67): CodeIgniter\CodeIgniter->run()
