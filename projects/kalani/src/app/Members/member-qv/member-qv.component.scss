@@ -1,3 +1,4 @@
+/* Host and Layout Styles */
 :host {
   display: block;
   max-height: calc(100vh - 100px);
@@ -7,96 +8,291 @@
   width: 600px;
 }
 
-.h {
-  font-weight: 500;
+/* Toolbar Styles */
+.toolbar {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
 }
+
+/* Card Styles */
 .qv-card {
   padding: 5px;
   margin: 5px;
   max-width: 150px;
   box-sizing: border-box;
+  
+  img {
+    height: 140px;
+    width: 140px;
+    object-fit: cover;
+  }
 }
+
+/* Member Info Styles */
 .demo {
   font-size: 10px;
   flex-grow: 1;
+  padding: 8px;
+  
   .mdc-button {
     font-size: 10px;
+    min-width: unset;
+    padding: 0 8px;
   }
+  
   mat-icon {
     font-size: 1rem;
+    height: 16px;
+    width: 16px;
+  }
+  
+  .h {
+    font-weight: 500;
+    color: #3f51b5;
+    width: 80px;
   }
 }
-.wrap {
-  flex-wrap: wrap;
-}
 
+/* Flex Layout Helpers */
 .row {
   display: flex;
-  // flex-direction: column;
-  // justify-content:flex-start;
   gap: 10px;
+  margin-bottom: 8px;
+  
+  &.wrap {
+    flex-wrap: wrap;
+  }
+  
+  &.center {
+    align-items: center;
+  }
 }
 
 .col {
   flex: 1;
 }
-// mat-card{
-//     max-width: 195px;
-// }
-mat-card-title {
-  font-size: 15px;
-}
-.tablelist mat-icon {
-  font-size: 15px;
-}
-.warn {
-  color: red;
-}
-mat-accordion {
-  max-width: 400px;
-}
-.am-item {
-  font-weight: 800;
-  font-size: 12px;
-  // white-space: nowrap;
-}
 
-.qvDetail ::ng-deep .mat-mdc-tab-header {
-  position: sticky;
-  top: 0px;
-  background-color: white;
-  z-index: 1000;
-}
-
+/* Tab Container */
 .qvDetail {
   padding: 5px;
   margin: 5px;
   box-sizing: border-box;
   display: flex;
   flex: 2;
+  
+  ::ng-deep .mat-mdc-tab-header {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1000;
+  }
 }
 
+/* Table Styles */
+.table-responsive {
+  overflow-x: auto;
+  margin: 8px 0;
+  border-radius: 4px;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 
+              0 2px 2px 0 rgba(0,0,0,.14), 
+              0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.tablelist {
+  width: 100%;
+  border-collapse: collapse;
+
+  /* Header Row - Blue with White Text */
+  .mat-header-row {
+    background-color: #034689 !important;
+  }
+  .mat-header-cell {
+    color: #fff !important;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  /* Alternating Row Colors */
+  .mat-row:nth-child(even) {
+    background-color: #f0f8f0; /* Light green */
+  }
+  .mat-row:nth-child(odd) {
+    background-color: #fff;
+  }
+
+.tablelist .mat-header-cell,
+.points-table .mat-header-cell,
+.dps-table .mat-header-cell,
+th.mat-header-cell,
+.mat-mdc-header-cell {
+  color: #fff !important;
+  background: #1976d2 !important;
+  font-weight: 700 !important; /* Make header text bold */
+  font-size: 13px;
+  padding: 8px 12px;
+}
+
+  /* Hover Effect */
+  .mat-row:hover {
+    background-color: #e0f0e0 !important; /* Slightly darker green */
+  }
+
+  .mat-cell {
+    font-size: 13px;
+    padding: 8px 12px;
+    border-bottom: 1px solid #e0e0e0;
+    color: #222 !important; /* Black text for all table rows */
+    font-weight: 400;
+  }
+
+  .pointer {
+    cursor: pointer;
+    &:hover {
+      background: rgba(0,0,0,0.04);
+    }
+  }
+
+  mat-icon {
+    font-size: 15px;
+    height: 15px;
+    width: 15px;
+  }
+}
+
+/* Numeric Columns Alignment */
 .mat-column-points,
 .mat-column-daypass,
-.mat-footer-cell,
 .mat-column-totPoints,
 .mat-column-totPendPoints,
 .mat-column-totdaypass,
-.mat-column-totPenddaypass {
+.mat-column-totPenddaypass,
+.mat-column-amtpaid {
   text-align: right;
+  font-family: monospace;
 }
+
+/* Footer Row Styles */
 tr.mat-mdc-footer-row td {
   font-weight: bold;
+  background-color: #f5f5f5;
+  color: #222 !important;
 }
+
+
+
+/* Remove blue/green text from table rows, keep only for header */
+.points-type,
+.points-value,
+.points-pending,
+.dps-value,
+.dps-pending {
+  color: #090909 !important; /* Black text for all table rows */
+  font-weight: 500;
+}
+
+/* Total Display Styles */
+.points-total-cell,
+.dps-total-cell {
+  background-color: #e3f2fd;
+  color: #0b0b0b !important;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Activity Item Styles */
+.am-item {
+  font-weight: 800;
+  font-size: 12px;
+}
+
+/* Total Display Styles */
+.total-display {
+  padding: 8px 12px;
+  margin: 8px 0;
+  background: #f5f5f5;
+  border-radius: 4px;
+  font-size: 13px;
+  strong {
+    color: #3f51b5;
+    margin-right: 16px;
+  }
+}
+
+/* Responsive Styles */
 @media screen and (max-width: 600px) {
   :host {
     width: 100%;
+    max-width: 100%;
   }
   .qv-card {
     max-width: 100px;
-    padding: 5px;
+    img {
+      height: 90px;
+      width: 90px;
+    }
   }
-  .qvDetail {
-    max-width: 100vw;
+  .row {
+    flex-direction: column;
+  }
+  .table-responsive {
+    margin: 8px -5px;
+    width: calc(100% + 10px);
+  }
+}
+
+/* Print Styles */
+@media print {
+  :host {
+    max-height: none;
+    width: 100%;
+    max-width: 100%;
+  }
+  .toolbar, 
+  .mat-mini-fab, 
+  .mat-icon-button, 
+  .mat-fab, 
+  .mat-raised-button, 
+  .mat-button {
+    display: none !important;
+  }
+  .mat-card, 
+  .mat-elevation-z8, 
+  .mat-elevation-z6, 
+  .mat-card-content, 
+  .mat-card-actions {
+    box-shadow: none !important;
+  }
+  .mat-tab-group, 
+  .mat-tab-body-wrapper, 
+  .mat-tab-body-content {
+    overflow: visible !important;
+    height: auto !important;
+  }
+  table {
+    page-break-inside: auto;
+    width: 100% !important;
+    tr, td, th {
+      page-break-inside: avoid;
+      page-break-after: auto;
+    }
+  }
+  .mat-table {
+    display: table !important;
+    .mat-row, 
+    .mat-header-row, 
+    .mat-footer-row {
+      display: table-row !important;
+    }
+    .mat-cell, 
+    .mat-header-cell, 
+    .mat-footer-cell {
+      display: table-cell !important;
+    }
   }
 }

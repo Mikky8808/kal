@@ -1,12 +1,10 @@
 <jimgcard [heading]="'ACCU/MASSAGE: ' + heading?.title">
   <div toolbar class="toolbar">
-    
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>preview</mat-icon>
     </button>
 
     <mat-menu #menu="matMenu">
-      <!-- <button mat-menu-item (click)="changeView(bar.view) " *ngFor ='let bar of CALTOOLBARVIEW'>{{bar.name}}</button> -->
       <mat-button-toggle-group [vertical]="true" style="width: 98%">
         <mat-button-toggle
           (click)="changeView(bar.view)"
@@ -33,6 +31,14 @@
     </button>
   </div>
 
+ <div class="provider-header-row" style="display: flex; justify-content: stretch; margin-bottom: 4px;">
+  <div style="flex:1; text-align:center; font-weight: bold; text-transform: uppercase;">Tang</div>
+  <div style="flex:1; text-align:center; font-weight: bold; text-transform: uppercase;">Chen</div>
+  <div style="flex:1; text-align:center; font-weight: bold; text-transform: uppercase;">Wang</div>
+  <div style="flex:1; text-align:center; font-weight: bold; text-transform: uppercase;">Tang</div>
+</div>
+
+
   <full-calendar #calendar [options]="calendarOptions">
     <ng-template #eventContent let-arg>
       <a
@@ -52,7 +58,6 @@
         ><br *ngIf="arg.event.extendedProps.blocked != true" />
         <span class="btntext">
           <mat-icon>{{ arg.event.extendedProps.statusIcon }}</mat-icon>
-
           <mat-icon *ngIf="arg.event.extendedProps.blocked == true"
             >block</mat-icon
           >
@@ -62,7 +67,6 @@
           <mat-icon *ngIf="arg.event.extendedProps.wheelChair"
             >accessible</mat-icon
           >
-
           <span> {{ arg.event.title }}</span>
         </span>
       </a>
@@ -79,29 +83,9 @@
           <span> {{ arg.event.title }}</span>
         </span>
       </a>
-      <!-- <div
-        *ngIf="arg.view.type == 'timeGridDay'"
-        [ngStyle]="{ 'background-color': arg.backgroundColor }"
-        class="eventbtn"
-        mat-button
-      >
-      <mat-checkbox class="checkin"
-      (click)="updateStatus({ status: 10, id: arg.event.extendedProps.apptsID})"
-        *ngIf="arg.event.extendedProps.status == 0"
-        color="warn"
-        style="flex: 1; color: black; max-width:45px"
-        ><span style="color: black"></span></mat-checkbox
-      >
-        <span class="btntext" style="flex:1">
-          <mat-icon>{{ arg.event.extendedProps.statusIcon }}</mat-icon>
-          <span style="padding: 5px"> {{ arg.event.title }}</span>
-        </span>
-
-      </div> -->
     </ng-template>
   </full-calendar>
 </jimgcard>
-<!-- <mat-menu #eventmenu="matMenu" (menuOpened)='menuOpened(true)' (menuClosed)='menuOpened(false)')> -->
 
 <mat-menu #eventmenu="matMenu">
   <ng-template matMenuContent let-data="data">
@@ -147,5 +131,3 @@
     </ng-container>
   </ng-template>
 </mat-menu>
-
-<!-- {{arg.event.extendedProps.ptapptsID}} -->

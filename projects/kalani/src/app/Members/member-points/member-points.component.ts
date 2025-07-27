@@ -77,7 +77,6 @@ export class MemberPointsComponent implements OnInit, OnDestroy {
   member: any;
   searchMember = new FormControl('');
 
-  // user = this.session.currentUser;
   memberForm!: FormGroup;
   requireAmt = false;
   requireMbrshpDate = false;
@@ -99,10 +98,12 @@ export class MemberPointsComponent implements OnInit, OnDestroy {
   @ViewChild('submitButton', { read: ElementRef }) submitButton?: ElementRef;
   @ViewChild('drawer', { static: false }) matDrawer!: MatDrawer;
 
+  isPoints = false;
+  isDps = false;
+
   constructor(
     @Optional() private dialogRef: MatDialogRef<MemberPointsComponent>,
     private FormBuilder: FormBuilder,
-
     @Optional()
     @Inject(MAT_DIALOG_DATA)
     public pointTransaction: pointTransaction,
@@ -111,11 +112,8 @@ export class MemberPointsComponent implements OnInit, OnDestroy {
     private db: DbservicesService,
     private notification: NotificationService,
     private dialog: MatDialog,
-
     private changeDetectorRef: ChangeDetectorRef
-  ) {
-    //  this.BarCodeDL$= this.barCodeReader.BarCodeDL$.asObservable();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.requireMbrshpDate = false;
@@ -129,15 +127,19 @@ export class MemberPointsComponent implements OnInit, OnDestroy {
       'notes',
     ];
 
-    if (this.pointTransaction.tran_type == 'MEMBERSHIP') {
+  // These flags are set based on dialog data passed from MemberQVComponent
+this.isPoints = this.pointTransaction?.type === 'points';
+this.isDps = this.pointTransaction?.type === 'dps';
+
+    if (this.pointTransaction?.tran_type === 'MEMBERSHIP') {
       this.requireAmt = true;
       this.requireMbrshpDate = true;
     }
-    if (this.pointTransaction.tran_type == 'PURCHASE') {
+    if (this.pointTransaction?.tran_type === 'PURCHASE') {
       this.requireAmt = true;
     }
 
-    if (this.pointTransaction.tran_type == 'MEMBERSHIP') {
+    if (this.pointTransaction?.tran_type === 'MEMBERSHIP') {
       this.displayedColumns.splice(
         1,
         0,
@@ -146,7 +148,7 @@ export class MemberPointsComponent implements OnInit, OnDestroy {
         'amtpaid'
       );
     }
-    if (this.pointTransaction.tran_type == 'PURCHASE') {
+    if (this.pointTransaction?.tran_type === 'PURCHASE') {
       this.displayedColumns.splice(1, 0, 'amtpaid');
     }
 
@@ -155,10 +157,9 @@ export class MemberPointsComponent implements OnInit, OnDestroy {
         this.dataSource = json.pointTrans;
         this.member = json.member;
         this.avatar = json.member.avatar;
-        console.log(this.member);
         this.setupForm({ memberId: this.member.memberId });
 
-        if (this.pointTransaction?.id! > 0) {
+        if (this.pointTransaction?.id && this.pointTransaction.id > 0) {
           const found = this.dataSource.find(
             (element: any) => element.id == this.pointTransaction.id
           );
@@ -171,26 +172,25 @@ export class MemberPointsComponent implements OnInit, OnDestroy {
         this.onClose();
       },
     });
-
-    // eval('this.setupForm({})');
   }
+
+onTableInputChange(event: Event, element: any, field: 'points' | 'daypass') {
+  const input = event.target as HTMLInputElement;
+  element[field] = input.valueAsNumber;
+}
 
   onMemberChanged(member: any) {
-    console.log(member);
     this.pointTransaction.memberId = member.id;
     this.pointTransaction.id = null;
-    console.log(this.pointTransaction)
     this.ngOnInit();
-
-    // this.searchMember.patchValue('');
   }
+
   newMemberPoints(pointTran: pointTransaction) {
     pointTran.memberId = this.member.memberId;
     this.pointTransaction = pointTran;
     this.ngOnInit();
-    console.log(this.member);
-    console.log(pointTran);
   }
+
   setupForm(rec: any) {
     this.Ready = true;
 
@@ -198,7 +198,6 @@ export class MemberPointsComponent implements OnInit, OnDestroy {
       id: rec?.id,
       tran_type: this.pointTransaction.tran_type,
       memberId: rec?.memberId,
-
       transactiondate: [
         rec?.transactiondate
           ? rec?.transactiondate
@@ -209,10 +208,10 @@ export class MemberPointsComponent implements OnInit, OnDestroy {
       method: [rec?.method, Validators.required],
       daypass: [rec?.daypass ? rec.daypass : 0, Validators.required],
       points: [rec?.points ? rec.points : 0, Validators.required],
-
       mbrshpStartDate: [rec?.mbrshpStartDate, Validators.required],
       mbrshpEndDate: [rec?.mbrshpEndDate, Validators.required],
       notes: [rec?.notes],
+      type: [this.pointTransaction?.type || (this.isPoints ? 'points' : this.isDps ? 'dps' : undefined)]
     });
 
     if (!this.requireAmt) this.memberForm.get('amtpaid')?.disable();
@@ -221,19 +220,44 @@ export class MemberPointsComponent implements OnInit, OnDestroy {
       this.memberForm.get('mbrshpEndDate')?.disable();
     }
 
+    // Enable/disable fields based on transaction type
+    if (this.isPoints) {
+      this.memberForm.get('points')?.enable();
+      this.memberForm.get('daypass')?.disable();
+    } else if (this.isDps) {
+      this.memberForm.get('daypass')?.enable();
+      this.memberForm.get('points')?.disable();
+    } else {
+      // If neither, enable both (menu access)
+      this.memberForm.get('points')?.enable();
+      this.memberForm.get('daypass')?.enable();
+    }
+
     this.changeDetectorRef.markForCheck();
   }
+
   onEdit(member: any) {
     this.setupForm(member);
   }
+
   onSave() {
     this.submitButton?.nativeElement.click();
   }
 
   onSubmit() {
+    if (this.memberForm.invalid) {
+      return;
+    }
+
     this.Busy = true;
     this.changeDetectorRef.markForCheck();
-    this.db.savePointTrans(this.memberForm.value).subscribe({
+
+    const formData = {
+      ...this.memberForm.value,
+      type: this.pointTransaction?.type || (this.isPoints ? 'points' : this.isDps ? 'dps' : undefined)
+    };
+
+    this.db.savePointTrans(formData).subscribe({
       next: (json: any) => {
         this.notification.notify(
           `Member: ${this.member.fullName} Transaction added/updated`
@@ -248,13 +272,10 @@ export class MemberPointsComponent implements OnInit, OnDestroy {
           this.memberForm.reset();
           this.setupForm({ memberId: this.member.memberId });
         }, 50);
-
-        // this.onClose();
       },
       error: (err: any) => {
         this.Busy = false;
         this.changeDetectorRef.markForCheck();
-
         this.kalanisession.showErrorMsg(err);
       },
     });
@@ -279,11 +300,8 @@ export class MemberPointsComponent implements OnInit, OnDestroy {
               `Member: ${this.member.fullName} Points deleted`
             );
             this.setupForm({ memberId: this.member.memberId });
-
             this.dataSource = json.pointTrans;
             this.changeDetectorRef.markForCheck();
-
-            // this.onClose();
           },
           error: (err: any) => {
             this.kalanisession.showErrorMsg(err);
@@ -294,9 +312,8 @@ export class MemberPointsComponent implements OnInit, OnDestroy {
   }
 
   onClose() {
-    {
-      this.dialogRef.close();
-    }
+    this.dialogRef?.close();
   }
+
   ngOnDestroy(): void {}
 }

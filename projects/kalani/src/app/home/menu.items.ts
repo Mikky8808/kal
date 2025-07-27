@@ -127,18 +127,6 @@ export interface MenuItem {
     //     },
     //   ],
     // },
-    {
-      name: 'SMS',
-      children: [
-        {
-          name: 'Quick Send',
-          href: false,
-          link: 'smsQsend',
-          icon: 'sms',
-          top: true,
-        },
-      ],
-    },
   ];
 
   export const menuBar = [

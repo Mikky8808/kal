@@ -60,13 +60,17 @@ export class ViewTripComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     public db: DbservicesService,
     private kalanisession: KalaniSessionService
-  ) {}
+  ) {
+    console.log('[ViewTripComponent] Dialog data:', dialogData);
+  }
   ngOnInit(): void {
     this.getTrip();
   }
   getTrip() {
+    console.log('[ViewTripComponent] Fetching trip with id:', this.dialogData.id);
     this.db.getTrip({ id: this.dialogData.id }).subscribe({
       next: (json: Trip) => {
+        console.log('[ViewTripComponent] getTrip result:', json);
         if (!json) {
           this.kalanisession.notify('Ride not found!');
           this.onClose();
@@ -75,6 +79,7 @@ export class ViewTripComponent implements OnInit, OnDestroy {
         this.ready = true;
       },
       error: (err) => {
+        console.error('[ViewTripComponent] getTrip error:', err);
         this.kalanisession.showErrorMsg(err);
         this.onClose();
       },
@@ -94,7 +99,18 @@ export class ViewTripComponent implements OnInit, OnDestroy {
           element.click();
         }
         if (found?.close) this.onClose();
-        // this.onClose();
+      },
+      error: (err: any) => {
+        this.kalanisession.showErrorMsg(err);
+      },
+    });
+  }
+  onDeleteRide() {
+    const data = { id: this.trip.id, action: 'delete' };
+    this.db.deletingrides(data).subscribe({
+      next: (res: any) => {
+        this.kalanisession.notify('Ride deleted!');
+        this.onClose();
       },
       error: (err: any) => {
         this.kalanisession.showErrorMsg(err);
@@ -126,7 +142,6 @@ export class ViewTripComponent implements OnInit, OnDestroy {
       maxWidth: '600px',
       maxHeight: '100vh',
       width: '100%',
-      // height: '100%',
       data: { id: this.trip.id },
     });
     dialogRef.afterClosed().subscribe((result) => {

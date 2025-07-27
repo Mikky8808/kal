@@ -3,8 +3,11 @@
     <button mat-icon-button [matMenuTriggerFor]="vehicleMenu">
       <mat-icon>network_check</mat-icon>
     </button>
-    <button mat-icon-button aria-label="Close" (click)="editRide()">
+    <button mat-icon-button aria-label="Edit" (click)="editRide()">
       <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Delete" (click)="onDeleteRide()">
+      <mat-icon>delete</mat-icon>
     </button>
     <button mat-icon-button aria-label="Close" (click)="onClose()">
       <mat-icon>close</mat-icon>

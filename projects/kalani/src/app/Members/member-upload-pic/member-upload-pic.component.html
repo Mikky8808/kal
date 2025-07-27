@@ -35,19 +35,23 @@
           [disabled]="form.invalid"
         >
           <mat-icon>file_upload</mat-icon>
-
           Upload
         </button>
         <div *ngIf="uploading">Loaded {{ this.loaded }} of {{ total }}</div>
-        <div  *ngIf="uploading" style="flex:1" >
+        <div *ngIf="uploading" style="flex:1">
           <mat-progress-bar
             mode="determinate"
-            value="{{ progress }}"
+            [value]="progress"
           ></mat-progress-bar>
         </div>
       </div>
     </div>
   </form>
 
-  <div class="row" style="max-width: 500px;"><img [src]="imgSrc" /></div>
+  <!-- Cropper.js integration -->
+  <div class="row" style="max-width: 500px;">
+    <img #imageCropper [src]="imgSrc" *ngIf="imgSrc" style="max-width:100%;" />
+    <button *ngIf="imgSrc" mat-raised-button color="primary" (click)="cropImage()">Crop</button>
+    <img *ngIf="croppedImgSrc" [src]="croppedImgSrc" style="max-width:100%;margin-top:10px;" />
+  </div>
 </jimgcard>

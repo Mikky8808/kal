@@ -4,6 +4,7 @@ import {
   Inject,
   OnDestroy,
   ViewChild,
+  AfterViewChecked,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JimgcardComponent } from 'projects/@components/src/lib/jimgcard/jimgcard.component';
@@ -45,7 +46,7 @@ import { KalaniSessionService } from 'projects/@session/src/lib/kalani.session.s
   templateUrl: './member-upload-pic.component.html',
   styleUrls: ['./member-upload-pic.component.scss'],
 })
-export class MemberUploadPicComponent implements OnDestroy {
+export class MemberUploadPicComponent implements OnDestroy, AfterViewChecked {
   file?: File; // Variable to store file
   form!: FormGroup;
   private destroy$ = new Subject();
@@ -56,6 +57,9 @@ export class MemberUploadPicComponent implements OnDestroy {
   total: number = 0;
   uploading: boolean = false;
   @ViewChild('submitButton', { read: ElementRef }) submitButton?: ElementRef;
+  @ViewChild('imageCropper', { static: false }) imageCropper?: ElementRef;
+  croppedImgSrc: string = '';
+  cropper: any;
 
   constructor(
     public dialogRef: MatDialogRef<MemberUploadPicComponent>,
@@ -80,14 +84,53 @@ export class MemberUploadPicComponent implements OnDestroy {
 
             reader.onload = () => {
               this.imgSrc = reader.result as string;
+              this.croppedImgSrc = ''; // Reset cropped image
+              if (this.cropper) {
+                this.cropper.destroy();
+                this.cropper = null;
+              }
             };
           }
         });
     }
   }
+
+  ngAfterViewChecked() {
+    // Initialize cropper when imgSrc is set and cropper not yet created
+    if (this.imgSrc && this.imageCropper && !this.cropper) {
+      this.cropper = new (window as any).Cropper(this.imageCropper.nativeElement, {
+        aspectRatio: 1,
+        viewMode: 1,
+      });
+    }
+  }
+
+  cropImage() {
+    if (this.cropper) {
+      this.croppedImgSrc = this.cropper.getCroppedCanvas().toDataURL('image/png');
+      this.imgSrc = this.croppedImgSrc;
+      this.cropper.destroy();
+      this.cropper = null;
+    }
+  }
+
+  dataURItoBlob(dataURI: string) {
+    const byteString = atob(dataURI.split(',')[1]);
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], { type: 'image/png' });
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next('');
     this.destroy$.complete();
+    if (this.cropper) {
+      this.cropper.destroy();
+      this.cropper = null;
+    }
   }
   onSave() {
     this.submitButton?.nativeElement.click();
@@ -98,10 +141,16 @@ export class MemberUploadPicComponent implements OnDestroy {
   onSubmit() {
     const formData = new FormData();
     formData.append('id', this.form.value.id);
-    formData.append('avatarpic', this.form.value.avatarpic);
+
+    // Use cropped image if available
+    if (this.croppedImgSrc) {
+      formData.append('avatarpic', this.dataURItoBlob(this.croppedImgSrc), 'avatar.png');
+    } else {
+      formData.append('avatarpic', this.form.value.avatarpic);
+    }
+
     this.uploading = true;
     this.db.uploadMemberPic(formData).subscribe({
-      //  this.db.saveXrayLog( (this.xrayLogForm.value)).subscribe({
       next: (event: HttpEvent<any>) => {
         switch (event.type) {
           case HttpEventType.Sent:

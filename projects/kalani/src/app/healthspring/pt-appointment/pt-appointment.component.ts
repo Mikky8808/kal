@@ -284,26 +284,46 @@ export class PtAppointmentComponent implements OnInit, OnDestroy {
   }
   onSubmit() {
     this.Busy = true;
-    let value = { ...this.form.value };
-    value.daysSelected = [...this.daysSelected.sort()];
-    value.memberId = value.member?.id;
-
-    if (value.PTStaff == value.PTStaffAssistant) value.PTStaffAssistant = '';
-    this.db.createPTAppt(value).subscribe({
+    // Build payload with only required fields and correct types
+    const value = this.form.value;
+    const payload: any = {
+      PTStaff: value.PTStaff,
+      PTStaffAssistant: value.PTStaffAssistant || '',
+      memberId: value.member?.id,
+      reserveRide: value.reserveRide,
+      apptTime: value.apptTime,
+      apptDuration: Number(value.apptDuration),
+      wheelChair: Number(value.wheelChair) || 0,
+      initialVisit: Number(value.initialVisit) || 0,
+      instructions: value.instructions || '',
+      ridePickupTime: this.form.get('ridePickupTime')?.value,
+      rideDropTime: this.form.get('rideDropTime')?.value,
+      blockTime: value.blockTime ? 'Y' : '',
+      daysSelected: [...this.daysSelected.sort()]
+    };
+    if (payload.PTStaff === payload.PTStaffAssistant) payload.PTStaffAssistant = '';
+    // Log the payload for debugging
+    console.log('Payload sent to createPTAppt:', payload);
+    this.db.createPTAppt(payload).subscribe({
       next: (json: any) => {
+        const message = json?.message || 'Appointment Created';
         this.formDir.resetForm({
-          PTStaff: value.PTStaff,
+          PTStaff: payload.PTStaff,
           member: value.member,
         });
-         this.Busy = false;
+        this.Busy = false;
         this.daysSelected = [];
-        this.notification.notify('Appointment Created');
+        this.notification.notify(message);
         this.calendar.updateTodaysDate();
-
         // this.onClose();
       },
       error: (err: any) => {
-        this.kalanisession.showErrorMsg(err);
+        if (err?.status === 409 && err?.error?.message) {
+          this.notification.notify(err.error.message);
+        } else {
+          let message = err?.error?.message || err?.message || 'Something went wrong';
+          this.notification.notify(message);
+        }
         this.Busy = false;
       },
     });

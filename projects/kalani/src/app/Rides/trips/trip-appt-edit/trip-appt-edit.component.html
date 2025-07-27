@@ -27,17 +27,23 @@
     <mat-card class="mat-elevation-z8">
       <mat-card-content>
         <div class="row">
-          <mat-form-field style="width: 100%; height: 55px">
-            <mat-select formControlName="seStatus">
-              <mat-option
-                *ngFor="let status of rideStatus"
-                [value]="status.Status"
-              >
-                <mat-icon>{{ status.icon }}</mat-icon>
-                {{ status.StatusText }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+        <mat-form-field style="width: 100%; height: 55px">
+  <mat-select formControlName="seStatus">
+    <mat-select-trigger>
+      <mat-icon>
+        {{ getStatusIcon(form.get('seStatus')?.value) }}
+      </mat-icon>
+      {{ form.get('seStatus')?.value == 5 ? 'Cancelled' : getStatusText(form.get('seStatus')?.value) }}
+    </mat-select-trigger>
+    <mat-option
+      *ngFor="let status of rideStatus"
+      [value]="status.Status"
+    >
+      <mat-icon>{{ status.icon }}</mat-icon>
+      {{ status.Status == 5 ? 'Cancel' : status.StatusText }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 
           <mat-form-field>
             <mat-label>Phone</mat-label>

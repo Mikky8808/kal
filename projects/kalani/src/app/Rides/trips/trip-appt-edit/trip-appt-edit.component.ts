@@ -169,6 +169,10 @@ export class TripApptEditComponent implements OnInit, OnDestroy {
   setupForm(rec: any) {
     this.Ready = true;
 
+// If status is 5 (Cancel), show 'Cancelled' in the dropdown
+  let statusValue = rec?.seStatus;
+  let statusText = statusValue == 5 ? 'Cancelled' : this.rideStatus[statusValue]?.statusText || '';
+
     this.form = this.FormBuilder.group({
       id:  [rec?.id, Validators.required],
       // member: [rec?.member, Validators.required],
@@ -191,8 +195,31 @@ export class TripApptEditComponent implements OnInit, OnDestroy {
     });
   }
 
+getStatusIcon(statusValue: number): string {
+  const status = this.rideStatus.find((s: any) => s.Status === statusValue);
+  return status ? status.icon : '';
+}
+
+getStatusText(statusValue: number): string {
+  const status = this.rideStatus.find((s: any) => s.Status === statusValue);
+  return status ? status.StatusText : '';
+}
+
   onSave() {
     this.submitButton?.nativeElement.click();
+  }
+
+  onDeleteRide() {
+    const data = { id: this.form.value.id, action: 'delete' };
+    this.db.deletingrides(data).subscribe({
+      next: (res: any) => {
+        this.notification.notify('Ride deleted!');
+        this.onClose();
+      },
+      error: (err: any) => {
+        this.kalanisession.showErrorMsg(err);
+      }
+    });
   }
   onSubmit() {
     let value = { ...this.form.value };

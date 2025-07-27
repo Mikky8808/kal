@@ -2,7 +2,9 @@ import {
   Component,
   ChangeDetectorRef,
   ViewChild,
+  ElementRef,
   OnInit,
+  AfterViewInit,
   OnDestroy,
   ChangeDetectionStrategy,
 } from '@angular/core';
@@ -20,14 +22,12 @@ import {
 import dayGridPlugin from '@fullcalendar/daygrid';
 import multiMonthPlugin from '@fullcalendar/multimonth';
 import interactionPlugin from '@fullcalendar/interaction';
-
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { MatIconModule } from '@angular/material/icon';
 import { DbservicesService } from 'projects/@dbservices/src/public-api';
 import { SessionService } from 'projects/@session/src/public-api';
-import { Subject } from 'rxjs';
+import { Subject, interval } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { interval } from 'rxjs';
 import { JimgcardComponent } from 'projects/@components/src/lib/jimgcard/jimgcard.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -65,7 +65,7 @@ import { DialogConfirmComponent } from '../../dialog/dialog-confirm/dialog-confi
   templateUrl: './member-checkin-dash.component.html',
   styleUrls: ['./member-checkin-dash.component.scss'],
 })
-export class MemberCheckinDashComponent implements OnInit, OnDestroy {
+export class MemberCheckinDashComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     public db: DbservicesService,
     public session: SessionService,
@@ -89,118 +89,75 @@ export class MemberCheckinDashComponent implements OnInit, OnDestroy {
   BarCodeDL$: any;
   BarCodeMemberId$: any;
   lastCheckinMember: any = null;
+
+  // For scan message
+  scanMessage: string = '';
+  scanSuccess: boolean = true;
+
   calendarOptions: CalendarOptions = {
     headerToolbar: false,
     eventOverlap: false,
-    // slotMinTime: '00:00:00',
-    // slotDuration: '00:10:00',
-    // slotMaxTime: '00:00:00',
-    // editable: true,
-
-    //  eventDurationEditable:true,
     plugins: [
       timeGridPlugin,
       dayGridPlugin,
       multiMonthPlugin,
       interactionPlugin,
     ],
-    // initialView: 'timeGridDay',
     initialView: 'dayGridWeek',
-
-    // initialView: 'multiMonthYear',
-    // hiddenDays: [1, 5],
     selectable: true,
     selectMirror: true,
     navLinks: true,
-    // resources: [
-    //   { id: 'H', title: 'Health Spring' },
-    //   { id: 'K', title: 'Kalani' },
-    // ],
     viewDidMount: this.handleViewDidMount.bind(this),
-
     weekends: false,
-    // eventClick: this.handleEventClick.bind(this),
-    // select: this.handleDateSelect.bind(this),
-
     events: this.getAppts.bind(this),
   };
+
   @ViewChild('calendar', { static: true })
   calendarComponent!: FullCalendarComponent;
   @ViewChild('menuTrigger') trigger: any;
+  @ViewChild('hiddenMemberIdInput') hiddenMemberIdInput!: ElementRef<HTMLInputElement>;
 
   CALTOOLBARVIEW = [
-    {
-      name: 'Year',
-      // nav: this.calendarComponent.getApi().changeView('')
-      view: 'multiMonthYear',
-    },
-
-    {
-      name: 'Month',
-      // nav: this.calendarComponent.getApi().changeView('')
-      view: 'dayGridMonth',
-    },
-    {
-      name: 'Week',
-      // nav: this.calendarComponent.getApi().changeView('')
-      view: 'dayGridWeek',
-    },
-    {
-      name: 'Day',
-      // nav: this.calendarComponent.getApi().changeView('timeGridDay')
-      view: 'dayGridDay',
-    },
+    { name: 'Year', view: 'multiMonthYear' },
+    { name: 'Month', view: 'dayGridMonth' },
+    { name: 'Week', view: 'dayGridWeek' },
+    { name: 'Day', view: 'dayGridDay' },
   ];
+
   ngOnInit(): void {
     this.session.sideNaveState$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((value) => {
+      .subscribe(() => {
         this.calendarComponent.getApi().updateSize();
       });
 
+    // Listen for barcode scanner member ID
     this.BarCodeMemberId$ = this.barcodeReader.BarCodeDMemberId$.subscribe(
       (member: any) => {
-        this.db
-          .checkInMember({ memberId: member, type: this.checkinType })
-          .subscribe({
-            next: (json: any) => {
-              if (json) {
-                this.lastCheckinMember = json;
-                setTimeout(() => {
-                  this.lastCheckinMember = null;
-                }, 4000);
-              }
-            },
-            error: (err) => {
-              this.kalanisession.showErrorMsg(err);
-            },
-          });
+        this.manualCheckIn(Number(member));
       }
     );
+    // Listen for barcode scanner DL
     this.BarCodeDL$ = this.barcodeReader.BarCodeDL$.subscribe(
       (driverLicense: any) => {
         this.db
           .checkInMember({ DL: driverLicense.DL, type: this.checkinType })
           .subscribe({
             next: (json: any) => {
-              if (json) {
-                this.lastCheckinMember = json;
-              }
+              this.lastCheckinMember = json;
             },
             error: (err) => {
-              this.kalanisession.showErrorMsg(err);
+              this.showScanMessage('❌ ' + (err?.error?.error || 'Check-in failed'), false);
             },
           });
       }
     );
 
     const interval$ = interval(this.intervalAmt);
-    interval$.pipe(takeUntil(this.destroy$)).subscribe((value) => {
+    interval$.pipe(takeUntil(this.destroy$)).subscribe(() => {
       if (this.isMenuOpen) return;
-
       let now = new Date();
       let activeEnd = this.calendarComponent.getApi().view.activeEnd;
-
       if (
         document.visibilityState === 'visible' &&
         activeEnd.getTime() > now.getTime()
@@ -209,6 +166,45 @@ export class MemberCheckinDashComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  ngAfterViewInit() {
+    // Focus the hidden input so barcode scanner types into it
+    if (this.hiddenMemberIdInput) {
+      this.hiddenMemberIdInput.nativeElement.focus();
+    }
+  }
+
+  onBarcodeScanned(memberId: string) {
+    if (memberId) {
+      this.manualCheckIn(Number(memberId));
+      this.hiddenMemberIdInput.nativeElement.value = '';
+      // Refocus for next scan
+      this.hiddenMemberIdInput.nativeElement.focus();
+    }
+  }
+
+  manualCheckIn(memberId: number) {
+    if (!memberId) return;
+    this.db
+      .directMemberCheckIn({ memberId, type: this.checkinType })
+      .subscribe({
+        next: (json: any) => {
+          this.showScanMessage(`✅ Member ${json.memberId || memberId} checked in`, true);
+        },
+        error: (err) => {
+          this.showScanMessage('❌ ' + (err?.error?.error || 'Check-in failed'), false);
+        },
+      });
+  }
+
+  showScanMessage(msg: string, success: boolean) {
+    this.scanMessage = msg;
+    this.scanSuccess = success;
+    setTimeout(() => {
+      this.scanMessage = '';
+    }, 2000);
+  }
+
   getAppts(info: any, successCallback: any, failureCallback: any) {
     info.type = this.checkinType;
     this.db.getAllcheckInMembers(info).subscribe({
@@ -216,13 +212,10 @@ export class MemberCheckinDashComponent implements OnInit, OnDestroy {
         this.dataSource = json;
         this.Ready = true;
         this.changeDetectorRef.markForCheck();
-        console.log(json);
-
         successCallback(json);
       },
       error: (err: any) => {
         this.Ready = true;
-
         failureCallback(err);
       },
     });
@@ -245,7 +238,7 @@ export class MemberCheckinDashComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.db.deleteCheckInMember({ id: id }).subscribe({
-          next: (json: any) => {
+          next: () => {
             this.calendarComponent.getApi().refetchEvents();
           },
           error: (err: any) => {
@@ -257,25 +250,8 @@ export class MemberCheckinDashComponent implements OnInit, OnDestroy {
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
-    const data = {
-      start: selectInfo.start,
-      end: selectInfo.end,
-    };
     selectInfo.view.calendar.unselect();
-    // if (selectInfo.view.type != 'timeGridDay') {
-    //   const calendarApi = selectInfo.view.calendar;
-    //   const dialogRef = this.dialog.open(LunchEditApptComponent, {
-    //     disableClose: true,
-    //     maxWidth: '800px',
-    //     maxHeight: '600px',
-    //     width: '100%',
-    //     height: '100%',
-    //     data: { data },
-    //   });
-    //   dialogRef.afterClosed().subscribe((result) => {
-    //     this.calendarComponent.getApi().refetchEvents();
-    //   }); // calendarApi.unselect(); // clear date selection
-    // }
+    // ...existing code for date select...
   }
   changeView(view: string) {
     this.calendarComponent.getApi().changeView(view);
@@ -284,10 +260,10 @@ export class MemberCheckinDashComponent implements OnInit, OnDestroy {
 
   updateStatus(data: any) {
     this.db.saveLunchAppt(data).subscribe({
-      next: (json: any) => {
+      next: () => {
         this.calendarComponent.getApi().refetchEvents();
       },
-      error: (err: any) => {
+      error: (err) => {
         this.session.showErrorMsg(err);
       },
     });

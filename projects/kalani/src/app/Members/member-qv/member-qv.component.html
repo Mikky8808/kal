@@ -1,458 +1,799 @@
-<jimgcard
-  *ngIf="member"
-  [heading]="member.lastName + ', ' + member.firstName"
-  bo
->
-  <div toolbar class="toolbar">
-    <!-- <button color="primary" mat-mini-fab (click)="onSendSms()" tabindex="-1">
-      <mat-icon fontSet="material-icons-outlined">sms</mat-icon>
-    </button> -->
+<div id="member-qv-print">
+  <jimgcard
+    *ngIf="member"
+    [heading]="member.lastName + ', ' + member.firstName"
+    bo
+  >
+    <div toolbar class="toolbar">
+      <button color="primary" mat-mini-fab (click)="onAddNotes()">
+        <mat-icon>edit_note</mat-icon>
+      </button>
+      <button color="primary" mat-mini-fab (click)="onEditMember()" tabindex="-1">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button color="primary" mat-mini-fab (click)="printWholePage()" tabindex="-1" title="Print">
+        <mat-icon>print</mat-icon>
+      </button>
+      <app-member-menu
+        [minifab]="true"
+        [member]="member"
+        (onSubmit)="getMember()"
+      ></app-member-menu>
+      <button color="primary" mat-mini-fab (click)="closeDrawer()" tabindex="-1">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
 
-    <!-- <button color="primary" mat-mini-fab (click)="onSendSms()" tabindex="-1">
-      <mat-icon fontSet="material-icons-outlined">sms</mat-icon>
-    </button> -->
-    <!-- <button
-      color="primary"
-      mat-mini-fab
-      (click)="onShowMemberCard()"
-      tabindex="-1"
-    >
-      <mat-icon fontSet="material-icons-outlined">badge</mat-icon>
-    </button> -->
-
-    <button color="primary" mat-mini-fab (click)="onAddNotes()">
-      <mat-icon>edit_note</mat-icon>
-    </button>
-    <button color="primary" mat-mini-fab (click)="onEditMember()" tabindex="-1">
-      <mat-icon>edit</mat-icon>
-    </button>
-    <app-member-menu
-      [minifab]="true"
-      [member]="member"
-      (onSubmit)="getMember()"
-    ></app-member-menu>
-
-    <button color="primary" mat-mini-fab (click)="closeDrawer()" tabindex="-1">
-      <mat-icon>close</mat-icon>
-    </button>
-  </div>
-
-  <div class="row center">
-    <mat-card class="qv-card">
-      <img mat-card-image src="{{ member.avatar }}" />
-      <mat-checkbox
-        (change)="getMember()"
-        [(ngModel)]="showAllTrans"
-        [labelPosition]="'before'"
-        >View All?
-      </mat-checkbox>
-    </mat-card>
-    <mat-card class="demo">
-      <mat-card-content>
-        <mat-icon>{{ member.membTypeIcon }}</mat-icon>
-
-        <mat-icon>{{ member.membershiptypesIcon }}</mat-icon>
-        <table style="width: 100%">
-          <tr>
-            <td class="h">ID</td>
-            <td>{{ member.id }}</td>
-          </tr>
-          <tr *ngIf="member?.emrID">
-            <td>EMR</td>
-            <td>{{ member.emrID }}</td>
-          </tr>
-          <!-- <tr>
-            <td class="h">Sex</td>
-            <td>{{ member.legalSex }}</td>
-          </tr> -->
-          <tr>
-            <td class="h">DOB</td>
-            <td>{{ member.DOB }}</td>
-          </tr>
-          <tr>
-            <td class="h">Phone</td>
-            <td>
-              <a mat-button href="tel:{{ member.phone }}">
-                <mat-icon>phone</mat-icon>
-                {{ member.phone }}</a
-              >
-            </td>
-          </tr>
-          <!-- <tr>
-            <td class="h">Address</td>
-            <td>{{ member.fullAddress }}</td>
-          </tr> -->
-          <ng-container *ngIf="member.membertype == 'M'">
+    <div class="row center">
+      <mat-card class="qv-card">
+        <img mat-card-image src="{{ member.avatar }}" />
+        <mat-checkbox
+          (change)="getMember()"
+          [(ngModel)]="showAllTrans"
+          [labelPosition]="'before'"
+          >View All?
+        </mat-checkbox>
+      </mat-card>
+      <mat-card class="demo">
+        <mat-card-content>
+          <mat-icon>{{ member.membTypeIcon }}</mat-icon>
+          <mat-icon>{{ member.membershiptypesIcon }}</mat-icon>
+          <table style="width: 100%">
             <tr>
-              <td class="h">Membership</td>
-              <td>{{ member.mbrshpStartDate }} - {{ member.mbrshpEndDate }}</td>
+              <td class="h">ID</td>
+              <td>{{ member.id }}</td>
             </tr>
-          </ng-container>
-          <!-- <tr>
-            
-            <td colspan="2">      <img  src="{{member.barcode}}">
-            </td>
-          </tr> -->
-        </table>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <div class="qvDetail mat-elevation-z6">
-    <mat-tab-group dynamicHeight >
-      <mat-tab *ngIf="dataSource?.sumPoints.length > 0" label="POINTS">
+            <tr *ngIf="member?.emrID">
+              <td>EMR</td>
+              <td>{{ member.emrID }}</td>
+            </tr>
+            <tr>
+              <td class="h">DOB</td>
+              <td>{{ member.DOB }}</td>
+            </tr>
+            <tr>
+              <td class="h">Phone</td>
+              <td>
+                <a mat-button href="tel:{{ member.phone }}">
+                  <mat-icon>phone</mat-icon>
+                  {{ member.phone }}</a
+                >
+              </td>
+            </tr>
+            <ng-container *ngIf="member.membertype == 'M'">
+              <tr>
+                <td class="h">Membership</td>
+                <td>{{ member.mbrshpStartDate }} - {{ member.mbrshpEndDate }}</td>
+              </tr>
+            </ng-container>
+            <tr *ngIf="member.firstName || member.lastName">
+              <td class="h">Name</td>
+              <td>{{ member.firstName }} {{ member.lastName }}</td>
+            </tr>
+            <tr *ngIf="member.insurancetype">
+              <td class="h">Insurance</td>
+              <td>{{ member.insurancetype }}</td>
+            </tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="qvDetail mat-elevation-z6">
+      <mat-tab-group dynamicHeight>
+        <!-- 1. Massages Tab -->
+        <mat-tab *ngIf="massages?.length > 0" label="Massages ({{ massages.length }})">
           <ng-template matTabContent>
+            <div class="row wrap">
+              <div *ngFor="let massage of massages">
+                <button mat-raised-button (click)="editAccMassageAppt(massage)">
+                  <span class="am-item" [ngStyle]="{ color: massage.color }">
+                    {{ massage.start }}
+                  </span>
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </mat-tab>
 
+        <!-- Massages by Year Tabs -->
+<mat-tab-group>
+  <mat-tab label="2023">
+    <ng-template matTabContent>
+      <div class="row wrap">
+        <div *ngFor="let massage of massages">
+          <ng-container *ngIf="massage.start && (massage.start | date:'yyyy') === '2023'">
+            <button mat-raised-button (click)="editAccMassageAppt(massage)">
+              <span class="am-item" [ngStyle]="{ color: massage.color }">
+                {{ massage.start }}
+              </span>
+            </button>
+          </ng-container>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="2024">
+    <ng-template matTabContent>
+      <div class="row wrap">
+        <div *ngFor="let massage of massages">
+          <ng-container *ngIf="massage.start && (massage.start | date:'yyyy') === '2024'">
+            <button mat-raised-button (click)="editAccMassageAppt(massage)">
+              <span class="am-item" [ngStyle]="{ color: massage.color }">
+                {{ massage.start }}
+              </span>
+            </button>
+          </ng-container>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+  <mat-tab label="2025">
+    <ng-template matTabContent>
+      <div class="row wrap">
+        <div *ngFor="let massage of massages">
+          <ng-container *ngIf="massage.start && (massage.start | date:'yyyy') === '2025'">
+            <button mat-raised-button (click)="editAccMassageAppt(massage)">
+              <span class="am-item" [ngStyle]="{ color: massage.color }">
+                {{ massage.start }}
+              </span>
+            </button>
+          </ng-container>
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
+
+        <!-- 3. Acupunctures Tab -->
+        <mat-tab *ngIf="acupunctures?.length > 0" label="Acupunctures ({{ acupunctures.length }})">
+          <ng-template matTabContent>
+            <div class="row wrap">
+              <div *ngFor="let acupuncture of acupunctures">
+                <button mat-raised-button (click)="editAccMassageAppt(acupuncture)">
+                  <span class="am-item" [ngStyle]="{ color: acupuncture.color }">
+                    {{ acupuncture.start }}
+                  </span>
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </mat-tab>
+
+        <!-- 4. Acupuncture by Year -->
+        <mat-tab *ngIf="acupunctures?.length > 0" label="Acupuncture by Year">
+          <mat-tab-group>
+            <mat-tab label="2023" *ngIf="accu2023.length">
+              <ng-template matTabContent>
+                <div class="row wrap">
+                  <div *ngFor="let acupuncture of accu2023">
+                    <button mat-raised-button (click)="editAccMassageAppt(acupuncture)">
+                      <span class="am-item" [ngStyle]="{ color: acupuncture.color }">
+                        {{ acupuncture.start }}
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="2024" *ngIf="accu2024.length">
+              <ng-template matTabContent>
+                <div class="row wrap">
+                  <div *ngFor="let acupuncture of accu2024">
+                    <button mat-raised-button (click)="editAccMassageAppt(acupuncture)">
+                      <span class="am-item" [ngStyle]="{ color: acupuncture.color }">
+                        {{ acupuncture.start }}
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="2025" *ngIf="accu2025.length">
+              <ng-template matTabContent>
+                <div class="row wrap">
+                  <div *ngFor="let acupuncture of accu2025">
+                    <button mat-raised-button (click)="editAccMassageAppt(acupuncture)">
+                      <span class="am-item" [ngStyle]="{ color: acupuncture.color }">
+                        {{ acupuncture.start }}
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-tab>
+
+        <!-- 5. Physical Therapy Tab -->
+        <mat-tab *ngIf="Ptappts?.length > 0" label="Physical Therapy ({{ Ptappts.length }})">
+          <ng-template matTabContent>
             <div class="mat-elevation-z6 table-responsive">
-              <table
-                mat-table
-                [dataSource]="dataSource?.sumPoints"
-                class="tablelist mat-elevation-z8"
-              >
-              <ng-container matColumnDef="tran_type">
-                <th mat-header-cell *matHeaderCellDef>Type</th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element.tran_type}}
-              
-                </td>
-                <td mat-footer-cell *matFooterCellDef> Total</td>
-
-              </ng-container>
-    
-                <ng-container matColumnDef="totPoints">
-                  <th mat-header-cell *matHeaderCellDef>Points</th>
+              <table mat-table [dataSource]="Ptappts" class="tablelist mat-elevation-z8">
+                <ng-container matColumnDef="apptDateTime">
+                  <th mat-header-cell *matHeaderCellDef>Appt Date</th>
                   <td mat-cell *matCellDef="let element">
-                    {{ element.totPoints}}
-                
+                    {{ element.start | date : "EEE dd MMM yyyy" }}
+                    <mat-icon *ngIf="element.initialVisit">accessibility_new</mat-icon>
+                    <mat-icon *ngIf="element.reserveRide == 'Y'">directions_car</mat-icon>
                   </td>
-                  <td mat-footer-cell *matFooterCellDef> {{summarize(dataSource?.sumPoints,'totPoints')}} </td>
-
                 </ng-container>
-                <ng-container matColumnDef="totPendPoints">
-                  <th mat-header-cell *matHeaderCellDef>Pending Points</th>
+                <ng-container matColumnDef="apptTime">
+                  <th mat-header-cell *matHeaderCellDef>Appt Time</th>
                   <td mat-cell *matCellDef="let element">
-                    {{ element.totPendPoints}}
-                
+                    {{ element.start | date : "shortTime" }}
                   </td>
-                  <td mat-footer-cell *matFooterCellDef> {{summarize(dataSource?.sumPoints,'totPendPoints')}} </td>
-     
                 </ng-container>
-                <ng-container matColumnDef="totdaypass">
-                  <th mat-header-cell *matHeaderCellDef>DP</th>
+                <ng-container matColumnDef="duration">
+                  <th mat-header-cell *matHeaderCellDef>Duration</th>
                   <td mat-cell *matCellDef="let element">
-                    {{ element.totdaypass}}
-                
+                    {{ element.apptDuration }}
                   </td>
-                  <td mat-footer-cell *matFooterCellDef> {{summarize(dataSource?.sumPoints,'totdaypass')}} </td>
-
                 </ng-container>
-                <ng-container matColumnDef="totPenddaypass">
-                  <th mat-header-cell *matHeaderCellDef>Pending DP</th>
+                <ng-container matColumnDef="PTStaff">
+                  <th mat-header-cell *matHeaderCellDef>PT Staff</th>
                   <td mat-cell *matCellDef="let element">
-                    {{ element.totPenddaypass}}
-                
-                  </td> 
-                  <td mat-footer-cell *matFooterCellDef> {{summarize(dataSource?.sumPoints,'totPenddaypass')}} </td>
-
+                    {{ element.PTStaff }}
+                  </td>
                 </ng-container>
-         
-                   <tr
-                  mat-header-row
-                  *matHeaderRowDef="pointsDisplayedColumns; sticky: true"
-                ></tr>
-                <tr
-                  class
-                  mat-row
-                  *matRowDef="let row; columns: pointsDisplayedColumns"
-                ></tr>
-                <tr mat-footer-row *matFooterRowDef="pointsDisplayedColumns"></tr>
-
+                <tr mat-header-row *matHeaderRowDef="PtDisplayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: PtDisplayedColumns" (click)="editAppt(row)"></tr>
               </table>
             </div>
           </ng-template>
-       </mat-tab>
-      <mat-tab *ngIf="member?.notes! > ''" label="NOTES">
+        </mat-tab>
 
-        <div style="flex: 1; padding: 10px" [innerHTML]="member.notes"></div>
-      </mat-tab>
-      <mat-tab
-        *ngIf="Ptappts?.length > 0"
-        label="H S PT ({{ Ptappts.length }})"
-      >
-      <ng-template matTabContent>
+        <!-- 6. Physical Therapy by Year -->
+        <mat-tab *ngIf="Ptappts?.length > 0" label="Physical Therapy by Year">
+          <mat-tab-group>
+            <mat-tab label="2023" *ngIf="pt2023.length">
+              <ng-template matTabContent>
+                <div class="mat-elevation-z6 table-responsive">
+                  <table mat-table [dataSource]="pt2023" class="tablelist mat-elevation-z8">
+                    <ng-container matColumnDef="apptDateTime">
+                      <th mat-header-cell *matHeaderCellDef>Appt Date</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.start | date : "EEE dd MMM yyyy" }}
+                        <mat-icon *ngIf="element.initialVisit">accessibility_new</mat-icon>
+                        <mat-icon *ngIf="element.reserveRide == 'Y'">directions_car</mat-icon>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="apptTime">
+                      <th mat-header-cell *matHeaderCellDef>Appt Time</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.start | date : "shortTime" }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="duration">
+                      <th mat-header-cell *matHeaderCellDef>Duration</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.apptDuration }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="PTStaff">
+                      <th mat-header-cell *matHeaderCellDef>PT Staff</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.PTStaff }}
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="PtDisplayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: PtDisplayedColumns" (click)="editAppt(row)"></tr>
+                  </table>
+                </div>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="2024" *ngIf="pt2024.length">
+              <ng-template matTabContent>
+                <div class="mat-elevation-z6 table-responsive">
+                  <table mat-table [dataSource]="pt2024" class="tablelist mat-elevation-z8">
+                    <ng-container matColumnDef="apptDateTime">
+                      <th mat-header-cell *matHeaderCellDef>Appt Date</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.start | date : "EEE dd MMM yyyy" }}
+                        <mat-icon *ngIf="element.initialVisit">accessibility_new</mat-icon>
+                        <mat-icon *ngIf="element.reserveRide == 'Y'">directions_car</mat-icon>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="apptTime">
+                      <th mat-header-cell *matHeaderCellDef>Appt Time</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.start | date : "shortTime" }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="duration">
+                      <th mat-header-cell *matHeaderCellDef>Duration</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.apptDuration }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="PTStaff">
+                      <th mat-header-cell *matHeaderCellDef>PT Staff</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.PTStaff }}
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="PtDisplayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: PtDisplayedColumns" (click)="editAppt(row)"></tr>
+                  </table>
+                </div>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="2025" *ngIf="pt2025.length">
+              <ng-template matTabContent>
+                <div class="mat-elevation-z6 table-responsive">
+                  <table mat-table [dataSource]="pt2025" class="tablelist mat-elevation-z8">
+                    <ng-container matColumnDef="apptDateTime">
+                      <th mat-header-cell *matHeaderCellDef>Appt Date</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.start | date : "EEE dd MMM yyyy" }}
+                        <mat-icon *ngIf="element.initialVisit">accessibility_new</mat-icon>
+                        <mat-icon *ngIf="element.reserveRide == 'Y'">directions_car</mat-icon>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="apptTime">
+                      <th mat-header-cell *matHeaderCellDef>Appt Time</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.start | date : "shortTime" }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="duration">
+                      <th mat-header-cell *matHeaderCellDef>Duration</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.apptDuration }}
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="PTStaff">
+                      <th mat-header-cell *matHeaderCellDef>PT Staff</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.PTStaff }}
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="PtDisplayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: PtDisplayedColumns" (click)="editAppt(row)"></tr>
+                  </table>
+                </div>
+              </ng-template>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-tab>
 
-        <div class="mat-elevation-z6 table-responsive">
-          <table
-            mat-table
-            [dataSource]="Ptappts"
-            class="tablelist mat-elevation-z8"
-          >
-            <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
+        <!-- 7. Rides Tab -->
+        <mat-tab *ngIf="trips?.length > 0" label="Rides ({{ trips.length }})">
+          <ng-template matTabContent>
+            <div class="mat-elevation-z6 table-responsive">
+              <table mat-table [dataSource]="trips" class="tablelist mat-elevation-z8">
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Pickup Date
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.pickupDate | date : "EEE dd MMM yyyy" }}
+                    <mat-icon *ngIf="element.wheelChair">accessible</mat-icon>
+                    <mat-icon *ngIf="element.ptapptsID > 0">accessibility</mat-icon>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="pickupDate">
+                  <th mat-header-cell *matHeaderCellDef>Pick</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.pickupDate | date : "shortTime" }}
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="TripsDisplayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: TripsDisplayedColumns" (click)="editRide(row)"></tr>
+              </table>
+            </div>
+          </ng-template>
+        </mat-tab>
 
-            <ng-container matColumnDef="apptDateTime">
-              <th mat-header-cell *matHeaderCellDef>Appt Date</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.start | date : "EEE dd MMM yyyy" }}
-                <mat-icon *ngIf="element.initialVisit"
-                  >accessibility_new</mat-icon
-                >
+        <!-- 8. Rides by Year -->
+        <mat-tab *ngIf="trips?.length > 0" label="Rides by Year">
+          <mat-tab-group>
+            <mat-tab label="2023" *ngIf="rides2023.length">
+              <ng-template matTabContent>
+                <div class="mat-elevation-z6 table-responsive">
+                  <table mat-table [dataSource]="rides2023" class="tablelist mat-elevation-z8">
+                    <ng-container matColumnDef="name">
+                      <th mat-header-cell *matHeaderCellDef>Pickup Date</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.pickupDate | date : "EEE dd MMM yyyy" }}
+                        <mat-icon *ngIf="element.wheelChair">accessible</mat-icon>
+                        <mat-icon *ngIf="element.ptapptsID > 0">accessibility</mat-icon>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="pickupDate">
+                      <th mat-header-cell *matHeaderCellDef>Pick</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.pickupDate | date : "shortTime" }}
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="TripsDisplayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: TripsDisplayedColumns" (click)="editRide(row)"></tr>
+                  </table>
+                </div>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="2024" *ngIf="rides2024.length">
+              <ng-template matTabContent>
+                <div class="mat-elevation-z6 table-responsive">
+                  <table mat-table [dataSource]="rides2024" class="tablelist mat-elevation-z8">
+                    <ng-container matColumnDef="name">
+                      <th mat-header-cell *matHeaderCellDef>Pickup Date</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.pickupDate | date : "EEE dd MMM yyyy" }}
+                        <mat-icon *ngIf="element.wheelChair">accessible</mat-icon>
+                        <mat-icon *ngIf="element.ptapptsID > 0">accessibility</mat-icon>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="pickupDate">
+                      <th mat-header-cell *matHeaderCellDef>Pick</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.pickupDate | date : "shortTime" }}
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="TripsDisplayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: TripsDisplayedColumns" (click)="editRide(row)"></tr>
+                  </table>
+                </div>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="2025" *ngIf="rides2025.length">
+              <ng-template matTabContent>
+                <div class="mat-elevation-z6 table-responsive">
+                  <table mat-table [dataSource]="rides2025" class="tablelist mat-elevation-z8">
+                    <ng-container matColumnDef="name">
+                      <th mat-header-cell *matHeaderCellDef>Pickup Date</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.pickupDate | date : "EEE dd MMM yyyy" }}
+                        <mat-icon *ngIf="element.wheelChair">accessible</mat-icon>
+                        <mat-icon *ngIf="element.ptapptsID > 0">accessibility</mat-icon>
+                      </td>
+                    </ng-container>
+                    <ng-container matColumnDef="pickupDate">
+                      <th mat-header-cell *matHeaderCellDef>Pick</th>
+                      <td mat-cell *matCellDef="let element">
+                        {{ element.pickupDate | date : "shortTime" }}
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="TripsDisplayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: TripsDisplayedColumns" (click)="editRide(row)"></tr>
+                  </table>
+                </div>
+              </ng-template>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-tab>
 
-                <mat-icon *ngIf="element.reserveRide == 'Y'"
-                  >directions_car</mat-icon
-                >
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="apptTime">
-              <th mat-header-cell *matHeaderCellDef>Appt Time</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.start | date : "shortTime" }}
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="duration">
-              <th mat-header-cell *matHeaderCellDef>Duration</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.apptDuration }}
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="PTStaff">
-              <th mat-header-cell *matHeaderCellDef>PT Staff</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.PTStaff }}
-              </td>
-            </ng-container>
-            <tr
-              mat-header-row
-              *matHeaderRowDef="PtDisplayedColumns; sticky: true"
-            ></tr>
-            <tr
-              class="cursorP"
-              mat-row
-              *matRowDef="let row; columns: PtDisplayedColumns"
-              (click)="editAppt(row)"
-            ></tr>
-          </table>
-        </div>
-      </ng-template>
-
-      </mat-tab>
-      <mat-tab *ngIf="trips?.length > 0" label="Rides ({{ trips.length }})">
-        <ng-template matTabContent>
-
-        <div class="mat-elevation-z6 table-responsive">
-          <table
-            mat-table
-            [dataSource]="trips"
-            class="tablelist mat-elevation-z8"
-          >
-            <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                Pickup Date
-              </th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.pickupDate | date : "EEE dd MMM yyyy" }}
-
-                <mat-icon *ngIf="element.wheelChair">accessible</mat-icon>
-                <mat-icon *ngIf="element.ptapptsID > 0">accessibility</mat-icon>
-              </td>
-            </ng-container>
-
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="pickupDate">
-              <th mat-header-cell *matHeaderCellDef>Pick</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.pickupDate | date : "shortTime" }}
-              </td>
-            </ng-container>
-
-            <tr
-              mat-header-row
-              *matHeaderRowDef="TripsDisplayedColumns; sticky: true"
-            ></tr>
-            <tr
-              class="cursorP"
-              mat-row
-              *matRowDef="let row; columns: TripsDisplayedColumns"
-              (click)="editRide(row)"
-            ></tr>
-          </table>
-        </div>
-      </ng-template>
-
-      </mat-tab>
-      <mat-tab *ngIf="lunches?.length > 0" label="Lunch ({{ lunches.length }})">
-        <div class="row wrap">
-          <div *ngFor="let lunch of lunches">
-            <button mat-raised-button (click)="openLunchDialog(lunch)">
-              {{ lunch.start | date : "EEE dd MMM yyyy" }}
-            </button>
-          </div>
-        </div>
-      </mat-tab>
-      <mat-tab
-        *ngIf="massages?.length > 0"
-        label="Massages ({{ massages.length }})"
-      >
-      <ng-template matTabContent>
-
-        <div class="row wrap">
-          <div *ngFor="let massage of massages">
-            <button mat-raised-button (click)="editAccMassageAppt(massage)">
-              <span class="am-item" [ngStyle]="{ color: massage.color }">
-                {{ massage.start }}</span
-              >
-            </button>
-          </div>
-        </div>
-      </ng-template>
-
-      </mat-tab>
-      <mat-tab
-      
-        *ngIf="acupunctures?.length > 0"
-        label="Acupunctures ({{ acupunctures.length }})"
-      >
-      <ng-template matTabContent>
-
-        <div class="row wrap">
-          <div *ngFor="let acupuncture of acupunctures">
-            <button mat-raised-button (click)="editAccMassageAppt(acupuncture)">
-              <span class="am-item" [ngStyle]="{ color: acupuncture.color }">
-                {{ acupuncture.start }}</span
-              >
-            </button>
-          </div>
-        </div>
-      </ng-template>
-      </mat-tab>
-      <ng-container *ngFor="let pointType of pointTypes">
-
-        <mat-tab
-        label="{{pointType.label}}  ({{ dataSource[pointType.source].length }})"
-        *ngIf="dataSource[pointType.source].length > 0"
-      >
-      <ng-template matTabContent>
-
-        <ng-container
-          *ngTemplateOutlet="
-            pointsTransTemplate;
-            context: {
-              point_type: pointType.type,
-              dataSource: dataSource[pointType.source],
-              displayColumns: pointType.displayColumns                 
-            }
-          "
-        ></ng-container>
-      </ng-template>
-      </mat-tab>    
-      </ng-container>
+        <!-- Points Summary Tab -->
+        <mat-tab *ngIf="dataSource?.sumPoints.length > 0" label="POINTS SUMMARY">
+          <ng-template matTabContent>
+            <div class="mat-elevation-z6 table-responsive">
+              <table mat-table [dataSource]="dataSource?.sumPoints" class="tablelist mat-elevation-z8">
+                <ng-container matColumnDef="tran_type">
+                  <th mat-header-cell *matHeaderCellDef>Type</th>
+                  <td mat-cell *matCellDef="let element">{{ element.tran_type }}</td>
+                  <td mat-footer-cell *matFooterCellDef>Total</td>
+                </ng-container>
+                <ng-container matColumnDef="totPoints">
+                  <th mat-header-cell *matHeaderCellDef>Points</th>
+                  <td mat-cell *matCellDef="let element">{{ element.totPoints }}</td>
+                  <td mat-footer-cell *matFooterCellDef>{{ summarize(dataSource?.sumPoints, 'totPoints') }}</td>
+                </ng-container>
+                <ng-container matColumnDef="totPendPoints">
+                  <th mat-header-cell *matHeaderCellDef>Pending Points</th>
+                  <td mat-cell *matCellDef="let element">{{ element.totPendPoints }}</td>
+                  <td mat-footer-cell *matFooterCellDef>{{ summarize(dataSource?.sumPoints, 'totPendPoints') }}</td>
+                </ng-container>
+                <ng-container matColumnDef="totdaypass">
+                  <th mat-header-cell *matHeaderCellDef>DP</th>
+                  <td mat-cell *matCellDef="let element">{{ element.totdaypass }}</td>
+                  <td mat-footer-cell *matFooterCellDef>{{ summarize(dataSource?.sumPoints, 'totdaypass') }}</td>
+                </ng-container>
+                <ng-container matColumnDef="totPenddaypass">
+                  <th mat-header-cell *matHeaderCellDef>Pending DP</th>
+                  <td mat-cell *matCellDef="let element">{{ element.totPenddaypass }}</td>
+                  <td mat-footer-cell *matFooterCellDef>{{ summarize(dataSource?.sumPoints, 'totPenddaypass') }}</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="pointsDisplayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: pointsDisplayedColumns"></tr>
+                <tr mat-footer-row *matFooterRowDef="pointsDisplayedColumns"></tr>
+              </table>
+            </div>
+          </ng-template>
+        </mat-tab>
 
    
-    </mat-tab-group>
-  </div>
-</jimgcard>
-<ng-template
-  #pointsTransTemplate
-  let-dataSource="dataSource"
-  let-point_type="point_type"
-  let-displayColumns="displayColumns"
->
-  <div class="mat-elevation-z6 table-responsive">
-    <table
-      mat-table
-      [dataSource]="dataSource"
-      class="tablelist mat-elevation-z8"
-    >
-      <!--- Note that these columns can be defined in any order.
-  The actual rendered columns are set as a property on the row definition" -->
 
-      <ng-container matColumnDef="transactiondate">
-        <th mat-header-cell *matHeaderCellDef>Transaction Date</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.transactiondate }}
-        </td>
-        <td mat-footer-cell *matFooterCellDef> Total </td>
+      
+<!-- Renewal Points -->
+  <mat-tab *ngIf="showRenewalPoints" label="RENEWAL POINTS ({{ renewalPointsCount }})">
+    <ng-template matTabContent>
+      <div class="mat-elevation-z6 table-responsive" style="margin-bottom: 10px;">
+        <table mat-table [dataSource]="[{ points: renewalPoints }]" class="tablelist mat-elevation-z8">
+          <ng-container matColumnDef="points">
+            <th mat-header-cell *matHeaderCellDef>Total Points</th>
+            <td mat-cell *matCellDef="let element" style="background-color: #e8f5e9; font-weight: bold; font-size: 1.2rem;">
+              {{ element.points }}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['points']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['points']"></tr>
+        </table>
+      </div>
+      <div class="table-container">
+        <table mat-table [dataSource]="renewalPointsData" class="tablelist mat-elevation-z8 points-table">
+          <ng-container matColumnDef="mbrshpStartDate">
+            <th mat-header-cell *matHeaderCellDef>Start Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.mbrshpStartDate | date : 'MMM d, yyyy' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="mbrshpEndDate">
+            <th mat-header-cell *matHeaderCellDef>End Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.mbrshpEndDate | date : 'MMM d, yyyy' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="points">
+            <th mat-header-cell *matHeaderCellDef>Points</th>
+            <td mat-cell *matCellDef="let element">{{ element.points }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="renewalPointsColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: renewalPointsColumns" (click)="onEditPoints(row)" style="cursor:pointer"></tr>
+        </table>
+      </div>
+    </ng-template>
+  </mat-tab>
 
-      </ng-container>
+  <!-- Renewal DPS -->
+  <mat-tab *ngIf="showRenewalDPS" label="RENEWAL DPS ({{ renewalDPsCount }})">
+    <ng-template matTabContent>
+      <div class="mat-elevation-z6 table-responsive" style="margin-bottom: 10px;">
+        <table mat-table [dataSource]="[{ daypass: renewalDPs }]" class="tablelist mat-elevation-z8">
+          <ng-container matColumnDef="daypass">
+            <th mat-header-cell *matHeaderCellDef>Total DPS</th>
+            <td mat-cell *matCellDef="let element" style="background-color: #e8f5e9; font-weight: bold; font-size: 1.2rem;">
+              {{ element.daypass }}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['daypass']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['daypass']"></tr>
+        </table>
+      </div>
+      <div class="table-container">
+        <table mat-table [dataSource]="renewalDPSData" class="tablelist mat-elevation-z8 dps-table">
+          <ng-container matColumnDef="mbrshpStartDate">
+            <th mat-header-cell *matHeaderCellDef>Start Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.mbrshpStartDate | date : 'MMM d, yyyy' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="mbrshpEndDate">
+            <th mat-header-cell *matHeaderCellDef>End Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.mbrshpEndDate | date : 'MMM d, yyyy' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="daypass">
+            <th mat-header-cell *matHeaderCellDef>DPS</th>
+            <td mat-cell *matCellDef="let element">{{ element.daypass }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="renewalDPSColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: renewalDPSColumns" (click)="onEditDPS(row)" style="cursor:pointer"></tr>
+        </table>
+      </div>
+    </ng-template>
+  </mat-tab>
 
-      <ng-container matColumnDef="mbrshpStartDate">
-        <th mat-header-cell *matHeaderCellDef>Start</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.mbrshpStartDate }}
-        </td>
-        <td mat-footer-cell *matFooterCellDef> Total</td>
+  <!-- Earned Points -->
+  <mat-tab *ngIf="showEarnedPoints" label="EARNED POINTS ({{ earnedPointsCount }})">
+    <ng-template matTabContent>
+      <div class="mat-elevation-z6 table-responsive" style="margin-bottom: 10px;">
+        <table mat-table [dataSource]="[{ points: earnedPoints }]" class="tablelist mat-elevation-z8">
+          <ng-container matColumnDef="points">
+            <th mat-header-cell *matHeaderCellDef>Total Points</th>
+            <td mat-cell *matCellDef="let element" style="background-color: #e8f5e9; font-weight: bold; font-size: 1.2rem;">
+              {{ element.points }}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['points']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['points']"></tr>
+        </table>
+      </div>
+      <div class="table-container">
+        <table mat-table [dataSource]="earnedPointsData" class="tablelist mat-elevation-z8 points-table">
+          <ng-container matColumnDef="transactiondate">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.transactiondate | date : 'MMM d, yyyy' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="points">
+            <th mat-header-cell *matHeaderCellDef>Points</th>
+            <td mat-cell *matCellDef="let element">{{ element.points }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="earnedPointsColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: earnedPointsColumns" (click)="onEditPoints(row)" style="cursor:pointer"></tr>
+        </table>
+      </div>
+    </ng-template>
+  </mat-tab>
 
-      </ng-container>
-      <ng-container matColumnDef="mbrshpEndDate">
-        <th mat-header-cell *matHeaderCellDef>End</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.mbrshpEndDate }}
-        </td>
-        <td mat-footer-cell *matFooterCellDef></td>
+  <!-- Earned DPS -->
+  <mat-tab *ngIf="showEarnedDPS" label="EARNED DPS ({{ earnedDPsCount }})">
+    <ng-template matTabContent>
+      <div class="mat-elevation-z6 table-responsive" style="margin-bottom: 10px;">
+        <table mat-table [dataSource]="[{ daypass: earnedDPs }]" class="tablelist mat-elevation-z8">
+          <ng-container matColumnDef="daypass">
+            <th mat-header-cell *matHeaderCellDef>Total DPS</th>
+            <td mat-cell *matCellDef="let element" style="background-color: #e8f5e9; font-weight: bold; font-size: 1.2rem;">
+              {{ element.daypass }}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['daypass']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['daypass']"></tr>
+        </table>
+      </div>
+      <div class="table-container">
+        <table mat-table [dataSource]="earnedDPSData" class="tablelist mat-elevation-z8 dps-table">
+          <ng-container matColumnDef="transactiondate">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.transactiondate | date : 'MMM d, yyyy' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="daypass">
+            <th mat-header-cell *matHeaderCellDef>DPS</th>
+            <td mat-cell *matCellDef="let element">{{ element.daypass }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="earnedDPSColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: earnedDPSColumns" (click)="onEditDPS(row)" style="cursor:pointer"></tr>
+        </table>
+      </div>
+    </ng-template>
+  </mat-tab>
 
-      </ng-container>
+  <!-- Purchased Points -->
+  <mat-tab *ngIf="showPurchasedPoints" label="PURCHASED POINTS ({{ purchasedPointsCount }})">
+    <ng-template matTabContent>
+      <div class="mat-elevation-z6 table-responsive" style="margin-bottom: 10px;">
+        <table mat-table [dataSource]="[{ points: purchasedPoints }]" class="tablelist mat-elevation-z8">
+          <ng-container matColumnDef="points">
+            <th mat-header-cell *matHeaderCellDef>Total Points</th>
+            <td mat-cell *matCellDef="let element" style="background-color: #e8f5e9; font-weight: bold; font-size: 1.2rem;">
+              {{ element.points }}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['points']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['points']"></tr>
+        </table>
+      </div>
+      <div class="table-container">
+        <table mat-table [dataSource]="purchasedPointsData" class="tablelist mat-elevation-z8 points-table">
+          <ng-container matColumnDef="transactiondate">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.transactiondate | date : 'MMM d, yyyy' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="amtpaid">
+            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <td mat-cell *matCellDef="let element">{{ element.amtpaid }}</td>
+          </ng-container>
+          <ng-container matColumnDef="points">
+            <th mat-header-cell *matHeaderCellDef>Points</th>
+            <td mat-cell *matCellDef="let element">{{ element.points }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="purchasedPointsColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: purchasedPointsColumns" (click)="onEditPoints(row)" style="cursor:pointer"></tr>
+        </table>
+      </div>
+    </ng-template>
+  </mat-tab>
 
-      <ng-container matColumnDef="amtpaid">
-        <th mat-header-cell *matHeaderCellDef>Amount</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.amtpaid }}
-        </td>
-        <td mat-footer-cell *matFooterCellDef></td>
+  <!-- Purchased DPS -->
+  <mat-tab *ngIf="showPurchasedDPS" label="PURCHASED DPS ({{ purchasedDPsCount }})">
+    <ng-template matTabContent>
+      <div class="mat-elevation-z6 table-responsive" style="margin-bottom: 10px;">
+        <table mat-table [dataSource]="[{ daypass: purchasedDPs }]" class="tablelist mat-elevation-z8">
+          <ng-container matColumnDef="daypass">
+            <th mat-header-cell *matHeaderCellDef>Total DPS</th>
+            <td mat-cell *matCellDef="let element" style="background-color: #e8f5e9; font-weight: bold; font-size: 1.2rem;">
+              {{ element.daypass }}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['daypass']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['daypass']"></tr>
+        </table>
+      </div>
+      <div class="table-container">
+        <table mat-table [dataSource]="purchasedDPSData" class="tablelist mat-elevation-z8 dps-table">
+          <ng-container matColumnDef="transactiondate">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.transactiondate | date : 'MMM d, yyyy' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="amtpaid">
+            <th mat-header-cell *matHeaderCellDef>Amount</th>
+            <td mat-cell *matCellDef="let element">{{ element.amtpaid }}</td>
+          </ng-container>
+          <ng-container matColumnDef="daypass">
+            <th mat-header-cell *matHeaderCellDef>DPS</th>
+            <td mat-cell *matCellDef="let element">{{ element.daypass }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="purchasedDPSColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: purchasedDPSColumns" (click)="onEditDPS(row)" style="cursor:pointer"></tr>
+        </table>
+      </div>
+    </ng-template>
+  </mat-tab>
 
-      </ng-container>
-      <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef>Method</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.description }}
-        </td>
-        <td mat-footer-cell *matFooterCellDef></td>
+  <!-- Redeemed Points -->
+  <mat-tab *ngIf="showRedeemedPoints" label="REDEEMED POINTS ({{ redeemedPointsCount }})">
+    <ng-template matTabContent>
+      <div class="mat-elevation-z6 table-responsive" style="margin-bottom: 10px;">
+        <table mat-table [dataSource]="[{ points: redeemedPoints }]" class="tablelist mat-elevation-z8">
+          <ng-container matColumnDef="points">
+            <th mat-header-cell *matHeaderCellDef>Total Points</th>
+            <td mat-cell *matCellDef="let element" style="background-color: #e8f5e9; font-weight: bold; font-size: 1.2rem;">
+              {{ element.points }}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['points']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['points']"></tr>
+        </table>
+      </div>
+      <div class="table-container">
+        <table mat-table [dataSource]="redeemedPointsData" class="tablelist mat-elevation-z8 points-table">
+          <ng-container matColumnDef="transactiondate">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.transactiondate | date : 'MMM d, yyyy' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="points">
+            <th mat-header-cell *matHeaderCellDef>Points</th>
+            <td mat-cell *matCellDef="let element">{{ element.points }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="redeemedPointsColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: redeemedPointsColumns" (click)="onEditPoints(row)" style="cursor:pointer"></tr>
+        </table>
+      </div>
+    </ng-template>
+  </mat-tab>
 
-      </ng-container>
-      <ng-container matColumnDef="daypass">
-        <th mat-header-cell *matHeaderCellDef>Day Pass</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.daypass }}
-        </td>
-        <td mat-footer-cell *matFooterCellDef> {{summarize(dataSource,'daypass')}} </td>
+  <!-- Redeemed DPS -->
+  <mat-tab *ngIf="showRedeemedDPS" label="REDEEMED DPS ({{ redeemedDPsCount }})">
+    <ng-template matTabContent>
+      <div class="mat-elevation-z6 table-responsive" style="margin-bottom: 10px;">
+        <table mat-table [dataSource]="[{ daypass: redeemedDPs }]" class="tablelist mat-elevation-z8">
+          <ng-container matColumnDef="daypass">
+            <th mat-header-cell *matHeaderCellDef>Total DPS</th>
+            <td mat-cell *matCellDef="let element" style="background-color: #e8f5e9; font-weight: bold; font-size: 1.2rem;">
+              {{ element.daypass }}
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['daypass']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['daypass']"></tr>
+        </table>
+      </div>
+      <div class="table-container">
+        <table mat-table [dataSource]="redeemedDPSData" class="tablelist mat-elevation-z8 dps-table">
+          <ng-container matColumnDef="transactiondate">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.transactiondate | date : 'MMM d, yyyy' }}</td>
+          </ng-container>
+          <ng-container matColumnDef="daypass">
+            <th mat-header-cell *matHeaderCellDef>DPS</th>
+            <td mat-cell *matCellDef="let element">{{ element.daypass }}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="redeemedDPSColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: redeemedDPSColumns" (click)="onEditDPS(row)" style="cursor:pointer"></tr>
+        </table>
+      </div>
+    </ng-template>
+  </mat-tab>
 
-      </ng-container>
-      <ng-container matColumnDef="points">
-        <th mat-header-cell *matHeaderCellDef>Points</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.points }}
-        </td>
-        <td mat-footer-cell *matFooterCellDef> {{summarize(dataSource,'points')}} </td>
+      
 
-      </ng-container>
-      <ng-container matColumnDef="notes">
-        <th mat-header-cell *matHeaderCellDef>Notes</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.notes }}
-        </td>
-        <td mat-footer-cell *matFooterCellDef></td>
+        <!-- Notes Tab -->
+        <mat-tab *ngIf="member?.notes! > ''" label="NOTES">
+          <div style="flex: 1; padding: 10px" [innerHTML]="member.notes"></div>
+        </mat-tab>
 
-      </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayColumns; sticky: true"></tr>
-      <tr
-        mat-row
-        *matRowDef="let row; columns: displayColumns"
-        class="pointer"
-        (click)="
-          openMemberPoints({
-            tran_type: point_type,
-            memberId: member?.id!,
-            id: row.id
-          })
-        "
-      ></tr>
-      <tr mat-footer-row *matFooterRowDef="displayColumns"></tr>
-
-    </table>
-  </div>
-</ng-template>
-
-
-
+        <!-- Lunch Tab -->
+        <mat-tab *ngIf="lunches?.length > 0" label="Lunch ({{ lunches.length }})">
+          <div class="row wrap">
+            <div *ngFor="let lunch of lunches">
+              <button mat-raised-button (click)="openLunchDialog(lunch)">
+                {{ lunch.start | date : "EEE dd MMM yyyy" }}
+              </button>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </jimgcard>
+</div>

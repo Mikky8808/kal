@@ -222,30 +222,35 @@ export class TripApptCreateComponent implements OnInit, OnDestroy {
   onSave() {
     this.submitButton?.nativeElement.click();
   }
-  onSubmit() {
-    let value = { ...this.form.value };
-    value.rider_id = value.member.id;
-    value.name = value.member.fullName;
-    value.daysSelected = [...this.daysSelected];
-    this.Busy=true;
-    this.db.createRideAppt(value).subscribe({
-      next: (json: any) => {
-        this.setupForm({});
-        this.Ready = false;
-        this.Busy=false;
-        setTimeout(() => {
-          this.Ready = true;
-        }, 50);
-        this.notification.notify('Appointment Created');
-        this.daysSelected = [];
-        this.onClose();
-      },
-      error: (err: any) => {
-        this.kalanisession.showErrorMsg(err);
-        this.Busy=false;
-      },
-    });
-  }
+onSubmit() {
+  let value = { ...this.form.value };
+  value.rider_id = value.member.id;
+  value.name = value.member.fullName;
+  value.daysSelected = [...this.daysSelected];
+  this.Busy = true;
+
+  this.db.createRideAppt(value).subscribe({
+    next: (json: any) => {
+      this.setupForm({});
+      this.Ready = false;
+      this.Busy = false;
+      setTimeout(() => {
+        this.Ready = true;
+      }, 50);
+      // Use backend message for notification
+      this.notification.notify(json.message || 'Submitted');
+      this.daysSelected = [];
+      this.onClose();
+    },
+    error: (err: any) => {
+      // Extract backend error message if available
+      const message = err?.error?.message || err?.message || 'Something went wrong';
+      this.notification.notify(message);
+      this.Busy = false;
+    },
+  });
+}
+
 
 
   onSelectDate(event: any, calendar: any) {

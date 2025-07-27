@@ -103,7 +103,7 @@ export class AccuMassageApptsComponent implements OnInit, OnDestroy {
     // initialView: 'timeGridDay',
     initialView: this.user.isLa_Lmt ? 'timeGridDay' : 'timeGridWeek',
     // initialView: 'multiMonthYear',
-    hiddenDays: [2, 5],
+    hiddenDays: [ 5],
     selectable: true,
     selectMirror: true,
     navLinks: true,

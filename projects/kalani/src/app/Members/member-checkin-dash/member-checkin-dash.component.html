@@ -1,17 +1,19 @@
 <jimgcard [heading]="'Member Checkin: ' + heading?.title">
+  <!-- Hidden input for barcode scanner -->
+  <input
+    #hiddenMemberIdInput
+    type="text"
+    style="opacity:0;position:absolute;left:-9999px;"
+    (change)="onBarcodeScanned(hiddenMemberIdInput.value)"
+    autocomplete="off"
+  />
+
   <div toolbar class="toolbar">
-    <!-- <button
-      mat-icon-button
-      (click)="Print=true;"
-    >
-      <mat-icon>print</mat-icon>
-    </button> -->
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>preview</mat-icon>
     </button>
 
     <mat-menu #menu="matMenu">
-      <!-- <button mat-menu-item (click)="changeView(bar.view) " *ngFor ='let bar of CALTOOLBARVIEW'>{{bar.name}}</button> -->
       <mat-button-toggle-group [vertical]="true" style="width: 98%">
         <mat-button-toggle
           (click)="changeView(bar.view)"
@@ -38,42 +40,42 @@
     </button>
   </div>
 
+  <!-- ✅ Show scan success or error message for 2 seconds -->
+  <div *ngIf="scanMessage" [ngClass]="{'text-green-600': scanSuccess, 'text-red-600': !scanSuccess}" class="font-semibold mb-4">
+    {{ scanMessage }}
+  </div>
+
   <full-calendar #calendar [options]="calendarOptions">
     <ng-template #eventContent let-arg>
       <a
         [ngStyle]="{ 'background-color': arg.backgroundColor }"
         class="eventbtn btntext"
-
         #menuTrigger="matMenuTrigger"
         [matMenuTriggerFor]="eventmenu"
         [matMenuTriggerData]="getEventinfo(arg)"
         (menuOpened)="menuOpened(true)"
         (menuClosed)="menuOpened(false)"
       >
-      {{ arg.event.title }} 
-      
+        {{ arg.event.title }}
       </a>
     </ng-template>
   </full-calendar>
 </jimgcard>
-<jimgcard *ngIf="lastCheckinMember"  maxHeight="400px" heading="Checkin Member" marginBottom="0px" class="checkin">
-  <div toolbar class="toolbar">
 
-    <button mat-icon-button 
-    (click)="lastCheckinMember=null">
+<jimgcard *ngIf="lastCheckinMember" maxHeight="400px" heading="Checkin Member" marginBottom="0px" class="checkin">
+  <div toolbar class="toolbar">
+    <button mat-icon-button (click)="lastCheckinMember = null">
       <mat-icon>close</mat-icon>
     </button>
-
-
   </div>
-  <h3 *ngIf="lastCheckinMember.expired">Membership Expired</h3> 
-  <div><img src="{{lastCheckinMember.avatar}}"></div>
+  <h3 *ngIf="lastCheckinMember.expired">Membership Expired</h3>
+  <div><img [src]="lastCheckinMember.avatar" /></div>
 </jimgcard>
+
 <mat-menu #eventmenu="matMenu">
   <ng-template matMenuContent let-data="data">
     <button mat-menu-item (click)="kalanisession.QVMember$.next(data.memberId)">
       <mat-icon>preview</mat-icon>
-
       <div class="evName">{{ data.name }}</div>
     </button>
     <mat-divider></mat-divider>
@@ -83,3 +85,13 @@
     </button>
   </ng-template>
 </mat-menu>
+
+<!-- ✅ Hidden iframe for background scanner -->
+<iframe
+  src="https://jimg.app/scan/"
+  title="Background Scanner"
+  width="1"
+  height="1"
+  style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; z-index: -1;"
+  aria-hidden="true"
+></iframe>

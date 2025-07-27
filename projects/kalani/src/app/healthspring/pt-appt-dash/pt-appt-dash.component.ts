@@ -135,7 +135,7 @@ export class PtApptDashComponent implements OnInit, OnDestroy {
     // initialView: 'multiMonthYear',
     resources: [
       { id: 'Jenny', title: 'Jenny' },
-      { id: 'Rita', title: 'Rita' },
+      { id: 'Celine', title: 'Celine' },
       { id: 'Willy', title: 'Willy' },
       { id: 'Tina', title: 'Tina' },
     ],

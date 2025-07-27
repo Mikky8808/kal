@@ -54,3 +54,15 @@ mat-card-content {
     max-width: 150px;
 }
 
+/* filepath: e:\xampp\htdocs\kalani\projects\kalani\src\app\kalani\accu-massage-appts\accu-massage-appt-edit\accu-massage-appt-edit.component.scss */
+.selected-date .mat-calendar-body-cell-content {
+  background-color: #43a047 !important;
+  color: #fff !important;
+  border-radius: 50%;
+}
+
+::ng-deep .custom-selected-date .mat-calendar-body-cell-content {
+  background-color: #4caf50 !important; /* Green */
+  color: white !important;
+  border-radius: 50% !important;
+}

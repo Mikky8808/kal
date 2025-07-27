@@ -1,15 +1,17 @@
-<jimgcard  *ngIf="Ready" heading="Accu/Massage Appointment" marginBottom="0px">
+<jimgcard *ngIf="Ready" heading="Accu/Massage Appointment" marginBottom="0px">
   <div toolbar class="toolbar">
     <button
       (click)="onSave()"
-      [disabled]="form.invalid || form.disabled || Busy"
-      mat-icon-button
+      [disabled]="form.invalid || Busy"
+      mat-mini-fab
+      color="primary"
     >
       <mat-icon>save</mat-icon>
     </button>
     <button
       *ngIf="isDialog"
-      mat-icon-button
+      mat-mini-fab
+      color="warn"
       aria-label="Close"
       (click)="onClose()"
     >
@@ -20,67 +22,102 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <mat-card class="mat-elevation-z8">
       <mat-card-content>
-        <div class="col">
-          <div class="row center">
-            <mat-checkbox toolbar *ngIf ='user.isAdmin && !form.value?.id' [labelPosition]="'before'" formControlName="blockTime"
-            >Block off Time? <span *ngIf="form.value.blockTime">{{form.value.apptDate | date : "EEEE"}}</span></mat-checkbox
-          >
-            <lib-memlookup 
-              class="fw"
-              [control]="form.controls['member']"
-            ></lib-memlookup>
-
-            <mat-form-field >
-              <mat-label>Status</mat-label>
-              <mat-select formControlName="status">
-                <mat-option *ngFor="let stat of ptStatus" [value]="stat.status">
-                  <mat-icon>{{ stat.statusIcon }}</mat-icon
-                  >{{ stat.statusText }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+        <div class="row">
+          <div class="col1">
+            <mat-card>
+              <mat-calendar
+                #calendar
+                [startAt]="startAt"
+                [dateClass]="dateClass()"
+                (selectedChange)="onSelectDate($event, calendar)"
+              ></mat-calendar>
+            </mat-card>
           </div>
+          <div class="col">
+            <div class="row center">
+              <lib-memlookup
+                class="fw"
+                [control]="form.controls['member']"
+                (selected)="onMemberSelected($event)"
+              ></lib-memlookup>
+            </div>
+            <div class="row center">
+              <mat-form-field>
+                <mat-label>Insurance</mat-label>
+                <input matInput formControlName="insurance" readonly />
+              </mat-form-field>
+            </div>
+            <div class="row center">
+              <mat-form-field>
+                <mat-label>Coverage</mat-label>
+                <mat-select formControlName="coverage">
+                  <mat-option value="CC">CC</mat-option>
+                  <mat-option value="Cash">Cash</mat-option>
+                  <mat-option value="Points deduction">Points deduction</mat-option>
+                  <mat-option value="Referral">Referral</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
 
-          <div class="row">
-            <div
-              (keypress)="
-                $event.preventDefault();
-                $event.stopPropagation();
-                apptTime.focus()
-              "
-              (click)="
-                $event.preventDefault();
-                $event.stopPropagation();
-                apptTime.focus()
-              "
-            >            
+            <!-- Status Dropdown with Numeric Values -->
+          <mat-form-field>
+  <mat-label>Status</mat-label>
+  <mat-select formControlName="status">
+    <mat-option *ngFor="let option of statusOptions" [value]="option.value">
+      <mat-icon class="mat-icon-inline">{{ option.icon }}</mat-icon>
+      {{ option.label }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 
+
+            <div class="row">
               <mat-form-field>
                 <mat-label>Appointment Date</mat-label>
-
-                <input matInput type="date" formControlName="apptDate" />
-
-                <mat-error>Enter valid date</mat-error>
-              </mat-form-field></div>
+                <input matInput formControlName="apptDate" readonly />
+              </mat-form-field>
               <mat-form-field>
                 <mat-label>Appointment Time</mat-label>
-
-                <input
-                  #apptTime
-                  matInput
-                  type="time"
-                  formControlName="apptTime"
-                />
-
-                <mat-error>Enter valid time</mat-error>
+                <input matInput type="time" formControlName="apptTime" />
               </mat-form-field>
-            <mat-form-field>
-              <mat-label>Duration</mat-label>
+              <mat-form-field>
+                <mat-label>Duration</mat-label>
+                <input matInput type="number" formControlName="apptDuration" />
+              </mat-form-field>
+            </div>
 
-              <input matInput type="number" formControlName="apptDuration" />
-
-              <mat-error>Enter Duration</mat-error>
-            </mat-form-field>
+            <!-- Multi-day selection chips -->
+            <div class="row sectitle mat-toolbar mat-primary">
+              <span *ngIf="daysSelected.length == 0">
+                Select Appointment Dates from Calendar
+              </span>
+              <span *ngIf="daysSelected.length != 0">Appointment Dates</span>
+            </div>
+            <div class="row">
+              <mat-chip-listbox>
+                <mat-chip
+                  style="background-color: red; color: white"
+                  *ngIf="daysSelected.length > 3"
+                >
+                  <span
+                    (click)="daysSelected = []; calendar.updateTodaysDate()"
+                    style="color: white; cursor: pointer"
+                  >
+                    Delete All
+                  </span>
+                </mat-chip>
+                <ng-container *ngFor="let day of daysSelected; let i = index">
+                  <mat-chip>
+                    {{ day }}
+                    <mat-icon
+                      matChipRemove
+                      (click)="removeDate(i); calendar.updateTodaysDate()"
+                      >cancel</mat-icon
+                    >
+                  </mat-chip>
+                </ng-container>
+              </mat-chip-listbox>
+            </div>
           </div>
         </div>
       </mat-card-content>
