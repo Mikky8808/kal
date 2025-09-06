@@ -24,6 +24,9 @@ import { Member, pointTransaction } from 'projects/@models/src/lib/models';
 import { DbservicesService } from 'projects/@dbservices/src/public-api';
 import { KalaniSessionService } from 'projects/@session/src/lib/kalani.session.service';
 
+// Add PURCHASEITEM to TranType
+type TranType = "MEMBERSHIP" | "REDEEM" | "EARN" | "PURCHASE" | "PURCHASEITEM";
+
 @Component({
   selector: 'app-member-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -97,7 +100,8 @@ export class MemberMenuComponent {
     });
   }
 
-  openMemberPoints(pointTran: pointTransaction) {
+  // Accept TranType for tran_type, including PURCHASEITEM
+  openMemberPoints(pointTran: { tran_type: TranType, memberId: number }) {
     const dialogRef = this.dialog.open(MemberPointsComponent, {
       disableClose: true,
       maxWidth: 'calc(850px + 600px)',
@@ -126,47 +130,7 @@ export class MemberMenuComponent {
     });
   }
 
-markDeceased() {
-  if (!this.member?.id) return;
-  if (!this.isAdmin) {
-    this.kalanisession.notify('User not admin');
-    return;
-  }
-  this.db
-    .memberMarkDeceased({ memberId: Number(this.member.id) })
-    .subscribe({
-      next: () => {
-        this.kalanisession.notify('Member marked as deceased');
-        this.onSubmit.emit({ deceased: true, id: this.member?.id });
-        (this.member as any).deceased = true;
-        this.changeDetectorRef.markForCheck();
-      },
-      error: (err) => {
-        this.kalanisession.notify(err);
-      },
-    });
-}
-
-confirmDeleteWithBrowserPrompt() {
-  if (!this.member?.id) return;
-  if (!this.kalanisession.currentUser?.isAdmin) {
-    this.kalanisession.notify('User not admin');
-    return;
-  }
-  if (window.confirm('Are you sure you want to permanently delete this member?')) {
-    this.db.memberdelete({ memberId: Number(this.member.id) }).subscribe({
-      next: (json: any) => {
-        this.kalanisession.notify(json.message || 'Member deleted');
-        this.onSubmit.emit({ deleted: true, id: this.member?.id }); // Notify parent to refresh list
-      },
-      error: (err) => {
-        this.kalanisession.notify(err);
-      },
-    });
-  }
-}
-
- public get isAdmin(): boolean {
+  public get isAdmin(): boolean {
     return !!this.kalanisession.currentUser?.isAdmin;
   }
 

@@ -27,6 +27,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { KalaniSessionService } from 'projects/@session/src/lib/kalani.session.service';
+// Add this import at the top
+import { NotificationService } from 'projects/@session/src/lib/notification.service';
 
 @Component({
   selector: 'app-member-upload-pic',
@@ -51,6 +53,7 @@ export class MemberUploadPicComponent implements OnDestroy, AfterViewChecked {
   form!: FormGroup;
   private destroy$ = new Subject();
   imgSrc = '';
+  avatar: string = ''; 
   Ready = false;
   progress: number = 0;
   loaded: number = 0;
@@ -66,12 +69,15 @@ export class MemberUploadPicComponent implements OnDestroy, AfterViewChecked {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private FormBuilder: FormBuilder,
     public kalanisession: KalaniSessionService,
-    public db: DbservicesService
+    public db: DbservicesService,
+    private notification: NotificationService,
   ) {
     this.form = this.FormBuilder.group({
       id: this.data.id,
       avatarpic: [this.file, Validators.required],
     });
+
+    
     this.Ready = true;
     const fileControl = this.form.controls['avatarpic'];
     if (fileControl) {
@@ -104,6 +110,24 @@ export class MemberUploadPicComponent implements OnDestroy, AfterViewChecked {
       });
     }
   }
+
+removePhoto() {
+  if (!this.data?.id) return;
+  this.uploading = true;
+  this.db.removeMemberPhoto({ memberId: this.data.id }).subscribe({
+    next: () => {
+      this.avatar = '';
+      this.imgSrc = '';
+      this.croppedImgSrc = '';
+      this.uploading = false;
+      this.notification.notify('Photo removed');
+    },
+    error: (err) => {
+      this.uploading = false;
+      this.notification.notify('Failed to remove photo');
+    }
+  });
+}
 
   cropImage() {
     if (this.cropper) {

@@ -8,6 +8,7 @@
     >
       <mat-icon>file_upload</mat-icon>
     </button>
+   
     <button mat-icon-button aria-label="Close" (click)="onClose()">
       <mat-icon>close</mat-icon>
     </button>
@@ -28,15 +29,25 @@
         </mat-form-field>
 
         <button
-          type="submit"
-          #submitButton
-          mat-raised-button
-          color="primary"
-          [disabled]="form.invalid"
-        >
-          <mat-icon>file_upload</mat-icon>
-          Upload
-        </button>
+  type="submit"
+  #submitButton
+  mat-raised-button
+  color="primary"
+  [disabled]="form.invalid"
+  style="margin-right: 8px;"
+>
+  <mat-icon>file_upload</mat-icon>
+  Upload
+</button>
+ <button
+      mat-raised-button
+      color="warn"
+      (click)="removePhoto()"
+    >
+      <mat-icon>delete</mat-icon>
+      Remove Photo
+    </button>
+        
         <div *ngIf="uploading">Loaded {{ this.loaded }} of {{ total }}</div>
         <div *ngIf="uploading" style="flex:1">
           <mat-progress-bar

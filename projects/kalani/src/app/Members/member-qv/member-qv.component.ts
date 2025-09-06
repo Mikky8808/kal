@@ -87,6 +87,39 @@ export class MemberQVComponent {
   rideStatus: RideStatus[] = [];
   allowedCheckin = ['M', 'C', 'P'];
 
+  // Yearly grouping for all points/DPS types
+  renewalPointsByYear: { [year: number]: any[] } = {};
+  renewalPointsYears: number[] = [];
+  selectedRenewalPointsYear: number = 0;
+
+  renewalDpsByYear: { [year: number]: any[] } = {};
+  renewalDpsYears: number[] = [];
+  selectedRenewalDpsYear: number = 0;
+
+  pointsByYear: { [year: number]: any[] } = {};
+  pointsYears: number[] = [];
+  selectedPointsYear: number = 0;
+
+  dpsByYear: { [year: number]: any[] } = {};
+  dpsYears: number[] = [];
+  selectedDpsYear: number = 0;
+
+  purchasedPointsByYear: { [year: number]: any[] } = {};
+  purchasedPointsYears: number[] = [];
+  selectedPurchasedPointsYear: number = 0;
+
+  purchasedDpsByYear: { [year: number]: any[] } = {};
+  purchasedDpsYears: number[] = [];
+  selectedPurchasedDpsYear: number = 0;
+
+  redeemedPointsByYear: { [year: number]: any[] } = {};
+  redeemedPointsYears: number[] = [];
+  selectedRedeemedPointsYear: number = 0;
+
+  redeemedDpsByYear: { [year: number]: any[] } = {};
+  redeemedDpsYears: number[] = [];
+  selectedRedeemedDpsYear: number = 0;
+
   PtDisplayedColumns: string[] = [
     'apptDateTime',
     'apptTime',
@@ -316,6 +349,88 @@ export class MemberQVComponent {
     this.redeemedDPsCount = this.redeemedDPSData.length;
     this.showRedeemedPoints = this.redeemedPointsCount > 0;
     this.showRedeemedDPS = this.redeemedDPsCount > 0;
+
+    // --- Group by year for all types ---
+
+    // Renewal Points
+    this.renewalPointsByYear = {};
+    this.renewalPointsData.forEach((tx: any) => {
+      const year = new Date(tx.mbrshpStartDate).getFullYear();
+      if (!this.renewalPointsByYear[year]) this.renewalPointsByYear[year] = [];
+      this.renewalPointsByYear[year].push(tx);
+    });
+    this.renewalPointsYears = Object.keys(this.renewalPointsByYear).map(Number).sort((a, b) => b - a);
+    this.selectedRenewalPointsYear = this.renewalPointsYears[0] || new Date().getFullYear();
+
+    // Renewal DPS
+    this.renewalDpsByYear = {};
+    this.renewalDPSData.forEach((tx: any) => {
+      const year = new Date(tx.mbrshpStartDate).getFullYear();
+      if (!this.renewalDpsByYear[year]) this.renewalDpsByYear[year] = [];
+      this.renewalDpsByYear[year].push(tx);
+    });
+    this.renewalDpsYears = Object.keys(this.renewalDpsByYear).map(Number).sort((a, b) => b - a);
+    this.selectedRenewalDpsYear = this.renewalDpsYears[0] || new Date().getFullYear();
+
+    // Earned Points
+    this.pointsByYear = {};
+    this.earnedPointsData.forEach((tx: any) => {
+      const year = new Date(tx.transactiondate).getFullYear();
+      if (!this.pointsByYear[year]) this.pointsByYear[year] = [];
+      this.pointsByYear[year].push(tx);
+    });
+    this.pointsYears = Object.keys(this.pointsByYear).map(Number).sort((a, b) => b - a);
+    this.selectedPointsYear = this.pointsYears[0] || new Date().getFullYear();
+
+    // Earned DPS
+    this.dpsByYear = {};
+    this.earnedDPSData.forEach((tx: any) => {
+      const year = new Date(tx.transactiondate).getFullYear();
+      if (!this.dpsByYear[year]) this.dpsByYear[year] = [];
+      this.dpsByYear[year].push(tx);
+    });
+    this.dpsYears = Object.keys(this.dpsByYear).map(Number).sort((a, b) => b - a);
+    this.selectedDpsYear = this.dpsYears[0] || new Date().getFullYear();
+
+    // Purchased Points
+    this.purchasedPointsByYear = {};
+    this.purchasedPointsData.forEach((tx: any) => {
+      const year = new Date(tx.transactiondate).getFullYear();
+      if (!this.purchasedPointsByYear[year]) this.purchasedPointsByYear[year] = [];
+      this.purchasedPointsByYear[year].push(tx);
+    });
+    this.purchasedPointsYears = Object.keys(this.purchasedPointsByYear).map(Number).sort((a, b) => b - a);
+    this.selectedPurchasedPointsYear = this.purchasedPointsYears[0] || new Date().getFullYear();
+
+    // Purchased DPS
+    this.purchasedDpsByYear = {};
+    this.purchasedDPSData.forEach((tx: any) => {
+      const year = new Date(tx.transactiondate).getFullYear();
+      if (!this.purchasedDpsByYear[year]) this.purchasedDpsByYear[year] = [];
+      this.purchasedDpsByYear[year].push(tx);
+    });
+    this.purchasedDpsYears = Object.keys(this.purchasedDpsByYear).map(Number).sort((a, b) => b - a);
+    this.selectedPurchasedDpsYear = this.purchasedDpsYears[0] || new Date().getFullYear();
+
+    // Redeemed Points
+    this.redeemedPointsByYear = {};
+    this.redeemedPointsData.forEach((tx: any) => {
+      const year = new Date(tx.transactiondate).getFullYear();
+      if (!this.redeemedPointsByYear[year]) this.redeemedPointsByYear[year] = [];
+      this.redeemedPointsByYear[year].push(tx);
+    });
+    this.redeemedPointsYears = Object.keys(this.redeemedPointsByYear).map(Number).sort((a, b) => b - a);
+    this.selectedRedeemedPointsYear = this.redeemedPointsYears[0] || new Date().getFullYear();
+
+    // Redeemed DPS
+    this.redeemedDpsByYear = {};
+    this.redeemedDPSData.forEach((tx: any) => {
+      const year = new Date(tx.transactiondate).getFullYear();
+      if (!this.redeemedDpsByYear[year]) this.redeemedDpsByYear[year] = [];
+      this.redeemedDpsByYear[year].push(tx);
+    });
+    this.redeemedDpsYears = Object.keys(this.redeemedDpsByYear).map(Number).sort((a, b) => b - a);
+    this.selectedRedeemedDpsYear = this.redeemedDpsYears[0] || new Date().getFullYear();
   }
 
   onEditPoints(row: any) {

@@ -30,7 +30,7 @@
     <button
       *ngIf="member?.expired && member?.membertype == 'M'"
       mat-menu-item
-      (click)="openMemberPoints({ tran_type: 'MEMBERSHIP', memberId: member!.id! })">
+      (click)="openMemberPoints({ tran_type: 'MEMBERSHIP', memberId: +member!.id! })">
       <mat-icon class="memberShipExpired">no_accounts</mat-icon>
       <div class="memberShipExpired">
         Membership expired <br />{{ member?.mbrshpEndDate }}
@@ -43,29 +43,7 @@
       <mat-icon>edit</mat-icon>
       <div>Edit {{ member?.fullName }}</div>
     </button>
-
- <mat-divider></mat-divider>
-
-    <!-- Delete Trigger - uses browser confirm dialog -->
-  <button
-  *ngIf="isAdmin"
-  mat-menu-item
-  (click)="confirmDeleteWithBrowserPrompt()">
-  <mat-icon>delete</mat-icon>
-  <div>Delete {{ member?.fullName }}</div>
-</button>
-
     <mat-divider></mat-divider>
-
- <button
-  *ngIf="isAdmin"
-  mat-menu-item
-  (click)="markDeceased()">
-  <mat-icon>person_off</mat-icon>
-  <div>Mark as Deceased</div>
-</button>
-
- <mat-divider></mat-divider>
 
     <button mat-menu-item (click)="onAddNotes()">
       <mat-icon>edit_note</mat-icon>
@@ -80,33 +58,46 @@
       <mat-icon>beenhere</mat-icon>
       <div>Checkin ..</div>
     </button>
+    <mat-divider></mat-divider>
+
+
+ <button
+      mat-menu-item
+      (click)="openMemberPoints({ tran_type: 'REDEEM', memberId: +member!.id! })">
+      <mat-icon>shopping_cart</mat-icon>
+      <div>Redeem Points</div>
+    </button>
+    <mat-divider></mat-divider> 
 
     <button
       mat-menu-item
-      (click)="openMemberPoints({ tran_type: 'EARN', memberId: member!.id! })">
+      (click)="openMemberPoints({ tran_type: 'EARN', memberId: +member!.id! })">
       <mat-icon>shopping_bag</mat-icon>
       <div>Earn Points</div>
     </button>
     <mat-divider></mat-divider>
-    <button
-      mat-menu-item
-      (click)="openMemberPoints({ tran_type: 'REDEEM', memberId: member!.id! })">
-      <mat-icon>shopping_cart</mat-icon>
-      <div>Redeem Points</div>
-    </button>
-    <mat-divider></mat-divider>
+   
 
     <button
       mat-menu-item
-      (click)="openMemberPoints({ tran_type: 'PURCHASE', memberId: member!.id! })">
+      (click)="openMemberPoints({ tran_type: 'PURCHASE', memberId: +member!.id! })">
       <mat-icon>shopping_bag</mat-icon>
       <div>Purchase Points/DP</div>
     </button>
     <mat-divider></mat-divider>
 
+   <!-- Purchase Item (new) -->
     <button
       mat-menu-item
-      (click)="openMemberPoints({ tran_type: 'MEMBERSHIP', memberId: member!.id! })">
+      (click)="openMemberPoints({ tran_type: 'PURCHASEITEM', memberId: +member!.id! })">
+      <mat-icon>shopping_cart</mat-icon>
+      <div>Purchase Item</div>
+    </button>
+    <mat-divider></mat-divider>
+
+    <button
+      mat-menu-item
+      (click)="openMemberPoints({ tran_type: 'MEMBERSHIP', memberId: +member!.id! })">
       <mat-icon>loyalty</mat-icon>
       <div>Membership Renewal</div>
     </button>

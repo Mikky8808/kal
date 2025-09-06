@@ -1,3 +1,4 @@
+
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -8,6 +9,7 @@ import {
   OnInit,
   ViewChild,
   Optional,
+  AfterViewInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JimgcardComponent } from 'projects/@components/src/lib/jimgcard/jimgcard.component';
@@ -44,6 +46,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { format } from 'date-fns';
 import { MemlookupComponent } from 'projects/@components/src/lib/memlookup/memlookup.component';
 
+export type TranType = "MEMBERSHIP" | "REDEEM" | "EARN" | "PURCHASE" | "PURCHASEITEM";
+
 @Component({
   selector: 'app-member-points',
   standalone: true,
@@ -69,6 +73,7 @@ import { MemlookupComponent } from 'projects/@components/src/lib/memlookup/memlo
   templateUrl: './member-points.component.html',
   styleUrls: ['./member-points.component.scss'],
 })
+
 export class MemberPointsComponent implements OnInit, OnDestroy {
   Ready = false;
   Busy = false;
@@ -76,37 +81,35 @@ export class MemberPointsComponent implements OnInit, OnDestroy {
   avatar = '';
   member: any;
   searchMember = new FormControl('');
-
   memberForm!: FormGroup;
   requireAmt = false;
   requireMbrshpDate = false;
+  isDps: boolean = false;
+  isPoints: boolean = false;
   pointMethods: any[] = this.kalanisession.pointMethods;
-  displayedColumns: string[] = [
-    'transactiondate',
-    'description',
-    'daypass',
-    'points',
-    'notes',
-  ];
+  displayedColumns: string[] = [];
   HEADING = {
     MEMBERSHIP: 'Renewal',
     EARN: 'Earn',
     PURCHASE: 'Purchase',
+    PURCHASEITEM: 'Purchase Item',
     REDEEM: 'Reedem',
   };
+
+  purchaseItemOptions = [
+    { value: 'Lunch pass', label: 'Lunch pass' },
+    { value: 'Herbal products', label: 'Herbal products' },
+    { value: 'Amazon order', label: 'Amazon order' },
+    { value: 'Other', label: 'Other' }
+  ];
 
   @ViewChild('submitButton', { read: ElementRef }) submitButton?: ElementRef;
   @ViewChild('drawer', { static: false }) matDrawer!: MatDrawer;
 
-  isPoints = false;
-  isDps = false;
-
   constructor(
     @Optional() private dialogRef: MatDialogRef<MemberPointsComponent>,
     private FormBuilder: FormBuilder,
-    @Optional()
-    @Inject(MAT_DIALOG_DATA)
-    public pointTransaction: pointTransaction,
+    @Optional() @Inject(MAT_DIALOG_DATA) public pointTransaction: pointTransaction,
     private kalanisession: KalaniSessionService,
     private session: SessionService,
     private db: DbservicesService,
@@ -119,38 +122,54 @@ export class MemberPointsComponent implements OnInit, OnDestroy {
     this.requireMbrshpDate = false;
     this.requireAmt = false;
 
-    this.displayedColumns = [
-      'transactiondate',
-      'description',
-      'daypass',
-      'points',
-      'notes',
-    ];
+    // Set displayedColumns based on transaction type
+  
+    // 1. Set default columns
+this.displayedColumns = [
+  'transactiondate',
+  'description',
+  'daypass',
+  'points',
+  'notes',
+];
 
-  // These flags are set based on dialog data passed from MemberQVComponent
-this.isPoints = this.pointTransaction?.type === 'points';
-this.isDps = this.pointTransaction?.type === 'dps';
+// 2. Get transaction type
+const tranType = this.pointTransaction.tran_type;
 
-    if (this.pointTransaction?.tran_type === 'MEMBERSHIP') {
-      this.requireAmt = true;
-      this.requireMbrshpDate = true;
-    }
-    if (this.pointTransaction?.tran_type === 'PURCHASE') {
-      this.requireAmt = true;
-    }
+// 3. Modify flags and columns based on transaction type
+if (tranType === 'MEMBERSHIP') {
+  this.requireAmt = true;
+  this.requireMbrshpDate = true;
 
-    if (this.pointTransaction?.tran_type === 'MEMBERSHIP') {
-      this.displayedColumns.splice(
-        1,
-        0,
-        'mbrshpStartDate',
-        'mbrshpEndDate',
-        'amtpaid'
-      );
-    }
-    if (this.pointTransaction?.tran_type === 'PURCHASE') {
-      this.displayedColumns.splice(1, 0, 'amtpaid');
-    }
+  // Insert membership-specific columns after transactiondate
+  this.displayedColumns.splice(
+    1,
+    0,
+    'mbrshpStartDate',
+    'mbrshpEndDate',
+    'amtpaid'
+  );
+
+} else if (tranType === 'PURCHASE') {
+  this.requireAmt = true;
+
+  // Insert amtpaid after transactiondate
+  this.displayedColumns.splice(1, 0, 'amtpaid');
+
+} else if (tranType === 'PURCHASEITEM') {
+  this.requireAmt = true;
+
+  // Insert amtpaid after transactiondate
+  this.displayedColumns.splice(1, 0, 'amtpaid');
+
+  // Find index of amtpaid and insert 'item' after it
+  const amtpaidIndex = this.displayedColumns.indexOf('amtpaid');
+  if (amtpaidIndex !== -1) {
+    this.displayedColumns.splice(amtpaidIndex + 1, 0, 'item');
+  }
+}
+
+
 
     this.db.getAllPointTrans(this.pointTransaction).subscribe({
       next: (json: any) => {
@@ -159,13 +178,13 @@ this.isDps = this.pointTransaction?.type === 'dps';
         this.avatar = json.member.avatar;
         this.setupForm({ memberId: this.member.memberId });
 
-        if (this.pointTransaction?.id && this.pointTransaction.id > 0) {
+        if (this.pointTransaction?.id! > 0) {
           const found = this.dataSource.find(
             (element: any) => element.id == this.pointTransaction.id
           );
           if (found) this.setupForm(found);
         }
-        if (!this.session.isMobile) this.matDrawer.open();
+        if (!this.session.isMobile && this.matDrawer) this.matDrawer.open();
       },
       error: (err: any) => {
         this.kalanisession.showErrorMsg(err);
@@ -174,11 +193,8 @@ this.isDps = this.pointTransaction?.type === 'dps';
     });
   }
 
-onTableInputChange(event: Event, element: any, field: 'points' | 'daypass') {
-  const input = event.target as HTMLInputElement;
-  element[field] = input.valueAsNumber;
-}
 
+  
   onMemberChanged(member: any) {
     this.pointTransaction.memberId = member.id;
     this.pointTransaction.id = null;
@@ -194,43 +210,48 @@ onTableInputChange(event: Event, element: any, field: 'points' | 'daypass') {
   setupForm(rec: any) {
     this.Ready = true;
 
-    this.memberForm = this.FormBuilder.nonNullable.group({
-      id: rec?.id,
-      tran_type: this.pointTransaction.tran_type,
-      memberId: rec?.memberId,
-      transactiondate: [
-        rec?.transactiondate
-          ? rec?.transactiondate
-          : format(Date.now(), 'yyyy-MM-dd'),
-        Validators.required,
-      ],
-      amtpaid: [rec?.amtpaid, Validators.required],
-      method: [rec?.method, Validators.required],
-      daypass: [rec?.daypass ? rec.daypass : 0, Validators.required],
-      points: [rec?.points ? rec.points : 0, Validators.required],
-      mbrshpStartDate: [rec?.mbrshpStartDate, Validators.required],
-      mbrshpEndDate: [rec?.mbrshpEndDate, Validators.required],
-      notes: [rec?.notes],
-      type: [this.pointTransaction?.type || (this.isPoints ? 'points' : this.isDps ? 'dps' : undefined)]
-    });
+    if (this.pointTransaction.tran_type === 'PURCHASEITEM') {
+      this.memberForm = this.FormBuilder.nonNullable.group({
+        id: rec?.id,
+        tran_type: this.pointTransaction.tran_type,
+        memberId: rec?.memberId,
+        transactiondate: [
+          rec?.transactiondate
+            ? rec?.transactiondate
+            : format(Date.now(), 'yyyy-MM-dd'),
+          Validators.required,
+        ],
+        amtpaid: [rec?.amtpaid, Validators.required],
+        method: [rec?.method, Validators.required],
+        item: [rec?.item || '', Validators.required],
+        otherItem: [''],
+        notes: [rec?.notes],
+      });
+    } else {
+      this.memberForm = this.FormBuilder.nonNullable.group({
+        id: rec?.id,
+        tran_type: this.pointTransaction.tran_type,
+        memberId: rec?.memberId,
+        transactiondate: [
+          rec?.transactiondate
+            ? rec?.transactiondate
+            : format(Date.now(), 'yyyy-MM-dd'),
+          Validators.required,
+        ],
+        amtpaid: [rec?.amtpaid, Validators.required],
+        method: [rec?.method, Validators.required],
+        daypass: [rec?.daypass ? rec.daypass : 0, Validators.required],
+        points: [rec?.points ? rec.points : 0, Validators.required],
+        mbrshpStartDate: [rec?.mbrshpStartDate, Validators.required],
+        mbrshpEndDate: [rec?.mbrshpEndDate, Validators.required],
+        notes: [rec?.notes],
+      });
+    }
 
     if (!this.requireAmt) this.memberForm.get('amtpaid')?.disable();
     if (!this.requireMbrshpDate) {
       this.memberForm.get('mbrshpStartDate')?.disable();
       this.memberForm.get('mbrshpEndDate')?.disable();
-    }
-
-    // Enable/disable fields based on transaction type
-    if (this.isPoints) {
-      this.memberForm.get('points')?.enable();
-      this.memberForm.get('daypass')?.disable();
-    } else if (this.isDps) {
-      this.memberForm.get('daypass')?.enable();
-      this.memberForm.get('points')?.disable();
-    } else {
-      // If neither, enable both (menu access)
-      this.memberForm.get('points')?.enable();
-      this.memberForm.get('daypass')?.enable();
     }
 
     this.changeDetectorRef.markForCheck();
@@ -239,23 +260,21 @@ onTableInputChange(event: Event, element: any, field: 'points' | 'daypass') {
   onEdit(member: any) {
     this.setupForm(member);
   }
-
   onSave() {
     this.submitButton?.nativeElement.click();
   }
 
   onSubmit() {
-    if (this.memberForm.invalid) {
-      return;
-    }
-
     this.Busy = true;
     this.changeDetectorRef.markForCheck();
 
-    const formData = {
-      ...this.memberForm.value,
-      type: this.pointTransaction?.type || (this.isPoints ? 'points' : this.isDps ? 'dps' : undefined)
-    };
+    let formData = this.memberForm.value;
+    if (this.pointTransaction.tran_type === 'PURCHASEITEM') {
+      formData = {
+        ...formData,
+        item: formData.item === 'Other' ? formData.otherItem : formData.item,
+      };
+    }
 
     this.db.savePointTrans(formData).subscribe({
       next: (json: any) => {
@@ -281,6 +300,36 @@ onTableInputChange(event: Event, element: any, field: 'points' | 'daypass') {
     });
   }
 
+// ...existing code...
+
+printTableAndNotes() {
+  const printContents = document.getElementById('print-section')?.innerHTML;
+  if (printContents) {
+    const win = window.open('', '', 'height=900,width=1200');
+    win?.document.write('<html><head><title>Print</title>');
+    win?.document.write(`
+      <style>
+        body { font-family: sans-serif; }
+        .print-notes { page-break-after: always; }
+        .print-table { page-break-before: always; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ccc; padding: 4px; }
+        @media print {
+          .print-notes { page-break-after: always; }
+          .print-table { page-break-before: always; }
+        }
+      </style>
+    `);
+    win?.document.write('</head><body>');
+    win?.document.write(printContents);
+    win?.document.write('</body></html>');
+    win?.document.close();
+    win?.focus();
+    setTimeout(() => win?.print(), 300);
+  }
+}
+// ...existing code...
+  
   onDelete() {
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
       data: { title: 'Confirm to Delete...' },
@@ -314,6 +363,5 @@ onTableInputChange(event: Event, element: any, field: 'points' | 'daypass') {
   onClose() {
     this.dialogRef?.close();
   }
-
   ngOnDestroy(): void {}
 }

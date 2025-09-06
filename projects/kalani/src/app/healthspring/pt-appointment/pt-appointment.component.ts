@@ -41,6 +41,7 @@ import { NotificationService } from 'projects/@session/src/lib/notification.serv
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MemlookupComponent } from 'projects/@components/src/lib/memlookup/memlookup.component';
 import { KalaniSessionService } from 'projects/@session/src/lib/kalani.session.service';
+import { DialogConfirmComponent } from '../../dialog/dialog-confirm/dialog-confirm.component';
 
 @Component({
   selector: 'app-pt-appointment',
@@ -72,7 +73,7 @@ export class PtAppointmentComponent implements OnInit, OnDestroy {
   PTStaff = this.kalanisession.PTStaff;
   ptReasons = this.kalanisession.ptReasons;
   currentUser = this.kalanisession.currentUser.username;
- startAt = new Date();
+  startAt = new Date();
 
   selectedDate: any;
   daysSelected: any[] = [];
@@ -87,26 +88,23 @@ export class PtAppointmentComponent implements OnInit, OnDestroy {
   constructor(
     @Optional() private dialogRef: MatDialogRef<PtAppointmentComponent>,
     private FormBuilder: FormBuilder,
-
     @Optional() @Inject(MAT_DIALOG_DATA) public dialogData: any,
     public kalanisession: KalaniSessionService,
     private db: DbservicesService,
     private dialog: MatDialog,
-    // private _snackBar: MatSnackBar,
     private notification: NotificationService
   ) {}
 
   addMinutes(time: string, minutes: number) {
     let date = new Date('2000-01-01 ' + time);
-
     date = new Date(date.getTime() + minutes * 60000);
-
     return (
       String(date.getHours()).padStart(2, '0') +
       ':' +
       String(date.getMinutes()).padStart(2, '0')
     );
   }
+
   diff_minutes(start: Date, end: Date) {
     var diff = (end.getTime() - start.getTime()) / 1000;
     diff /= 60;
@@ -116,17 +114,14 @@ export class PtAppointmentComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     var rec: any = {};
- 
     if (this.dialogRef === null) {
       this.isDialog = false;
       (rec.apptTime = '07:00'), (rec.apptDuration = 30);
     } else {
-      
       var data = { ...this.dialogData.data };
       rec.PTStaff = data?.PTStaff;
       if (data?.start instanceof Date) {
         this.startAt = data.start;
-
         this.daysSelected = [
           data.start.getFullYear() +
             '-' +
@@ -143,39 +138,31 @@ export class PtAppointmentComponent implements OnInit, OnDestroy {
         rec.apptDuration = this.diff_minutes(data.start, data.end);
       }
     }
-
     rec.ridePickupTime = this.addMinutes(rec.apptTime, -30);
     rec.rideDropTime = this.addMinutes(rec.apptTime, rec.apptDuration + 90);
     rec.apptEndTime = this.addMinutes(rec.apptTime, rec.apptDuration);
 
     this.setupForm(rec);
-   }
+  }
+
   onClose() {
-    {
-      this.dialogRef?.close();
-    }
+    this.dialogRef?.close();
   }
 
   setupForm(rec: any) {
     this.Ready = true;
-
     this.form = this.FormBuilder.group({
       PTStaff: [rec?.PTStaff, Validators.required],
       member: [rec?.member, Validators.required],
-      reason: [{value: '' ,disabled:true}, Validators.required],
-
+      reason: [{ value: '', disabled: true }, Validators.required],
       blockTime: [],
-
-      // ptReason: [rec?.ptReason, Validators.required],
       PTStaffAssistant: [''],
-
       reserveRide: [rec?.reserveRide, Validators.required],
       apptTime: [
         rec?.apptTime ? rec?.apptTime : '07:00:00',
         Validators.required,
       ],
       apptEndTime: [{ value: rec?.apptEndTime, disabled: true }],
-
       apptDuration: [
         rec?.apptDuration ? rec?.apptDuration : 30,
         Validators.required,
@@ -183,7 +170,6 @@ export class PtAppointmentComponent implements OnInit, OnDestroy {
       wheelChair: [0],
       initialVisit: [0],
       apptDatesSelected: [rec?.apptDatesSelected, Validators.required],
-
       ridePickupTime: [
         { value: rec?.ridePickupTime, disabled: true },
         Validators.required,
@@ -196,17 +182,13 @@ export class PtAppointmentComponent implements OnInit, OnDestroy {
     });
 
     const apptTimeControl = this.form.get('apptTime');
-
     if (apptTimeControl) {
       apptTimeControl.valueChanges
         .pipe(takeUntil(this.destroy$))
         .subscribe((value) => {
-          
-
           this.form.controls['ridePickupTime'].patchValue(
             this.addMinutes(value, -30)
           );
-
           this.form.controls['rideDropTime'].patchValue(
             this.addMinutes(
               value,
@@ -220,7 +202,6 @@ export class PtAppointmentComponent implements OnInit, OnDestroy {
     }
 
     const aapptDurationControl = this.form.get('apptDuration');
-
     if (aapptDurationControl) {
       aapptDurationControl.valueChanges
         .pipe(takeUntil(this.destroy$))
@@ -250,41 +231,38 @@ export class PtAppointmentComponent implements OnInit, OnDestroy {
           }
         });
     }
-    const nonBlockFields = ['member','PTStaffAssistant','wheelChair','initialVisit','reserveRide']
+
+    const nonBlockFields = [
+      'member',
+      'PTStaffAssistant',
+      'wheelChair',
+      'initialVisit',
+      'reserveRide',
+    ];
     const blockTimeControl = this.form.get('blockTime');
     if (blockTimeControl) {
       blockTimeControl.valueChanges
         .pipe(takeUntil(this.destroy$))
         .subscribe((value) => {
-           nonBlockFields.forEach(field => {
-            if (value===true)  this.form.get('reason')?.enable()
+          nonBlockFields.forEach((field) => {
+            if (value === true) this.form.get('reason')?.enable();
             else this.form.get('reason')?.disable();
 
-             if (value === true) this.form.get(field)?.disable()
-            else  this.form.get(field)?.enable();
-          })
-          // if (value === true) {
-          //   this.form.get('member')?.disable();
-          //   this.form.get('PTStaffAssistant')?.disable();
-          //   this.form.get('wheelChair')?.disable();
-            
-          // } else {
-          //   this.form.get('member')?.enable();
-          //   this.form.get('PTStaffAssistant')?.enable();
-          //   this.form.get('wheelChair')?.enable();
-
-          // }
+            if (value === true) this.form.get(field)?.disable();
+            else this.form.get(field)?.enable();
+          });
         });
     }
-
   }
 
   onSave() {
     this.submitButton?.nativeElement.click();
   }
+
+ 
+
   onSubmit() {
     this.Busy = true;
-    // Build payload with only required fields and correct types
     const value = this.form.value;
     const payload: any = {
       PTStaff: value.PTStaff,
@@ -299,42 +277,77 @@ export class PtAppointmentComponent implements OnInit, OnDestroy {
       ridePickupTime: this.form.get('ridePickupTime')?.value,
       rideDropTime: this.form.get('rideDropTime')?.value,
       blockTime: value.blockTime ? 'Y' : '',
-      daysSelected: [...this.daysSelected.sort()]
+      daysSelected: [...this.daysSelected.sort()],
+      reason: value.reason
     };
-    if (payload.PTStaff === payload.PTStaffAssistant) payload.PTStaffAssistant = '';
-    // Log the payload for debugging
+    if (payload.PTStaff === payload.PTStaffAssistant)
+      payload.PTStaffAssistant = '';
     console.log('Payload sent to createPTAppt:', payload);
+
     this.db.createPTAppt(payload).subscribe({
       next: (json: any) => {
         const message = json?.message || 'Appointment Created';
-        this.formDir.resetForm({
-          PTStaff: payload.PTStaff,
-          member: value.member,
-        });
+        this.formDir.resetForm(payload);
         this.Busy = false;
         this.daysSelected = [];
         this.notification.notify(message);
         this.calendar.updateTodaysDate();
-        // this.onClose();
+        this.dialogRef?.close();
       },
       error: (err: any) => {
-        if (err?.status === 409 && err?.error?.message) {
+        // Double booking confirmation using MatDialog
+        if (err?.status === 409 && err?.error?.requiresConfirmation) {
+          const dialogRef = this.dialog.open(DialogConfirmComponent, {
+            data: {
+              title: 'Double Booking Warning',
+              message:  'DO YOU WANT TO DOUBLE BOOK THIS PATIENT?',
+            }
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            if (result === 'yes') {
+              // User confirmed double booking, send again with confirmation
+              this.db.createPTAppt({ ...payload, confirmedConflicts: true }).subscribe({
+                next: (json: any) => {
+                  const message = json?.message || 'Appointment Created';
+                  this.formDir.resetForm(payload);
+                  this.Busy = false;
+                  this.daysSelected = [];
+                  this.notification.notify(message);
+                  this.calendar.updateTodaysDate();
+                  this.dialogRef?.close();
+                },
+                error: (err2: any) => {
+                  this.notification.notify(err2.error?.message || 'Error');
+                  this.Busy = false;
+                }
+              });
+            } else {
+              // User cancelled double booking, just close the dialog
+              this.Busy = false;
+              // Do not close the parent dialog, only the confirmation dialog closes
+            }
+          });
+        } else if (err?.status === 409 && err?.error?.isHardError) {
+          // Hard error: maximum appointments
           this.notification.notify(err.error.message);
+          this.Busy = false;
         } else {
           let message = err?.error?.message || err?.message || 'Something went wrong';
           this.notification.notify(message);
+          this.Busy = false;
         }
-        this.Busy = false;
       },
     });
   }
+
 
   ngOnDestroy(): void {
     this.destroy$.next('');
     this.destroy$.complete();
   }
+
   onSelectDate(event: any, calendar: any) {
-    if (event.getDay()==0 || event.getDay()==6) return;
+    if (event.getDay() == 0 || event.getDay() == 6) return;
     this.selectedDate = event;
     const date =
       event.getFullYear() +
@@ -349,9 +362,9 @@ export class PtAppointmentComponent implements OnInit, OnDestroy {
       ? this.form.controls['apptDatesSelected'].patchValue('Y')
       : this.form.controls['apptDatesSelected'].patchValue(null);
     this.form.updateValueAndValidity();
-
     calendar.updateTodaysDate();
   }
+
   isDateSelected = (event: any) => {
     const date =
       event.getFullYear() +
@@ -362,11 +375,11 @@ export class PtAppointmentComponent implements OnInit, OnDestroy {
     return this.daysSelected.find((x) => x == date) ? 'selected' : '';
   };
 
-  dateClass() {
+   dateClass() {
     return (date: Date): MatCalendarCellCssClasses => {
-      if (date.getDay()==0 || date.getDay()==6) {
-        return 'hide-date';}
-
+      if (date.getDay() == 0 || date.getDay() == 6) {
+        return 'hide-date';
+      }
       const seldate =
         date.getFullYear() +
         '-' +
@@ -376,11 +389,12 @@ export class PtAppointmentComponent implements OnInit, OnDestroy {
       return this.daysSelected.find((x) => x == seldate) ? 'special-date' : '';
     };
   }
+
   noDataEntry(event: any) {
     event.preventDefault();
   }
 
-  removeDate(i: number) {
+   removeDate(i: number) {
     this.daysSelected.splice(i, 1);
     this.daysSelected.length > 0
       ? this.form.controls['apptDatesSelected'].patchValue('Y')

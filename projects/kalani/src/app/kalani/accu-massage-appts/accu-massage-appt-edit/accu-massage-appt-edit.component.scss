@@ -66,3 +66,8 @@ mat-card-content {
   color: white !important;
   border-radius: 50% !important;
 }
+::ng-deep .appt-selected-date .mat-calendar-body-cell-content {
+  background-color: #43a047 !important;
+  color: #fff !important;
+  border-radius: 50%;
+}

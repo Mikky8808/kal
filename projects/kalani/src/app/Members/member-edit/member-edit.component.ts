@@ -66,7 +66,6 @@ export class MemberEditComponent implements OnInit, OnDestroy {
   Ready = false;
   Busy = false;
   quickEntry = false;
-  // BarcodeDL: any;
   BarCodeDL$: any;
   avatar = '';
   user = this.session.currentUser;
@@ -81,17 +80,14 @@ export class MemberEditComponent implements OnInit, OnDestroy {
     private barCodeReader: BarcodereaderService,
     private dialogRef: MatDialogRef<MemberEditComponent>,
     private FormBuilder: FormBuilder,
-
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     private session: SessionService,
     private kalanisession: KalaniSessionService,
     private db: DbservicesService,
     private notification: NotificationService,
     private dialog: MatDialog,
-
     private changeDetectorRef: ChangeDetectorRef
   ) {
-    //  this.BarCodeDL$= this.barCodeReader.BarCodeDL$.asObservable();
     this.BarCodeDL$ = this.barCodeReader.BarCodeDL$.subscribe((dlInfo: any) => {
       const keys = Object.keys(dlInfo);
       keys.forEach((key) => {
@@ -115,15 +111,13 @@ export class MemberEditComponent implements OnInit, OnDestroy {
         },
       });
     }
-
-    // eval('this.setupForm({})');
   }
+
   onQuickEntry() {
     if (!this.quickEntry) {
       Object.keys(this.memberForm.controls).forEach((key) => {
         this.memberForm.controls[key].enable();
       });
-
       return;
     } else {
       const allowed = [
@@ -135,7 +129,6 @@ export class MemberEditComponent implements OnInit, OnDestroy {
         'phone',
       ];
       Object.keys(this.memberForm.controls).forEach((key) => {
-        // this.memberForm.controls[key].enable();
         if (!allowed.includes(key)) {
           this.memberForm.controls[key].disable();
         }
@@ -143,9 +136,54 @@ export class MemberEditComponent implements OnInit, OnDestroy {
     }
   }
 
+
+  markDeceased() {
+    if (!this.user.isAdmin) return;
+    this.db.memberMarkDeceased({
+      memberId: Number(this.memberForm.value.id),
+      deceased: 1
+    }).subscribe({
+      next: () => {
+        this.notification.notify('Member marked as deceased');
+        this.memberForm.patchValue({ deceased: true });
+        this.changeDetectorRef.markForCheck();
+      },
+      error: (err) => this.kalanisession.showErrorMsg(err)
+    });
+  }
+
+  unmarkDeceased() {
+    if (!this.user.isAdmin) return;
+    this.db.memberMarkDeceased({
+      memberId: Number(this.memberForm.value.id),
+      deceased: 0
+    }).subscribe({
+      next: () => {
+        this.notification.notify('Member unmarked as deceased');
+        this.memberForm.patchValue({ deceased: false });
+        this.changeDetectorRef.markForCheck();
+      },
+      error: (err) => this.kalanisession.showErrorMsg(err)
+    });
+  }
+
+  confirmDeleteWithBrowserPrompt() {
+    if (!this.user.isAdmin) return;
+    if (window.confirm('Are you sure you want to permanently delete this member?')) {
+      this.db.memberdelete({ memberId: Number(this.memberForm.value.id) }).subscribe({
+        next: (json: any) => {
+          this.notification.notify(json.message || 'Member deleted');
+          this.onClose();
+        },
+        error: (err) => {
+          this.kalanisession.showErrorMsg(err);
+        },
+      });
+    }
+  }
+
   setupForm(rec: any) {
     this.Ready = true;
-
     this.memberForm = this.FormBuilder.nonNullable.group({
       id: rec?.id,
       membertype: [rec?.membertype, Validators.required],
@@ -156,16 +194,12 @@ export class MemberEditComponent implements OnInit, OnDestroy {
       lastName: [rec?.lastName, Validators.required],
       nickName: [rec?.nickName],
       DOB: [rec?.DOB, Validators.required],
-
-      // DOB: [rec?.DOB],
       mbrshpStartDate: [rec?.mbrshpStartDate],
       mbrshpEndDate: [rec?.mbrshpEndDate],
-
       legalSex: [rec?.legalSex],
       address: [rec?.address, Validators.required],
       emrID: [rec?.emrID],
       DL: [rec?.DL],
-      // email: [rec?.email, Validators.email],
       email: [rec?.email],
       city: [rec?.city, Validators.required],
       state: [rec?.state, Validators.required],
@@ -185,11 +219,12 @@ export class MemberEditComponent implements OnInit, OnDestroy {
         rec?.emrHomePhone,
         Validators.pattern(/^\(\d{3}\)\s\d{3}-\d{4}$/),
       ],
-
       comments: [rec?.comments],
+      deceased: [rec?.deceased ?? false], // <-- Ensure deceased is included
     });
     this.changeDetectorRef.markForCheck();
   }
+
   getMemberTypeDesc() {
     const found = this.membertypes.find(
       (element) => element.type == this.memberForm.controls['membertype'].value
@@ -197,16 +232,16 @@ export class MemberEditComponent implements OnInit, OnDestroy {
     if (found) return found.desc;
     return '';
   }
+
   onSave() {
     this.submitButton?.nativeElement.click();
   }
+
   onSubmit() {
     this.Busy = true;
     this.changeDetectorRef.markForCheck();
 
     this.db.saveMember(this.memberForm.value).subscribe({
-      // this.db.saveXrayLog(toFormData (this.xrayLogForm.value)).subscribe({
-      //  this.db.saveXrayLog( (this.xrayLogForm.value)).subscribe({
       next: (json: any) => {
         this.notification.notify(
           `Member: ${json.firstName} ${json.lastName} record ${
@@ -228,6 +263,7 @@ export class MemberEditComponent implements OnInit, OnDestroy {
       },
     });
   }
+
   openUploadDialog() {
     const dialogRef = this.dialog.open(MemberUploadPicComponent, {
       disableClose: true,
@@ -240,13 +276,13 @@ export class MemberEditComponent implements OnInit, OnDestroy {
         name: `${this.memberForm.value.firstName} ${this.memberForm.value.lastName}`,
       },
     });
-    dialogRef.afterClosed().subscribe((result) => {}); // calendarApi.unselect(); // clear date selection
+    dialogRef.afterClosed().subscribe((result) => {});
   }
+
   onClose() {
-    {
-      this.dialogRef.close();
-    }
+    this.dialogRef.close();
   }
+
   ngOnDestroy(): void {
     this.BarCodeDL$.unsubscribe();
   }

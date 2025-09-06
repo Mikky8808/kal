@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild,
   Optional,
+  ChangeDetectorRef
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JimgcardComponent } from 'projects/@components/src/lib/jimgcard/jimgcard.component';
@@ -89,7 +90,8 @@ export class AccuMassageApptEditComponent implements OnInit, OnDestroy {
     public kalanisession: KalaniSessionService,
     private db: DbservicesService,
     private dialog: MatDialog,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -118,12 +120,19 @@ export class AccuMassageApptEditComponent implements OnInit, OnDestroy {
             if (json.daysSelected && Array.isArray(json.daysSelected)) {
               this.daysSelected = [...json.daysSelected];
             }
+            if (json.apptDate) {
+              const apptDateStr = json.apptDate;
+              if (!this.daysSelected.includes(apptDateStr)) {
+                this.daysSelected.push(apptDateStr);
+              }
+            }
+            this.changeDetectorRef.markForCheck();
           }
         },
         error: (err: any) => {
           this.kalanisession.showErrorMsg(err);
           this.onClose();
-        },
+        }
       });
     } else {
       if (data?.start instanceof Date) {
@@ -138,6 +147,7 @@ export class AccuMassageApptEditComponent implements OnInit, OnDestroy {
         } else rec.apptTime = '';
         rec.insurance = '';
         this.setupForm(rec);
+        this.changeDetectorRef.markForCheck();
       }
     }
   }
@@ -177,8 +187,15 @@ export class AccuMassageApptEditComponent implements OnInit, OnDestroy {
 
   dateClass() {
     return (date: Date): string => {
-      const dateStr = date.toISOString().slice(0, 10);
-      return this.daysSelected.includes(dateStr) ? 'custom-selected-date' : '';
+      const dateStr = date.toISOString().slice(0, 10); // "YYYY-MM-DD"
+      const apptDateStr = this.form?.get('apptDate')?.value; // Already "YYYY-MM-DD"
+      if (apptDateStr === dateStr) {
+        return 'appt-selected-date';
+      }
+      if (this.daysSelected?.includes(dateStr)) {
+        return 'custom-selected-date';
+      }
+      return '';
     };
   }
 
@@ -206,7 +223,7 @@ export class AccuMassageApptEditComponent implements OnInit, OnDestroy {
     this.submitButton?.nativeElement.click();
   }
 
-  diff_minutes(start: Date, end: Date) {
+  diff_minutes(start: Date, end: Date): number {
     let diff = (end.getTime() - start.getTime()) / 1000 / 60;
     return Math.abs(Math.round(diff > 1400 ? 30 : diff));
   }
@@ -226,9 +243,8 @@ export class AccuMassageApptEditComponent implements OnInit, OnDestroy {
     this.db.saveAccuMassageAppt(value).subscribe({
       next: () => {
         this.notification.notify('Appointment updated!');
-        this.onClose(); // Use the same onClose pattern as TripApptEditComponent
+        this.onClose();
 
-        // Optionally, run directsubmit in the background
         this.db.directsubmit({
           id: value.id,
           status: value.status,
